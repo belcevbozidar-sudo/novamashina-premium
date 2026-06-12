@@ -425,12 +425,30 @@ window.addEventListener('DOMContentLoaded', function () {
   // Hamburger menu toggle logic
   var menuToggle = document.getElementById('menuToggle');
   var headerNav = document.querySelector('.header-nav');
+  var menuBackdrop = document.getElementById('menuBackdrop');
   if (menuToggle && headerNav) {
-    menuToggle.addEventListener('click', function () {
+    function toggleMenu() {
       menuToggle.classList.toggle('active');
       headerNav.classList.toggle('active');
+      if (menuBackdrop) {
+        menuBackdrop.classList.toggle('active');
+      }
       document.body.classList.toggle('menu-open');
-    });
+    }
+    menuToggle.addEventListener('click', toggleMenu);
+    if (menuBackdrop) {
+      menuBackdrop.addEventListener('click', toggleMenu);
+    }
+    
+    // Close mobile drawer when an inner link is clicked
+    var drawerLinks = headerNav.querySelectorAll('a');
+    for (var i = 0; i < drawerLinks.length; i++) {
+      drawerLinks[i].addEventListener('click', function() {
+        if (headerNav.classList.contains('active')) {
+          toggleMenu();
+        }
+      });
+    }
   }
 });
 

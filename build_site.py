@@ -119,16 +119,11 @@ def header(active=''):
     <div class="header-top">
       <a class="logo" href="index.html">
         {I['logo']}
-        <span>
-          <span class="logo-text">NOVA <span>MASHINA</span><small style="font-size:15px">.BG</small></span>
-          <div class="logo-sub">селскостопанска техника на лизинг</div>
-        </span>
       </a>
       <div class="header-top-right">
         <a class="btn-ai" href="#ai">{I['spark'].replace('#4dbc4d', '#ffffff')} AI Асистент</a>
         <div class="auth-links"><a href="#">Вход</a><span>|</span><a href="#">Регистрация</a></div>
         <a class="compare-link" href="#">{I['compare']} Сравни оферти</a>
-        <div class="powered-by"><div class="pb-label">Powered by</div><div class="pb-brand">ЗЛАТЕКС</div></div>
         <button class="hamburger-menu" id="menuToggle" aria-label="Меню" type="button">
           <span></span>
           <span></span>
@@ -162,10 +157,6 @@ FOOTER = f'''
     <div class="footer-top">
       <a class="logo" href="index.html">
         {I['logo']}
-        <span>
-          <span class="logo-text">NOVA <span>MASHINA</span><small style="font-size:15px">.BG</small></span>
-          <div class="logo-sub">селскостопанска техника на лизинг</div>
-        </span>
       </a>
       <div class="powered-by"><div class="pb-label">Powered by</div><div class="pb-brand" style="font-size:24px">ЗЛАТЕКС</div></div>
     </div>
@@ -174,7 +165,7 @@ FOOTER = f'''
         <h5>Контакти</h5>
         <div class="f-item">{I['pin-g']}<span>Централен офис на ЗЛАТЕКС<br>гр. Стара Загора, бул. "Патриарх Евтимий" №52<br>Офис сграда ЗЛАТЕКС</span></div>
         <div class="f-item">{I['phone']}<span>042/919 700</span></div>
-        <div class="f-item">{I['mail']}<span>contact@novamashina.bg</span></div>
+        <div class="f-item">{I['mail']}<span>office@zlatex.net</span></div>
         <div class="socials">
           <a href="#" aria-label="Facebook">{I['fb']}</a>
           <a href="#" aria-label="Instagram">{I['ig']}</a>
@@ -203,7 +194,7 @@ FOOTER = f'''
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Нова Машина</span>
+      <span>© 2026 ЗЛАТЕКС</span>
       <div class="fb-links"><a href="#">Общи условия</a><a href="#">Права и условия за ползване</a></div>
       <span>Уеб сайт от ЗЛАТЕКС ООД</span>
     </div>
@@ -217,7 +208,7 @@ def page(title, body, active='', extra_head=''):
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
-<meta name="description" content="NovaMashina.bg – Сайт No.1 за лизинг на селскостопанска техника. Нови и употребявани трактори, комбайни, сеялки, пръскачки, ремаркета и инвентар.">
+<meta name="description" content="Сайт No.1 за лизинг на селскостопанска техника. Нови и употребявани трактори, комбайни, сеялки, пръскачки, ремаркета и инвентар.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -226,6 +217,7 @@ def page(title, body, active='', extra_head=''):
 {extra_head}
 </head>
 <body>
+<div class="menu-backdrop" id="menuBackdrop"></div>
 {header(active)}
 {body}
 {FOOTER}
@@ -360,8 +352,8 @@ index_body = f'''
     <a class="cat-card" href="catalog.html"><img src="img/cat-combines.png" alt="Комбайни"><div class="cat-name">Комбайни</div><div class="cat-count">126 активни оферти</div></a>
     <a class="cat-card" href="catalog.html"><img src="img/cat-seeders.png" alt="Сеялки"><div class="cat-name">Сеялки</div><div class="cat-count">98 активни оферти</div></a>
     <a class="cat-card" href="catalog.html"><img src="img/cat-sprayers.png" alt="Пръскачки"><div class="cat-name">Пръскачки</div><div class="cat-count">74 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-trailers.svg" alt="Ремаркета"><div class="cat-name">Ремаркета</div><div class="cat-count">63 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-inventar.svg" alt="Инвентар"><div class="cat-name">Инвентар</div><div class="cat-count">187 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-trailers.png" alt="Ремаркета"><div class="cat-name">Ремаркета</div><div class="cat-count">63 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-inventar.png" alt="Инвентар"><div class="cat-name">Инвентар</div><div class="cat-count">187 активни оферти</div></a>
   </div>
 </section>
 
@@ -374,14 +366,14 @@ index_body = f'''
       <img class="promo-bg" src="img/promo-fleet.jpg" alt="">
       <div class="promo-tag">{I['spark'].replace('#4dbc4d', '#ffffff')}<span>СПЕЦИАЛНИ<br>УСЛОВИЯ</span></div>
       <div class="promo-overlay">
-        <h3>Немско инженерство на нова цена: Вземи своя нов Fendt от NovaMashina.bg с вноска от 950 €!</h3>
+        <h3>Немско инженерство на нова цена: Вземи своя нов Fendt от ЗЛАТЕКС с вноска от 950 €!</h3>
         <p>Специални условия: лихва 3,65% и атрактивни вноски до 30.06.2026 г</p>
       </div>
     </article>
     <article class="promo-card">
       <img class="promo-bg" src="img/promo-harvest.jpg" alt="">
       <div class="promo-overlay">
-        <h3>Готови за жътва: Лимитирана серия CLAAS GO! Edition при ексклузивни условия от NovaMashina.bg</h3>
+        <h3>Готови за жътва: Лимитирана серия CLAAS GO! Edition при ексклузивни условия от ЗЛАТЕКС</h3>
         <p>Месечна вноска от €1 990 и промоционална плаваща лихва 3.5%</p>
       </div>
     </article>
@@ -399,7 +391,7 @@ index_body = f'''
 </section>
 
 <section class="two-sided container">
-  <h2 class="two-sided-title">Търсиш или продаваш машина?<br><span class="brand">NovaMashina.bg</span> е твоето място</h2>
+  <h2 class="two-sided-title">Търсиш или продаваш машина?<br><span class="brand">ЗЛАТЕКС</span> е твоето място</h2>
   <div class="two-sided-card">
     <div class="side">
       <h4>За купувачи</h4>
@@ -407,7 +399,7 @@ index_body = f'''
       <p>Разгледай хиляди оферти за нови и употребявани машини от официални представители и доверени търговци в цялата страна.</p>
       <a class="btn-cta" href="catalog.html">Разгледай обявите</a>
     </div>
-    <svg class="two-sided-art" viewBox="0 0 220 160"><ellipse cx="110" cy="120" rx="100" ry="26" fill="#eef7ee"/><g transform="translate(40,30)"><rect x="10" y="36" width="80" height="34" rx="9" fill="#3f9e3f"/><rect x="78" y="12" width="44" height="58" rx="9" fill="#1f6b2d"/><rect x="84" y="20" width="32" height="26" rx="5" fill="#cfe3ef"/><circle cx="36" cy="78" r="20" fill="#2b2b2b"/><circle cx="36" cy="78" r="11" fill="#777"/><circle cx="100" cy="72" r="26" fill="#2b2b2b"/><circle cx="100" cy="72" r="14" fill="#777"/><rect x="20" y="14" width="9" height="20" rx="4" fill="#333"/></g><path d="M150 50 l24 -18 24 18" fill="none" stroke="#4dbc4d" stroke-width="5" stroke-linecap="round"/></svg>
+    <img class="two-sided-art" src="img/cat-tractors.png" alt="Трактор">
     <div class="side">
       <h4>За продавачи</h4>
       <div class="lead">Публикувай обявата си тук, където клиентите търсят своята нова машина.</div>
@@ -448,7 +440,7 @@ catalog_cards.insert(2, f'''
   <img class="promo-bg" src="img/promo-fleet.jpg" alt="">
   <svg class="hero-badge" style="position:absolute;top:14px;right:14px;width:96px;height:96px" viewBox="0 0 130 130"><circle cx="65" cy="65" r="60" fill="#0e2d14"/><circle cx="65" cy="65" r="60" fill="none" stroke="#4dbc4d" stroke-width="3" stroke-dasharray="6 7"/><text x="65" y="56" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="14" fill="#4dbc4d">ПРОЛЕТНА</text><text x="65" y="78" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="14" fill="#fff">КАМПАНИЯ</text></svg>
   <div class="promo-overlay">
-    <h3>Новият Deutz-Fahr 6160 вече е в NovaMashina.bg!</h3>
+    <h3>Новият Deutz-Fahr 6160 вече е при нас!</h3>
     <p>С месечна вноска от 1 152 € и отстъпка от цената</p>
   </div>
 </article>''')
@@ -457,7 +449,7 @@ catalog_body = f'''
 <main class="page container">
   {SEARCH_FORM.replace('id="search"', 'id="search" style="width:100%;margin-top:0"')}
   <h1 class="page-title green" style="margin-top:48px">Оферти за нова и употребявана техника на лизинг</h1>
-  <p class="page-sub">Изберете своята машина от Нова Машина</p>
+  <p class="page-sub">Изберете своята машина от ЗЛАТЕКС</p>
   <div class="catalog-toolbar">
     <div class="cat-tabs">
       <span class="cat-tab">{I['mach-new']} Нови</span>
@@ -524,7 +516,7 @@ def product_page(m):
         <div class="th" onclick="galSet(2)"><img src="img/hero-field.jpg" alt=""></div>
         <div class="th" onclick="galSet(3)"><img src="img/promo-harvest.jpg" alt=""></div>
       </div>
-      <p class="disclaimer">Показаните изображения са илюстративни и информативни. Нова Машина запазва правото си на промяна на цените, цветовете и техническата информация на моделите.</p>
+      <p class="disclaimer">Показаните изображения са илюстративни и информативни. ЗЛАТЕКС запазва правото си на промяна на цените, цветовете и техническата информация на моделите.</p>
       <div class="offer-meta">
         <div class="om"><label>Оферта № (ID)</label><div>{m['offer']}</div></div>
         <div class="om"><label>Локация</label><div>{m['loc'].replace('гр. ', '')}</div></div>
@@ -562,7 +554,6 @@ def product_page(m):
           <input type="email" placeholder="Email адрес">
           <input type="tel" placeholder="Телефонен номер">
         </div>
-        <label class="consent"><input type="checkbox"> Съгласен съм да получавам новини и имейл съобщения от NovaMashina.bg на посочения от мен адрес.</label>
         <button class="btn-send" type="button" style="margin-top:20px;padding:14px 38px">Изпрати</button>
       </div>
     </div>
@@ -722,7 +713,7 @@ def product_page(m):
         </div>
         
       </div>
-      <p class="side-note">Изложената информация в NovaMashina.bg е осигурена от ЗЛАТЕКС Лизинг и партньорските дилърски центрове. Калкулацията е индикативна и не представлява обвързваща оферта.</p>
+      <p class="side-note">Изложената информация е осигурена от ЗЛАТЕКС Лизинг и партньорските дилърски центрове. Калкулацията е индикативна и не представлява обвързваща оферта.</p>
     </aside>
   </div>
 </main>'''
@@ -979,7 +970,7 @@ budget_body = f'''
     <h1 class="page-title">Предварително одобрение за лизинг спрямо твоя бюджет</h1>
     <p class="page-sub">Намери идеалния баланс и подкарай новата си машина с усмивка</p>
     <img class="budget-art" src="img/budget-hero.jpg" alt="">
-    <p class="budget-lead">Покупката на земеделска машина е важен момент, който бележи нов етап в твоето стопанство. Но за да е празник, инвестицията трябва да е съобразена с възможностите на фермата. Бюджетният калкулатор на NovaMashina.bg ти помага да прецениш точно каква месечна вноска можеш да си позволиш — без излишен риск и без изненади.</p>
+    <p class="budget-lead">Покупката на земеделска машина е важен момент, който бележи нов етап в твоето стопанство. Но за да е празник, инвестицията трябва да е съобразена с възможностите на фермата. Бюджетният калкулатор ти помага да прецениш точно каква месечна вноска можеш да си позволиш — без излишен риск и без изненади.</p>
   </div>
   <div class="budget-row">
     <img src="img/budget-side.jpg" alt="">
@@ -1005,8 +996,8 @@ budget_body = f'''
 
 # ---------------------------------------------------------------- НОВИНИ
 NEWS = [
- ('Петъчна топ оферта: Вземи John Deere 6R 150 с 3,33% лихва и подаръци!', 'Промоционални условия от NovaMashina.bg до 30.6.2026 г.', '05/06/2026', 'news-1.jpg'),
- ('Жътвата идва с CLAAS: Ексклузивни оферти и подаръци с NovaMashina.bg', 'Твоето лято на пълни обороти — с комбайн от ново поколение.', '01/06/2026', 'news-2.jpg'),
+ ('Петъчна топ оферта: Вземи John Deere 6R 150 с 3,33% лихва и подаръци!', 'Промоционални условия от ЗЛАТЕКС до 30.6.2026 г.', '05/06/2026', 'news-1.jpg'),
+ ('Жътвата идва с CLAAS: Ексклузивни оферти и подаръци с ЗЛАТЕКС', 'Твоето лято на пълни обороти — с комбайн от ново поколение.', '01/06/2026', 'news-2.jpg'),
  ('Немско инженерство на нова цена: Вземи своя нов Fendt с вноска от 950 €!', 'Специални условия: лихва 3,65% и атрактивни вноски до 30.06.2026 г', '29/05/2026', 'news-3.jpg'),
  ('Пазарът на агротехника през април 2026 г.', 'Агро прелом 2026: Ренесанс на прецизното земеделие и нови марки в България.', '26/05/2026', 'news-4.jpg'),
  ('Полски правила: Какво (наистина) трябва да знаем преди сеитба?', 'Пет златни правила за пролетната кампания.', '18/05/2026', 'news-5.jpg'),
@@ -1063,7 +1054,7 @@ contacts_body = f'''
 <main class="page container">
   <div class="contacts-page-header">
     <h1>Контакти</h1>
-    <p class="subtitle">Свържете се с екипа на ЗЛАТЕКС и NovaMashina.bg</p>
+    <p class="subtitle">Свържете се с екипа на ЗЛАТЕКС</p>
   </div>
   
   <div class="contacts-wrapper">
@@ -1207,7 +1198,7 @@ contacts_body = f'''
 FAQS = [
  ('Какво е оперативен лизинг?', 'Оперативният лизинг е форма на дългосрочен наем, при която използвате машината срещу фиксирана месечна вноска, без да я придобивате в собственост. В края на договора връщате техниката или я подменяте с нова. Подходящ е само за юридически лица и често включва обслужване и застраховка в месечната вноска.'),
  ('Какво е финансов лизинг?', 'Финансовият лизинг е финансиране, при което след заплащане на всички вноски и остатъчната стойност машината става ваша собственост. Подходящ е както за земеделски производители, така и за агрофирми, а ДДС може да бъде разсрочено или платено еднократно.'),
- ('Какво е първоначална вноска?', 'Първоначалната вноска е процент от цената на машината, който заплащате при сключване на договора. В NovaMashina.bg тя обикновено е между 15% и 45% — колкото по-висока е, толкова по-ниска е месечната ви вноска.'),
+ ('Какво е първоначална вноска?', 'Първоначалната вноска е процент от цената на машината, който заплащате при сключване на договора. При нас тя обикновено е между 15% и 45% — колкото по-висока е, толкова по-ниска е месечната ви вноска.'),
  ('Какво е остатъчна стойност?', 'Остатъчната стойност е сума, чието плащане се отлага за края на лизинговия период. Тя намалява месечните вноски, а в края на договора можете да я платите и да придобиете машината, да я рефинансирате или да върнете техниката.'),
  ('Как да кандидатствам за лизинг?', 'Изберете машина от платформата или използвайте лизинговия калкулатор, настройте параметрите по ваше желание и натиснете „Кандидатствай сега“. Наш консултант от ЗЛАТЕКС Лизинг ще се свърже с вас за предварително одобрение — обикновено в рамките на един работен ден.'),
  ('Мога ли да взема употребявана техника на лизинг?', 'Да. Всички употребявани машини в платформата са проверени и обслужени от официални представители и доверени търговци. Лизинговите условия се изчисляват според годината на производство и моточасовете на машината.'),
