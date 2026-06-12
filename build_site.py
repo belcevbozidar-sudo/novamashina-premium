@@ -227,8 +227,8 @@ def page(title, body, active='', extra_head=''):
 
 # ---------------------------------------------------------------- ПРОДУКТОВА КАРТА
 def offer_card(m, link=True):
-    badge = ('<div class="badge new">' + I['tractor-badge'] + '<span>НОВА</span></div>') if m['state'] == 'new' \
-        else ('<div class="badge used">' + I['recycle-badge'] + '<span>УПОТРЕБЯВАНА</span></div>')
+    badge = '<img class="badge-new-img" src="img/badge-new.png" alt="NEW">' if m['state'] == 'new' \
+        else '<div class="badge used-badge"><img src="img/badge-used.png" alt="Used Icon" class="used-icon"><span>УПОТРЕБЯВАНА</span></div>'
     corner = ''
     if m.get('lease_ret'):
         corner = '<div class="lease-corner"><span>Лизингова машина</span></div>'
@@ -246,7 +246,7 @@ def offer_card(m, link=True):
 <article class="offer-card">
   <a class="offer-media" href="{href}">
     {badge}{corner}
-    <img src="img/{m['img']}" alt="{m['title']}">
+    <img src="img/{m['img']}" alt="{m['title']}" loading="lazy" decoding="async">
     <div class="ribbon">
       <div class="monthly">
         <div class="m-price"><span class="money" data-eur="{m['monthly']}">€{fmt(m['monthly'])}</span> <small>/мес</small></div>
@@ -348,12 +348,12 @@ index_body = f'''
 
 <section class="cats">
   <div class="cats-track">
-    <a class="cat-card" href="catalog.html"><img src="img/cat-tractors.png" alt="Трактори"><div class="cat-name">Трактори</div><div class="cat-count">412 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-combines.png" alt="Комбайни"><div class="cat-name">Комбайни</div><div class="cat-count">126 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-seeders.png" alt="Сеялки"><div class="cat-name">Сеялки</div><div class="cat-count">98 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-sprayers.png" alt="Пръскачки"><div class="cat-name">Пръскачки</div><div class="cat-count">74 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-trailers.png" alt="Ремаркета"><div class="cat-name">Ремаркета</div><div class="cat-count">63 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-inventar.png" alt="Инвентар"><div class="cat-name">Инвентар</div><div class="cat-count">187 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-tractors.png" alt="Трактори" loading="lazy" decoding="async"><div class="cat-name">Трактори</div><div class="cat-count">412 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-combines.png" alt="Комбайни" loading="lazy" decoding="async"><div class="cat-name">Комбайни</div><div class="cat-count">126 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-seeders.png" alt="Сеялки" loading="lazy" decoding="async"><div class="cat-name">Сеялки</div><div class="cat-count">98 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-sprayers.png" alt="Пръскачки" loading="lazy" decoding="async"><div class="cat-name">Пръскачки</div><div class="cat-count">74 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-trailers.png" alt="Ремаркета" loading="lazy" decoding="async"><div class="cat-name">Ремаркета</div><div class="cat-count">63 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-inventar.png" alt="Инвентар" loading="lazy" decoding="async"><div class="cat-name">Инвентар</div><div class="cat-count">187 активни оферти</div></a>
   </div>
 </section>
 
@@ -363,7 +363,7 @@ index_body = f'''
   <div class="offers-grid">
     {new_cards}
     <article class="promo-card">
-      <img class="promo-bg" src="img/promo-fleet.jpg" alt="">
+      <img class="promo-bg" src="img/promo-fleet.jpg" alt="" loading="lazy" decoding="async">
       <div class="promo-tag">{I['spark'].replace('#4dbc4d', '#ffffff')}<span>СПЕЦИАЛНИ<br>УСЛОВИЯ</span></div>
       <div class="promo-overlay">
         <h3>Немско инженерство на нова цена: Вземи своя нов Fendt от ЗЛАТЕКС с вноска от 950 €!</h3>
@@ -371,7 +371,7 @@ index_body = f'''
       </div>
     </article>
     <article class="promo-card">
-      <img class="promo-bg" src="img/promo-harvest.jpg" alt="">
+      <img class="promo-bg" src="img/promo-harvest.jpg" alt="" loading="lazy" decoding="async">
       <div class="promo-overlay">
         <h3>Готови за жътва: Лимитирана серия CLAAS GO! Edition при ексклузивни условия от ЗЛАТЕКС</h3>
         <p>Месечна вноска от €1 990 и промоционална плаваща лихва 3.5%</p>
@@ -399,7 +399,7 @@ index_body = f'''
       <p>Разгледай хиляди оферти за нови и употребявани машини от официални представители и доверени търговци в цялата страна.</p>
       <a class="btn-cta" href="catalog.html">Разгледай обявите</a>
     </div>
-    <img class="two-sided-art" src="img/cat-tractors.png" alt="Трактор">
+    <img class="two-sided-art" src="img/cat-tractors.png" alt="Трактор" loading="lazy" decoding="async">
     <div class="side">
       <h4>За продавачи</h4>
       <div class="lead">Публикувай обявата си тук, където клиентите търсят своята нова машина.</div>
@@ -471,9 +471,8 @@ catalog_body = f'''
 
 # ---------------------------------------------------------------- ПРОДУКТОВИ СТРАНИЦИ
 def product_page(m):
-    state_label = 'НОВА<br>МАШИНА' if m['state'] == 'new' else 'УПОТРЕБЯВАНА'
-    badge_cls = 'new' if m['state'] == 'new' else 'used'
-    badge_ico = I['tractor-badge'] if m['state'] == 'new' else I['recycle-badge']
+    badge_html = f'<img class="badge-new-img" src="img/badge-new.png" alt="NEW" style="top:14px; left:14px;">' if m['state'] == 'new' \
+        else f'<div class="badge used-badge" style="top:14px; left:14px;"><img src="img/badge-used.png" alt="Used Icon" class="used-icon"><span>УПОТРЕБЯВАНА</span></div>'
     hours_row = f'<div class="tech-row"><span class="k">Моточасове</span><span class="v">{m["hours"]}</span></div>' if m['hours'] else ''
     year_row = f'<div class="tech-row"><span class="k">Първа регистрация</span><span class="v">{m["year"]}</span></div>'
     price_bgn = fmt(round(m['price'] * 1.95583))
@@ -505,8 +504,8 @@ def product_page(m):
         </div>
       </div>
       <div class="gallery">
-        <div class="badge {badge_cls}" style="top:14px">{badge_ico}<span>{state_label}</span></div>
-        <div class="main-img"><img id="galMain" src="img/{m['img']}" alt="{m['title']}"></div>
+        {badge_html}
+        <div class="main-img"><img id="galMain" src="img/{m['img']}" alt="{m['title']}" fetchpriority="high"></div>
         <button class="gal-nav prev" onclick="galPrev()"><svg viewBox="0 0 18 18"><path d="M12 2L5 9l7 7" fill="none" stroke="#333" stroke-width="2.4" stroke-linecap="round"/></svg></button>
         <button class="gal-nav next" onclick="galNext()"><svg viewBox="0 0 18 18"><path d="M6 2l7 7-7 7" fill="none" stroke="#333" stroke-width="2.4" stroke-linecap="round"/></svg></button>
       </div>
@@ -967,10 +966,12 @@ calculator_body = f'''
 budget_body = f'''
 <main class="page container">
   <div class="budget-hero">
-    <h1 class="page-title">Предварително одобрение за лизинг спрямо твоя бюджет</h1>
-    <p class="page-sub">Намери идеалния баланс и подкарай новата си машина с усмивка</p>
-    <img class="budget-art" src="img/budget-hero.jpg" alt="">
-    <p class="budget-lead">Покупката на земеделска машина е важен момент, който бележи нов етап в твоето стопанство. Но за да е празник, инвестицията трябва да е съобразена с възможностите на фермата. Бюджетният калкулатор ти помага да прецениш точно каква месечна вноска можеш да си позволиш — без излишен риск и без изненади.</p>
+    <div class="budget-hero-text">
+      <h1 class="page-title">Предварително одобрение за лизинг спрямо твоя бюджет</h1>
+      <p class="page-sub">Намери идеалния баланс и подкарай новата си машина с усмивка</p>
+      <p class="budget-lead">Покупката на земеделска машина е важен момент, който бележи нов етап в твоето стопанство. Но за да е празник, инвестицията трябва да е съобразена с възможностите на фермата. Бюджетният калкулатор ти помага да прецениш точно каква месечна вноска можеш да си позволиш — без излишен риск и без изненади.</p>
+    </div>
+    <img class="budget-art" src="img/budget-hero.jpg" alt="" fetchpriority="high">
   </div>
   <div class="budget-row">
     <img src="img/budget-side.jpg" alt="">
@@ -1005,7 +1006,7 @@ NEWS = [
 ]
 news_cards = ''.join(f'''
 <a class="news-card" href="#">
-  <img src="img/{n[3]}" alt="">
+  <img src="img/{n[3]}" alt="" loading="lazy" decoding="async">
   <div class="nc-body">
     <h3>{n[0]}</h3>
     <p>{n[1]}</p>
@@ -1029,10 +1030,10 @@ about_body = f'''
       <h1>Нова Машина е платформа на ЗЛАТЕКС, която прави избора и закупуването на земетелска техника лесно, бързо и удобно</h1>
       <p>Предлагаме ви лесен и удобен дигитален асистент в избора на Вашата Нова Машина. В тази динамично променяща се среда, където дистанционните услуги вече са ежедневие, ние ви даваме възможността да изберете, тествате и купите на лизинг своята мечтана нова машина изцяло дистанционно.</p>
     </div>
-    <img src="img/about-1.jpg" alt="">
+    <img src="img/about-1.jpg" alt="" loading="lazy" decoding="async">
   </div>
   <div class="about-row">
-    <img src="img/about-2.jpg" alt="">
+    <img src="img/about-2.jpg" alt="" loading="lazy" decoding="async">
     <div>
       <h2>Желаната Нова Машина е само на няколко клика разстояние</h2>
       <p>Платформата е интуитивна и лесна за използване, като с няколко клика задавате критериите си за мечтаната машина и веднага получавате списък с най-подходящите оферти, от които можете да избирате, както и да заявите демонстрация в стопанството. По този начин ви даваме възможност да изберете своята Нова Машина и да я вземете при най-добрите условия за лизинг.</p>
@@ -1045,7 +1046,7 @@ about_body = f'''
       <p>Чрез ЗЛАТЕКС Лизинг получавате пълно съдействие: индивидуален лизингов план, застраховка на техниката, регистрация и доставка до стопанството. Нашите консултанти са до вас на всяка стъпка — от избора до първата бразда.</p>
       <a class="btn-cta dark" href="calculator.html">Лизингов калкулатор</a>
     </div>
-    <img src="img/budget-side.jpg" alt="">
+    <img src="img/budget-side.jpg" alt="" loading="lazy" decoding="async">
   </div>
 </main>'''
 
@@ -1140,7 +1141,7 @@ contacts_body = f'''
     <div class="team-grid">
       <div class="team-card">
         <div class="team-photo-wrap">
-          <img src="img/team-jivka.png" alt="Живка Димова">
+          <img src="img/team-jivka.png" alt="Живка Димова" loading="lazy" decoding="async">
           <span class="brand-badge valtra">Valtra</span>
         </div>
         <div class="team-info">
@@ -1155,7 +1156,7 @@ contacts_body = f'''
       
       <div class="team-card">
         <div class="team-photo-wrap">
-          <img src="img/team-yana.png" alt="Яна Какарашева">
+          <img src="img/team-yana.png" alt="Яна Какарашева" loading="lazy" decoding="async">
           <span class="brand-badge fendt">Fendt</span>
         </div>
         <div class="team-info">
@@ -1170,7 +1171,7 @@ contacts_body = f'''
       
       <div class="team-card">
         <div class="team-photo-wrap">
-          <img src="img/team-petya.png" alt="Петя Георгиева">
+          <img src="img/team-petya.png" alt="Петя Георгиева" loading="lazy" decoding="async">
           <span class="brand-badge manitou">Manitou</span>
         </div>
         <div class="team-info">

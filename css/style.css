@@ -328,16 +328,29 @@ img, svg { display: block; max-width: 100%; }
   transform: scale(1.04);
 }
 
-.badge {
-  position: absolute; top: 12px; left: 12px; z-index: 3;
-  width: 64px; height: 70px; border-radius: 10px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-  color: #fff; font-size: 9px; font-weight: 700; letter-spacing: .5px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+.badge-new-img {
+  position: absolute; top: 10px; left: 10px; z-index: 3;
+  width: 60px; height: auto; object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
 }
-.badge svg { width: 26px; height: 26px; }
-.badge.new { background: var(--green); }
-.badge.used { background: var(--green-dark); }
+.badge.used-badge {
+  position: absolute; top: 10px; left: 10px; z-index: 3;
+  width: 65px; height: 70px; border-radius: 12px;
+  background: rgba(30, 37, 34, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  padding: 6px;
+}
+.badge.used-badge img.used-icon {
+  width: 26px; height: 26px; object-fit: contain;
+}
+.badge.used-badge span {
+  color: #fff; font-size: 8px; font-weight: 700; letter-spacing: 0.3px;
+  text-transform: uppercase; text-align: center; line-height: 1.1;
+}
 
 .ribbon {
   position: absolute; right: 0; bottom: 12px; z-index: 2;
@@ -939,9 +952,40 @@ img, svg { display: block; max-width: 100%; }
 .faq-a-inner { padding: 0 24px 20px; }
 
 /* бюджетен калкулатор */
-.budget-hero { text-align: center; padding-bottom: 10px; }
-.budget-art { width: min(560px, 90%); margin: 30px auto 0; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); }
-.budget-lead { width: min(860px, 92%); margin: 26px auto 0; text-align: center; color: var(--text-soft); font-size: 15.5px; line-height: 1.65; }
+.budget-hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+  text-align: left;
+  padding-bottom: 30px;
+}
+.budget-hero-text {
+  display: flex;
+  flex-direction: column;
+}
+.budget-hero .page-title {
+  text-align: left;
+  margin-bottom: 12px;
+}
+.budget-hero .page-sub {
+  text-align: left;
+  margin-bottom: 24px;
+}
+.budget-art {
+  width: 100%;
+  margin: 0;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+.budget-lead {
+  width: 100%;
+  margin: 0;
+  text-align: left;
+  color: var(--text-soft);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
 .budget-row { display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: center; padding: 48px 0 10px; }
 .budget-row img { border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); }
 .budget-item { display: grid; grid-template-columns: 46px 1fr; gap: 16px; margin-bottom: 28px; }
@@ -1003,6 +1047,9 @@ img, svg { display: block; max-width: 100%; }
   /* Site Header & Navigation on Mobile */
   .site-header {
     padding: 6px 0;
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
   .header-top {
     flex-wrap: nowrap;
@@ -1086,26 +1133,28 @@ img, svg { display: block; max-width: 100%; }
     pointer-events: auto;
   }
 
-  /* Left slide-out navigation menu drawer */
+  /* Right slide-out navigation menu drawer */
   .header-nav {
     display: flex !important;
     flex-direction: column !important;
     position: fixed !important;
     top: 0 !important;
-    left: 0 !important;
+    right: 0 !important;
+    left: auto !important;
     bottom: 0 !important;
     width: 280px !important;
     max-width: 80vw !important;
     height: 100vh !important;
     background: #fff !important;
-    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.15) !important;
     padding: 80px 24px 30px !important;
     gap: 20px !important;
     overflow-y: auto !important;
     z-index: 2000 !important;
-    transform: translateX(-100%) !important;
+    transform: translateX(100%) !important;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    border-right: 1px solid rgba(0,0,0,0.06);
+    border-left: 1px solid rgba(0,0,0,0.06);
+    border-right: none !important;
     border-top: none !important;
   }
   .header-nav.active {
@@ -1331,6 +1380,23 @@ img, svg { display: block; max-width: 100%; }
   .footer-bottom .fb-links {
     justify-content: center;
     gap: 16px;
+  }
+
+  /* Budget calculator stacking overrides */
+  .budget-hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+  .budget-hero .page-title,
+  .budget-hero .page-sub,
+  .budget-lead {
+    text-align: center;
+  }
+  .budget-art {
+    max-width: 500px;
+    margin: 10px auto 0;
   }
 }
 
