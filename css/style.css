@@ -961,14 +961,234 @@ img, svg { display: block; max-width: 100%; }
 }
 
 @media (max-width: 720px) {
-  .header-top { flex-wrap: wrap; gap: 10px; }
-  .search-grid, .search-bottom { grid-template-columns: 1fr; }
-  .cats-track { grid-template-columns: 1fr 1fr; }
-  .news-grid { grid-template-columns: 1fr; }
-  .tech-grid, .inquiry-grid, .contact-grid, .calc-form .cf-grid { grid-template-columns: 1fr; }
-  .budget-form .bf-grid { grid-template-columns: 1fr; }
-  .feat-cols { columns: 1; }
-  .dealer-row { grid-template-columns: 38px 1fr; }
-  .dealer-logo, .dealer-cta { grid-column: 2; }
-  .footer-grid { grid-template-columns: 1fr; }
+  /* Site Header & Navigation on Mobile */
+  .site-header {
+    padding: 6px 0;
+  }
+  .header-top {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0 8px;
+  }
+  .logo svg {
+    width: 38px;
+    height: 38px;
+  }
+  .logo-text {
+    font-size: 19px;
+  }
+  .logo-sub {
+    display: none; /* Save vertical space */
+  }
+  .header-top-right {
+    gap: 10px;
+  }
+  .powered-by {
+    display: none; /* Hide on small screens */
+  }
+  .compare-link {
+    display: none; /* Hide compare in mobile top bar */
+  }
+  .auth-links {
+    font-size: 12.5px;
+  }
+  .btn-ai {
+    font-size: 11.5px;
+    padding: 6px 12px;
+    border-radius: 8px;
+  }
+
+  .header-nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 6px 0;
+    border-top: 1px solid rgba(0,0,0,0.04);
+  }
+  .main-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    padding: 4px 0;
+    scrollbar-width: none;
+    position: relative;
+  }
+  .main-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .main-nav > a {
+    flex: 0 0 auto;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+  .nav-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-left: 0;
+    width: 100%;
+  }
+  .currency-toggle button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+  .btn-add {
+    padding: 6px 12px;
+    font-size: 12px;
+    line-height: 1.1;
+  }
+  .btn-add br {
+    display: none; /* Keep button inline on mobile */
+  }
+
+  /* Spacing offsets for mobile fixed header */
+  .hero {
+    margin-top: 120px;
+    min-height: 320px;
+  }
+  .page {
+    margin-top: 135px;
+  }
+  .contacts-wrap {
+    margin-top: 135px;
+  }
+
+  /* Hero & AI Search on Mobile */
+  .hero-inner {
+    padding: 20px 0 60px;
+  }
+  .hero-title {
+    font-size: 21px;
+    line-height: 1.35;
+  }
+  .hero-badge {
+    display: none; /* Hide float badge to prevent overlap */
+  }
+  .ai-search {
+    margin: -35px auto 0;
+    padding: 16px 20px;
+    border-radius: 16px;
+  }
+  .ai-search-row {
+    gap: 10px;
+  }
+  .ai-sparkle {
+    width: 24px;
+    height: 24px;
+  }
+  .ai-input-wrap input {
+    font-size: 14px;
+    padding: 10px 4px;
+  }
+  .search-card {
+    margin-top: 16px;
+    padding: 18px;
+    border-radius: 16px;
+  }
+  .search-grid, .search-bottom {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .cats-track {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* Products & Offers */
+  .offers-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .offer-card .img-box {
+    height: 200px;
+  }
+  .offer-card .body {
+    padding: 16px;
+  }
+  .offer-card h3 {
+    font-size: 17px;
+  }
+  .offer-card .price-row {
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+  .offer-card .price-row .money {
+    font-size: 20px;
+  }
+
+  /* Contacts wrap */
+  .contacts-wrap {
+    flex-direction: column;
+    padding: 40px 0;
+    min-height: auto;
+  }
+  .contact-card {
+    width: 100%;
+    margin-left: 0;
+    padding: 24px 20px;
+    box-shadow: var(--shadow-soft);
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .contact-info-row {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  /* Budget & Calculators */
+  .budget-form {
+    padding: 20px;
+  }
+  .budget-form .bf-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .bf-result {
+    padding: 16px;
+  }
+  .bf-result .big {
+    font-size: 24px;
+  }
+  .tech-grid, .inquiry-grid, .contact-grid, .calc-form .cf-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Footer on Mobile */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+  .f-col h5::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .f-col .f-item {
+    justify-content: center;
+  }
+  .socials {
+    justify-content: center;
+  }
+  .ai-box, .newsletter {
+    max-width: 360px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  .footer-bottom .fb-links {
+    justify-content: center;
+    gap: 16px;
+  }
 }
