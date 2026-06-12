@@ -1264,8 +1264,8 @@ img, svg { display: block; max-width: 100%; }
 
   /* Spacing offsets for mobile fixed header */
   .hero {
-    margin-top: 120px;
-    min-height: 320px;
+    margin-top: 58px;
+    min-height: 380px;
   }
   .page {
     margin-top: 135px;
@@ -1309,6 +1309,20 @@ img, svg { display: block; max-width: 100%; }
   .search-grid, .search-bottom {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+  .search-actions {
+    width: 100%;
+    align-items: center;
+  }
+  .btn-show {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 0;
+    font-size: 17px;
+    margin: 0 auto;
   }
   .cats-track {
     grid-template-columns: 1fr 1fr;
