@@ -1192,3 +1192,80 @@ img, svg { display: block; max-width: 100%; }
     gap: 16px;
   }
 }
+
+/* ---------- CALCULATOR INTERACTIVE STYLES ---------- */
+.calc-step {
+  display: none;
+}
+.calc-step.active {
+  display: block;
+}
+.client-toggle {
+  display: flex;
+  gap: 8px;
+  background: #f1f5f2;
+  padding: 4px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.client-btn {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--text-soft);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+.client-btn.active {
+  background: #fff;
+  color: var(--green-dark);
+  box-shadow: 0 2px 6px rgba(7, 59, 28, 0.05);
+}
+.schedule-type-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+.months-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin-top: 12px;
+}
+.month-btn {
+  border: 1px solid rgba(7, 59, 28, 0.12);
+  background: #fff;
+  color: var(--text-soft);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 12.5px;
+  padding: 8px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+.month-btn.active {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+}
+.month-btn.disabled {
+  background: #f4f6f4;
+  color: var(--text-mute);
+  border-color: rgba(7, 59, 28, 0.06);
+  cursor: not-allowed;
+}
+
+@media (max-width: 720px) {
+  .months-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

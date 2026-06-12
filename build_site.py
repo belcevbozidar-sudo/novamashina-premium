@@ -88,6 +88,25 @@ MACHINES = [
       desc='Купи употребяван CLAAS TUCANO 580 на лизинг с атрактивна месечна вноска от €1 189 / 2 326 лв. и цена €145 000 / 283 595 лв.'),
 ]
 
+def calculate_initial_monthly(price, state):
+    pv = price * 0.20
+    os = price * 0.10
+    financed = price - pv
+    interest_rate = 0.035 if state == 'new' else 0.045
+    r = interest_rate / 12
+    n = 60
+    if r > 0:
+        pv_factor = 0.0
+        for t in range(1, n + 1):
+            pv_factor += 1.0 / ((1.0 + r) ** t)
+        pmt = (financed - os / ((1.0 + r) ** n)) / pv_factor
+    else:
+        pmt = (financed - os) / n
+    return int(round(pmt))
+
+for m in MACHINES:
+    m['monthly'] = calculate_initial_monthly(m['price'], m['state'])
+
 def fmt(n):
     return f"{n:,}".replace(",", " ")
 
@@ -243,7 +262,7 @@ def offer_card(m, link=True):
     <div class="ribbon">
       <div class="monthly">
         <div class="m-price"><span class="money" data-eur="{m['monthly']}">€{fmt(m['monthly'])}</span> <small>/мес</small></div>
-        <div class="m-note">с ДДС средно за периода</div>
+        <div class="m-note">без ДДС средна вноска</div>
       </div>
       <div class="total">
         <div class="t-label">ЦЕНА:</div>
@@ -556,72 +575,156 @@ def product_page(m):
       <div class="price-box">
         <div class="pb-main">
           <div class="big"><span class="money" data-eur="{m['monthly']}">€{fmt(m['monthly'])}</span> / мес.</div>
-          <div class="note">с ДДС, средна вноска за периода</div>
+          <div class="note">без ДДС, средна вноска за периода</div>
         </div>
         <a class="pb-cta" href="budget-calculator.html">{I['calc-ico']} Изчисли колко можеш да си позволиш <span>›</span></a>
       </div>
 
-      <div class="calc-card" data-price="{m['price']}">
-        <h3>Калкулирай своя лизинг</h3>
-        <div class="cc-sub">Според твоите предпочитания</div>
-        <div class="cc-price-label">Стойност на машината</div>
-        <div class="cc-price"><span class="money" data-eur="{m['price']}">€{fmt(m['price'])}</span> с ДДС<small>{price_bgn} лв. с ДДС</small></div>
-        <div class="cc-field">
-          <label>Промо код</label>
-          <div class="promo-row"><input type="text" placeholder="Въведи код"><button class="btn-outline" type="button">Приложи</button></div>
+      <div class="calc-card" id="prodCalcCard" data-price="{m['price']}" data-state="{m['state']}" data-brand="{m['brand']}" data-model="{m['model']}">
+        
+        <!-- STEP 1: CALCULATIONS -->
+        <div id="pcStep1" class="calc-step active">
+          <h3>Калкулирай своя лизинг</h3>
+          <div class="cc-sub">Според твоите предпочитания</div>
+          <div class="cc-price-label">Стойност на машината</div>
+          <div class="cc-price"><span class="money" data-eur="{m['price']}">€{fmt(m['price'])}</span> без ДДС<small>{price_bgn} лв. без ДДС</small></div>
+          
+          <div class="cc-field">
+            <label>Първоначална вноска (ПВ)</label>
+            <div class="cc-combo">
+              <div class="select-wrap">
+                <select id="ccDown">
+                  <option value="10">10%</option>
+                  <option value="15">15%</option>
+                  <option value="20" selected>20%</option>
+                  <option value="25">25%</option>
+                  <option value="30">30%</option>
+                  <option value="35">35%</option>
+                  <option value="40">40%</option>
+                  <option value="45">45%</option>
+                  <option value="50">50%</option>
+                </select>
+              </div>
+              <div class="cc-out" id="ccDownOut">€0</div>
+            </div>
+          </div>
+          
+          <div class="cc-field cc-single">
+            <label>Срок на лизинга</label>
+            <div class="select-wrap">
+              <select id="ccTerm">
+                <option value="12">12 месеца</option>
+                <option value="24">24 месеца</option>
+                <option value="36">36 месеца</option>
+                <option value="48">48 месеца</option>
+                <option value="60" selected>60 месеца</option>
+                <option value="72" disabled>72 месеца (неактивен)</option>
+                <option value="84" disabled>84 месеца (неактивен)</option>
+                <option value="96" disabled>96 месеца (неактивен)</option>
+                <option value="108" disabled>108 месеца (неактивен)</option>
+                <option value="120" disabled>120 месеца (неактивен)</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="cc-field cc-single">
+            <label>ДДС схема</label>
+            <div class="select-wrap">
+              <select id="ccVat">
+                <option value="deferred" selected>6.1. Разсрочено ДДС</option>
+                <option value="advance">6.2. Авансово ДДС</option>
+                <option value="financed">6.3. Финансирано ДДС</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="cc-duo">
+            <div class="du"><label>Остатъчна стойност (ОС)</label><div class="val" id="ccResidualPctVal" style="font-weight:700">10%</div></div>
+            <div class="du" style="text-align:right"><label>ОС Сума</label><div class="val" id="ccResidualOut" style="font-weight:700">€0</div></div>
+          </div>
+          
+          <div class="cc-duo">
+            <div class="du"><label>Лихва</label><div class="val" id="ccInterestRateVal">3.5%</div></div>
+            <div class="du" style="text-align:right"><label>Такса финансиране</label><div class="val" id="ccFundingFeeVal">€0</div></div>
+          </div>
+          
+          <div class="schedule-section" style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.05)">
+            <label style="font-weight:700;font-size:13px;color:var(--text);display:block;margin-bottom:6px">7. Погасителни вноски</label>
+            <div class="schedule-type-row" style="font-size:13px">
+              <label class="radio"><input type="radio" name="ccSchedule" value="monthly" checked onclick="toggleCcMonths(false)"><span class="dot"></span> Ежемесечни</label>
+              <label class="radio"><input type="radio" name="ccSchedule" value="seasonal" onclick="toggleCcMonths(true)"><span class="dot"></span> Сезонни</label>
+            </div>
+            <div class="months-grid" id="ccMonthsGrid" style="grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 6px;">
+              <!-- JS months grid -->
+            </div>
+          </div>
+          
+          <div class="ins-title" style="margin-top:12px">Застраховка (ЗК УНИКА)</div>
+          <div class="cc-field cc-single">
+            <label>Годишно Каско</label>
+            <div class="cc-combo">
+              <input type="text" id="ccCascoVal" readonly style="border:1px solid #ddd;border-radius:8px;padding:8px;font-weight:700;background:#f9f9f9;font-size:13px;width:100%" value="€0">
+            </div>
+          </div>
+          <div class="cc-field cc-single" style="margin-top:8px">
+            <label>Плащане Каско</label>
+            <div class="select-wrap">
+              <select id="ccInsPayment">
+                <option value="once" selected>Еднократно</option>
+                <option value="four">На 4 вноски</option>
+              </select>
+            </div>
+          </div>
+          
+          <button class="btn-outline btn-offer" type="button" onclick="goToCcStep(2)" style="margin-top:16px">Получи оферта</button>
+          <div class="apply-powered">Powered by <b>ЗЛАТЕКС Лизинг</b></div>
         </div>
-        <div class="cc-field">
-          <label>Първоначална вноска</label>
-          <div class="cc-combo">
-            <div class="select-wrap"><select id="ccDown"><option>15%</option><option selected>25%</option><option>35%</option><option>45%</option></select></div>
-            <div class="cc-out" id="ccDownOut"></div>
+        
+        <!-- STEP 2: CUSTOMER DETAILS -->
+        <div id="pcStep2" class="calc-step">
+          <h3>Данни за кандидатстване</h3>
+          <p style="font-size:13px;color:var(--text-soft);margin-bottom:14px">Изберете тип лице и попълнете формата за оферта.</p>
+          
+          <div class="client-toggle">
+            <button class="client-btn active" id="ccClientPhys" type="button" onclick="setCcClientType('physical')">Физ. лице</button>
+            <button class="client-btn" id="ccClientLegal" type="button" onclick="setCcClientType('legal')">Юр. лице</button>
+          </div>
+          
+          <!-- Physical Form -->
+          <div id="ccFormPhysical" class="client-form-block">
+            <div class="cf-field" style="margin-bottom:8px"><label style="font-size:12px">Три имена</label><input type="text" id="ccPhysName" placeholder="Име и фамилия" style="font-size:13px;padding:8px 10px;width:100%;border:1px solid #ddd;border-radius:6px"></div>
+            <div class="cf-field" style="margin-bottom:8px"><label style="font-size:12px">ЕГН</label><input type="text" id="ccPhysEgn" placeholder="ЕГН" style="font-size:13px;padding:8px 10px;width:100%;border:1px solid #ddd;border-radius:6px"></div>
+            <div class="cf-field" style="margin-bottom:8px"><label style="font-size:12px">Телефон</label><input type="tel" id="ccPhysPhone" placeholder="Телефон" style="font-size:13px;padding:8px 10px;width:100%;border:1px solid #ddd;border-radius:6px"></div>
+            <div class="cf-field" style="margin-bottom:8px"><label style="font-size:12px">Имейл</label><input type="email" id="ccPhysEmail" placeholder="Имейл" style="font-size:13px;padding:8px 10px;width:100%;border:1px solid #ddd;border-radius:6px"></div>
+            <div class="cf-field" style="margin-bottom:8px"><label style="font-size:12px">Адрес</label><input type="text" id="ccPhysAddress" placeholder="Пълен адрес" style="font-size:13px;padding:8px 10px;width:100%;border:1px solid #ddd;border-radius:6px"></div>
+          </div>
+          
+          <!-- Legal Form -->
+          <div id="ccFormLegal" class="client-form-block" style="display:none">
+            <div class="cf-field" style="margin-bottom:8px"><label style="font-size:12px">Име на фирмата</label><input type="text" id="ccLegalName" placeholder="Фирма ЕООД" style="font-size:13px;padding:8px 10px;width:100%;border:1px solid #ddd;border-radius:6px"></div>
+            <div class="cf-field" style="margin-bottom:8px"><label style="font-size:12px">ЕИК / Булстат</label><input type="text" id="ccLegalEik" placeholder="ЕИК" style="font-size:13px;padding:8px 10px;width:100%;border:1px solid #ddd;border-radius:6px"></div>
+            <div class="cf-field" style="margin-bottom:8px"><label style="font-size:12px">Лице за контакт</label><input type="text" id="ccLegalContact" placeholder="Лице за контакт" style="font-size:13px;padding:8px 10px;width:100%;border:1px solid #ddd;border-radius:6px"></div>
+            <div class="cf-field" style="margin-bottom:8px"><label style="font-size:12px">Телефон</label><input type="tel" id="ccLegalPhone" placeholder="Телефон" style="font-size:13px;padding:8px 10px;width:100%;border:1px solid #ddd;border-radius:6px"></div>
+            <div class="cf-field" style="margin-bottom:8px"><label style="font-size:12px">Имейл</label><input type="email" id="ccLegalEmail" placeholder="Имейл" style="font-size:13px;padding:8px 10px;width:100%;border:1px solid #ddd;border-radius:6px"></div>
+            <div class="cf-field" style="margin-bottom:8px"><label style="font-size:12px">Адрес на регистрация</label><input type="text" id="ccLegalAddress" placeholder="Адрес по регистрация" style="font-size:13px;padding:8px 10px;width:100%;border:1px solid #ddd;border-radius:6px"></div>
+          </div>
+          
+          <div style="display:flex;gap:10px;margin-top:16px">
+            <button class="btn-outline" type="button" onclick="goToCcStep(1)" style="flex:1">Назад</button>
+            <button class="btn-apply" type="button" onclick="submitCcInquiry()" style="flex:2;margin-top:0">Изпрати</button>
           </div>
         </div>
-        <div class="cc-field">
-          <label>Остатъчна стойност</label>
-          <div class="cc-combo">
-            <div class="select-wrap"><select id="ccResidual"><option>0%</option><option>15%</option><option>25%</option><option selected>35%</option></select></div>
-            <div class="cc-out" id="ccResidualOut"></div>
+        
+        <!-- STEP 3: SUCCESS STATE -->
+        <div id="pcStep3" class="calc-step">
+          <div style="text-align:center;padding:24px 10px">
+            <div style="width:50px;height:50px;background:var(--green-light);color:var(--green);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;margin-bottom:14px">✓</div>
+            <h4 style="font-family:var(--font-head);color:var(--green-dark);margin-bottom:8px">Офертата е изпратена!</h4>
+            <p style="color:var(--text-soft);font-size:13px;line-height:1.5;margin-bottom:16px">Благодарим Ви! Заявката е приета успешно. Консултант ще се свърже с Вас скоро.</p>
+            <button class="btn-outline" type="button" onclick="resetCcForm()" style="width:100%">Назад</button>
           </div>
         </div>
-        <div class="cc-field cc-single">
-          <label>Срок на лизинга</label>
-          <div class="select-wrap"><select id="ccTerm"><option>24 м</option><option>36 м</option><option>48 м</option><option selected>60 м</option><option>72 м</option></select></div>
-        </div>
-        <div class="cc-duo">
-          <div class="du"><label>Лихва</label><div class="val">3.95%</div></div>
-          <div class="du"><label>Такса одобрение</label><div class="val">€469 с ДДС</div></div>
-        </div>
-        <div class="cc-field cc-single">
-          <label>ДДС</label>
-          <div class="select-wrap"><select><option selected>ДДС разсрочване</option><option>ДДС еднократно</option></select></div>
-        </div>
-        <div class="ins-title">Застраховка</div>
-        <div class="cc-field">
-          <div class="cc-duo" style="margin-top:0">
-            <div class="du"><label>Застраховател</label></div>
-            <div class="du" style="text-align:right"><label>Каско</label></div>
-          </div>
-          <div class="cc-combo" style="margin-top:6px">
-            <div class="select-wrap"><select><option>Групама</option><option>ДЗИ</option><option>Алианц</option></select></div>
-            <div class="cc-out" id="ccInsOut"></div>
-          </div>
-        </div>
-        <div class="cc-field">
-          <label>Плащане</label>
-          <div class="radio-row">
-            <label class="radio"><input type="radio" name="pay"><span class="dot"></span> Еднократно</label>
-            <label class="radio"><input type="radio" name="pay" checked><span class="dot"></span> На 4 вноски</label>
-          </div>
-        </div>
-        <button class="btn-apply" type="button">Кандидатствай сега</button>
-        <div class="apply-powered">Powered by <b>ЗЛАТЕКС Лизинг</b></div>
-        <button class="btn-outline btn-offer" type="button">Получи оферта</button>
-        <div class="only-firms">
-          {I['firm']}
-          <div class="of-label">Само за фирми:</div>
-          <a href="#">Запитване за оперативен лизинг</a>
-        </div>
+        
       </div>
       <p class="side-note">Изложената информация в NovaMashina.bg е осигурена от ЗЛАТЕКС Лизинг и партньорските дилърски центрове. Калкулацията е индикативна и не представлява обвързваща оферта.</p>
     </aside>
@@ -678,58 +781,191 @@ dealers_body = f'''
 calculator_body = f'''
 <main class="page container">
   <h1 class="page-title">Лизингов калкулатор</h1>
-  <p class="page-sub" style="color:#4dbc4d">Избери лизингов план за машина извън платформата и кандидатствай сега</p>
+  <p class="page-sub" style="color:#4dbc4d">Избери лизингов план за машина и кандидатствай сега</p>
+  
   <div class="calcpage-layout">
-    <div>
-      <div class="calc-tabs">
-        <span class="calc-tab active">{I['mach-new']} Нова машина</span>
-        <span class="calc-tab">{I['mach-used']} Употребявана машина</span>
-      </div>
-      <div class="calc-form">
-        <div class="cf-grid">
-          <div class="cf-field"><label>Марка</label><input type="text" placeholder="Марка"></div>
-          <div class="cf-field"><label>Модел</label><input type="text" placeholder="Модел"></div>
-          <div class="cf-field">
-            <label>Цена на машината (€)</label>
-            <input type="number" id="lcPrice" value="100000">
-            <div class="cf-note" id="lcPriceBgn">Цена в лв: 195 583 лв.</div>
-          </div>
-          <div class="cf-field"><label>Мощност на машината в к.с</label><input type="number" placeholder="150"></div>
-          <div class="cf-field">
-            <label>Първоначална вноска</label>
-            <div class="cc-combo">
-              <div class="select-wrap"><select id="lcDown"><option>15%</option><option selected>20%</option><option>25%</option><option>35%</option></select></div>
-              <div class="cc-out" id="lcDownOut">€20 000 с ДДС</div>
+    <div class="calculator-container">
+      
+      <!-- STEP 1: CALCULATIONS -->
+      <div id="lcStep1" class="calc-step active">
+        <div class="calc-tabs">
+          <span class="calc-tab active" id="tabNew" onclick="setLcState('new')">{I['mach-new']} Нова машина</span>
+          <span class="calc-tab" id="tabUsed" onclick="setLcState('used')">{I['mach-used']} Употребявана машина</span>
+        </div>
+        
+        <div class="calc-form">
+          <div class="cf-grid">
+            <div class="cf-field"><label>Марка</label><input type="text" id="lcBrand" placeholder="Напр. John Deere"></div>
+            <div class="cf-field"><label>Модел</label><input type="text" id="lcModel" placeholder="Напр. 6R 150"></div>
+            <div class="cf-field">
+              <label>Цена – EUR без ДДС</label>
+              <input type="number" id="lcPrice" value="100000">
+              <div class="cf-note" id="lcPriceBgn">Цена в лв: 195 583 лв. без ДДС</div>
+            </div>
+            
+            <div class="cf-field">
+              <label>Първоначална вноска (ПВ)</label>
+              <div class="cc-combo">
+                <div class="select-wrap">
+                  <select id="lcDown">
+                    <option value="10">10%</option>
+                    <option value="15">15%</option>
+                    <option value="20" selected>20%</option>
+                    <option value="25">25%</option>
+                    <option value="30">30%</option>
+                    <option value="35">35%</option>
+                    <option value="40">40%</option>
+                    <option value="45">45%</option>
+                    <option value="50">50%</option>
+                  </select>
+                </div>
+                <div class="cc-out" id="lcDownOut">€20 000</div>
+              </div>
+            </div>
+            
+            <div class="cf-field">
+              <label>Срок на лизинга</label>
+              <div class="select-wrap">
+                <select id="lcTerm">
+                  <option value="12">12 месеца</option>
+                  <option value="24">24 месеца</option>
+                  <option value="36">36 месеца</option>
+                  <option value="48">48 месеца</option>
+                  <option value="60" selected>60 месеца</option>
+                  <option value="72" disabled>72 месеца (неактивен)</option>
+                  <option value="84" disabled>84 месеца (неактивен)</option>
+                  <option value="96" disabled>96 месеца (неактивен)</option>
+                  <option value="108" disabled>108 месеца (неактивен)</option>
+                  <option value="120" disabled>120 месеца (неактивен)</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="cf-field">
+              <label>ДДС схема</label>
+              <div class="select-wrap">
+                <select id="lcVat">
+                  <option value="deferred" selected>6.1. Разсрочено ДДС</option>
+                  <option value="advance">6.2. Авансово ДДС</option>
+                  <option value="financed">6.3. Финансирано ДДС</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="cf-field">
+              <label>Остатъчна стойност (ОС)</label>
+              <div class="cc-combo">
+                <input type="text" id="lcResidualPct" readonly style="width:70px;text-align:center;border:1px solid #ddd;border-radius:8px;padding:8px;font-weight:700" value="10%">
+                <div class="cc-out" id="lcResidualOut">€10 000</div>
+              </div>
+            </div>
+            
+            <div class="cf-field">
+              <label>Лихвен процент</label>
+              <input type="text" id="lcInterestRate" readonly style="border:1px solid #ddd;border-radius:8px;padding:12px;font-weight:700;background:#f9f9f9" value="3.5%">
             </div>
           </div>
-          <div class="cf-field">
-            <label>Месечна вноска</label>
-            <div class="cf-monthly"><span id="lcMonthly">€999</span><small>/ мес.</small></div>
-          </div>
-          <div class="cf-field">
-            <label>Остатъчна стойност</label>
-            <div class="cc-combo">
-              <div class="select-wrap"><select id="lcResidual"><option>0%</option><option>15%</option><option selected>25%</option><option>35%</option></select></div>
-              <div class="cc-out" id="lcResidualOut">€25 000 с ДДС</div>
+          
+          <div class="schedule-section" style="border-top:1px solid #eee;margin-top:20px;padding-top:16px">
+            <label style="font-weight:700;font-size:14px;color:var(--text)">9. Погасителни вноски</label>
+            <div class="schedule-type-row">
+              <label class="radio"><input type="radio" name="lcSchedule" value="monthly" checked onclick="toggleLcMonths(false)"><span class="dot"></span> 9.1. Ежемесечни</label>
+              <label class="radio"><input type="radio" name="lcSchedule" value="seasonal" onclick="toggleLcMonths(true)"><span class="dot"></span> 9.2. Сезонни (мин. 3 месеца)</label>
+            </div>
+            
+            <div class="months-grid" id="lcMonthsGrid">
+              <!-- JS will render months here as clickable tags -->
             </div>
           </div>
-          <div class="cf-field">
-            <label>Срок на лизинга</label>
-            <div class="select-wrap"><select id="lcTerm"><option>24 м</option><option>36 м</option><option>48 м</option><option selected>60 м</option><option>72 м</option></select></div>
+          
+          <div class="insurance-section" style="border-top:1px solid #eee;margin-top:20px;padding-top:16px">
+            <label style="font-weight:700;font-size:14px;color:var(--text);margin-bottom:8px;display:block">11. Застраховка (ЗК УНИКА)</label>
+            <div class="cf-grid">
+              <div class="cf-field">
+                <label>Плащане Каско</label>
+                <div class="select-wrap">
+                  <select id="lcInsPayment">
+                    <option value="once" selected>Еднократно</option>
+                    <option value="four">На 4 вноски</option>
+                  </select>
+                </div>
+              </div>
+              <div class="cf-field">
+                <label>Годишно Каско</label>
+                <input type="text" id="lcCascoVal" readonly style="border:1px solid #ddd;border-radius:8px;padding:12px;font-weight:700;background:#f9f9f9" value="€0">
+              </div>
+            </div>
           </div>
-        </div>
-        <div style="border-top:1px solid #ddd;margin-top:26px;padding-top:22px">
-          <label style="display:block;font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;color:#969696;font-weight:600;margin-bottom:8px">Промо код</label>
-          <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
-            <input type="text" placeholder="Въведи код" style="border:1px solid #ddd;border-radius:10px;padding:13px 14px;font-family:Manrope;font-size:15px;outline:0;background:#fff">
-            <button class="btn-outline" type="button">Приложи</button>
-            <label class="check" style="margin-left:auto"><input type="checkbox"><span class="box"></span> Оперативен лизинг<br><small style="color:#e8762d">* само за юридически лица</small></label>
+          
+          <div class="fee-section" style="border-top:1px solid #eee;margin-top:20px;padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+            <div>
+              <label style="font-weight:700;font-size:13px;color:var(--text-soft)">12. Такса финансиране (1% от ФС)</label>
+              <div id="lcFundingFeeVal" style="font-size:16px;font-weight:800;color:var(--text)">€800</div>
+            </div>
+            <div style="text-align:right">
+              <label style="font-weight:700;font-size:15px;color:var(--green-dark)">10. Вноска (без ДДС)</label>
+              <div style="font-size:26px;font-weight:800;color:var(--green)" id="lcFinalMonthly">€0</div>
+            </div>
           </div>
+          
+          <button class="btn-continue" type="button" onclick="goToLcStep(2)" style="margin-top:24px">Продължи</button>
+          <div class="powered-mini">Powered by <b>ЗЛАТЕКС Лизинг</b></div>
         </div>
-        <button class="btn-continue" type="button">Продължи</button>
-        <div class="powered-mini">Powered by <b>ЗЛАТЕКС Лизинг</b></div>
       </div>
+      
+      <!-- STEP 2: CUSTOMER DETAILS -->
+      <div id="lcStep2" class="calc-step">
+        <div class="calc-form">
+          <h3 style="margin-bottom:16px;font-family:var(--font-head);color:var(--green-dark)">Данни за кандидатстване</h3>
+          <p style="font-size:14px;color:var(--text-soft);margin-bottom:20px">Моля изберете тип лице и попълнете формата.</p>
+          
+          <div class="client-toggle">
+            <button class="client-btn active" id="lcClientPhys" type="button" onclick="setLcClientType('physical')">Физическо лице</button>
+            <button class="client-btn" id="lcClientLegal" type="button" onclick="setLcClientType('legal')">Юридическо лице</button>
+          </div>
+          
+          <!-- Physical Person Form -->
+          <div id="lcFormPhysical" class="client-form-block">
+            <div class="cf-grid">
+              <div class="cf-field" style="grid-column: span 2"><label>Три имена</label><input type="text" id="lcPhysName" placeholder="Име, Презиме, Фамилия"></div>
+              <div class="cf-field"><label>ЕГН</label><input type="text" id="lcPhysEgn" placeholder="ЕГН"></div>
+              <div class="cf-field"><label>Телефон</label><input type="tel" id="lcPhysPhone" placeholder="Телефон"></div>
+              <div class="cf-field" style="grid-column: span 2"><label>Имейл</label><input type="email" id="lcPhysEmail" placeholder="Имейл"></div>
+              <div class="cf-field" style="grid-column: span 2"><label>Адрес</label><input type="text" id="lcPhysAddress" placeholder="Пълен адрес"></div>
+            </div>
+          </div>
+          
+          <!-- Legal Entity Form -->
+          <div id="lcFormLegal" class="client-form-block" style="display:none">
+            <div class="cf-grid">
+              <div class="cf-field" style="grid-column: span 2"><label>Име на фирмата</label><input type="text" id="lcLegalName" placeholder="Фирма ООД/ЕООД"></div>
+              <div class="cf-field"><label>ЕИК / Булстат</label><input type="text" id="lcLegalEik" placeholder="ЕИК"></div>
+              <div class="cf-field"><label>Лице за контакт</label><input type="text" id="lcLegalContact" placeholder="Име на представител"></div>
+              <div class="cf-field"><label>Телефон</label><input type="tel" id="lcLegalPhone" placeholder="Телефон"></div>
+              <div class="cf-field"><label>Имейл</label><input type="email" id="lcLegalEmail" placeholder="Имейл"></div>
+              <div class="cf-field" style="grid-column: span 2"><label>Адрес на регистрация</label><input type="text" id="lcLegalAddress" placeholder="Адрес по регистрация"></div>
+            </div>
+          </div>
+          
+          <div style="display:flex;gap:14px;margin-top:24px">
+            <button class="btn-outline" type="button" onclick="goToLcStep(1)" style="flex:1">Назад</button>
+            <button class="btn-continue" type="button" onclick="submitLcInquiry()" style="flex:2;margin-top:0">Изпрати запитване</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- STEP 3: SUCCESS STATE -->
+      <div id="lcStep3" class="calc-step">
+        <div class="calc-form" style="text-align:center;padding:40px 30px">
+          <div style="width:70px;height:70px;background:var(--green-light);color:var(--green);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:36px;font-weight:700;margin-bottom:20px">✓</div>
+          <h3 style="font-family:var(--font-head);color:var(--green-dark);margin-bottom:12px">Заявката е изпратена успешно!</h3>
+          <p style="color:var(--text-soft);font-size:15px;line-height:1.6;margin-bottom:24px">Благодарим Ви! Вашата оферта е регистрирана. Наш консултант от ЗЛАТЕКС Лизинг ще се свърже с Вас в най-кратък срок.</p>
+          <button class="btn-continue" type="button" onclick="resetLcForm()" style="margin-top:0">Ново изчисление</button>
+        </div>
+      </div>
+      
     </div>
+    
     <aside class="calc-side">
       <h3>Желаната нова машина е само на няколко клика разстояние</h3>
       <div class="how">Как да кандидатствам за лизинг бързо и лесно?</div>
