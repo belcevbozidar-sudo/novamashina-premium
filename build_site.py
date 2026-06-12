@@ -227,7 +227,7 @@ def page(title, body, active='', extra_head=''):
 
 # ---------------------------------------------------------------- ПРОДУКТОВА КАРТА
 def offer_card(m, link=True):
-    badge = '<img class="badge-new-img" src="img/badge-new.png" alt="NEW">' if m['state'] == 'new' \
+    badge = '<div class="badge new-badge">НОВО</div>' if m['state'] == 'new' \
         else '<div class="badge used-badge"><img src="img/badge-used.png" alt="Used Icon" class="used-icon"><span>УПОТРЕБЯВАНА</span></div>'
     corner = ''
     if m.get('lease_ret'):
@@ -471,7 +471,7 @@ catalog_body = f'''
 
 # ---------------------------------------------------------------- ПРОДУКТОВИ СТРАНИЦИ
 def product_page(m):
-    badge_html = f'<img class="badge-new-img" src="img/badge-new.png" alt="NEW" style="top:14px; left:14px;">' if m['state'] == 'new' \
+    badge_html = f'<div class="badge new-badge" style="top:14px; left:14px;">НОВО</div>' if m['state'] == 'new' \
         else f'<div class="badge used-badge" style="top:14px; left:14px;"><img src="img/badge-used.png" alt="Used Icon" class="used-icon"><span>УПОТРЕБЯВАНА</span></div>'
     hours_row = f'<div class="tech-row"><span class="k">Моточасове</span><span class="v">{m["hours"]}</span></div>' if m['hours'] else ''
     year_row = f'<div class="tech-row"><span class="k">Първа регистрация</span><span class="v">{m["year"]}</span></div>'
