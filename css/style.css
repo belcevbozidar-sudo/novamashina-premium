@@ -1310,6 +1310,9 @@ img, svg { display: block; max-width: 100%; }
     grid-template-columns: 1fr;
     gap: 12px;
   }
+  .checks {
+    grid-column: auto !important;
+  }
   .search-actions {
     width: 100%;
     align-items: center;
