@@ -38,8 +38,8 @@ I = {
  'checkc': '''<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="#4dbc4d" stroke-width="1.8"/><path d="M7.5 12.5l3 3 6-7" fill="none" stroke="#4dbc4d" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>''',
  'calc-ico': '''<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="3" width="14" height="18" rx="2.5" fill="none" stroke="#fff" stroke-width="1.8"/><rect x="8" y="6" width="8" height="3.4" rx="1" fill="#fff"/><g fill="#fff"><circle cx="9" cy="13" r="1.2"/><circle cx="12" cy="13" r="1.2"/><circle cx="15" cy="13" r="1.2"/><circle cx="9" cy="17" r="1.2"/><circle cx="12" cy="17" r="1.2"/><circle cx="15" cy="17" r="1.2"/></g></svg>''',
  'firm': '''<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4" fill="#4dbc4d"/><path d="M4 20c1-4.4 4-7 8-7s7 2.6 8 7z" fill="#4dbc4d"/></svg>''',
- 'mach-new': '''<svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="13" height="7" rx="2" fill="#4dbc4d"/><rect x="13" y="6" width="8" height="11" rx="2" fill="#0e4d2c"/><circle cx="7" cy="20" r="3.4" fill="#333"/><circle cx="18.5" cy="19.5" r="4.4" fill="#333"/><path d="M23 8l1 2.8 2.8 1-2.8 1L23 16l-1-3.2-2.8-1 2.8-1z" fill="#4dbc4d"/></svg>''',
- 'mach-used': '''<svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="13" height="7" rx="2" fill="#6c6c6c"/><rect x="13" y="6" width="8" height="11" rx="2" fill="#444"/><circle cx="7" cy="20" r="3.4" fill="#333"/><circle cx="18.5" cy="19.5" r="4.4" fill="#333"/><path d="M22 6a6.5 6.5 0 012.8 5l2-.7" fill="none" stroke="#4dbc4d" stroke-width="1.8" stroke-linecap="round"/></svg>''',
+ 'mach-new': '',
+ 'mach-used': '''<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 8l-4 4h3c0 3.3-2.7 6-6 6-1.5 0-2.8-.5-3.8-1.5l-1.4 1.4C8.3 19.4 10 20 12 20c4.4 0 8-3.6 8-8h3l-4-4zM6 12c0-3.3 2.7-6 6-6 1.5 0 2.8.5 3.8 1.5l1.4-1.4C15.7 4.6 14 4 12 4c-4.4 0-8 3.6-8 8H1l4 4 4-4H6z" fill="currentColor"/></svg>''',
  'mach-lease': '''<svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="13" height="7" rx="2" fill="#e8762d"/><rect x="13" y="6" width="8" height="11" rx="2" fill="#9e4a14"/><circle cx="7" cy="20" r="3.4" fill="#333"/><circle cx="18.5" cy="19.5" r="4.4" fill="#333"/></svg>''',
  'mach-all': '''<svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="11" width="12" height="6.5" rx="2" fill="#4dbc4d"/><rect x="11" y="7" width="7" height="10" rx="2" fill="#0e4d2c"/><circle cx="6" cy="20" r="3" fill="#333"/><circle cx="16" cy="19.5" r="3.8" fill="#333"/><rect x="18" y="9" width="9" height="5" rx="1.5" fill="#caebca"/><circle cx="21" cy="17" r="2.4" fill="#666"/><circle cx="25" cy="17" r="2.4" fill="#666"/></svg>''',
 }
@@ -452,7 +452,7 @@ catalog_body = f'''
   <p class="page-sub">Изберете своята машина от ЗЛАТЕКС</p>
   <div class="catalog-toolbar">
     <div class="cat-tabs">
-      <span class="cat-tab">{I['mach-new']} Нови</span>
+      <span class="cat-tab">Нови</span>
       <span class="cat-tab">{I['mach-used']} Употребявани</span>
       <span class="cat-tab">{I['mach-lease']} Лизингови</span>
       <span class="cat-tab active">{I['mach-all']} Всички</span>
@@ -545,26 +545,11 @@ def product_page(m):
       <h3 class="feat-h">Други</h3>
       <ul class="feat-cols">{li(features_other)}</ul>
 
-      <div class="inquiry">
-        <h3>Запитване за {m['title']}</h3>
-        <div class="inquiry-grid">
-          <input type="text" placeholder="Име и фамилия">
-          <textarea placeholder="Вашето съобщение…"></textarea>
-          <input type="email" placeholder="Email адрес">
-          <input type="tel" placeholder="Телефонен номер">
-        </div>
-        <button class="btn-send" type="button" style="margin-top:20px;padding:14px 38px">Изпрати</button>
-      </div>
+
     </div>
 
     <aside class="side-sticky">
-      <div class="price-box">
-        <div class="pb-main">
-          <div class="big"><span class="money" data-eur="{m['monthly']}">€{fmt(m['monthly'])}</span> / мес.</div>
-          <div class="note">без ДДС, средна вноска за периода</div>
-        </div>
-        <a class="pb-cta" href="budget-calculator.html">{I['calc-ico']} Изчисли колко можеш да си позволиш <span>›</span></a>
-      </div>
+
 
       <div class="calc-card" id="prodCalcCard" data-price="{m['price']}" data-state="{m['state']}" data-brand="{m['brand']}" data-model="{m['model']}">
         
@@ -715,6 +700,17 @@ def product_page(m):
       <p class="side-note">Изложената информация е осигурена от ЗЛАТЕКС Лизинг и партньорските дилърски центрове. Калкулацията е индикативна и не представлява обвързваща оферта.</p>
     </aside>
   </div>
+
+  <div class="inquiry" style="margin-top: 40px;">
+    <h3>Запитване за {m['title']}</h3>
+    <div class="inquiry-grid">
+      <input type="text" placeholder="Име и фамилия">
+      <textarea placeholder="Вашето съобщение…"></textarea>
+      <input type="email" placeholder="Email адрес">
+      <input type="tel" placeholder="Телефонен номер">
+    </div>
+    <button class="btn-send" type="button" style="margin-top:20px;padding:14px 38px">Изпрати</button>
+  </div>
 </main>'''
 
 # ---------------------------------------------------------------- ТЪРГОВЦИ
@@ -775,7 +771,7 @@ calculator_body = f'''
       <!-- STEP 1: CALCULATIONS -->
       <div id="lcStep1" class="calc-step active">
         <div class="calc-tabs">
-          <span class="calc-tab active" id="tabNew" onclick="setLcState('new')">{I['mach-new']} Нова машина</span>
+          <span class="calc-tab active" id="tabNew" onclick="setLcState('new')">Нова машина</span>
           <span class="calc-tab" id="tabUsed" onclick="setLcState('used')">{I['mach-used']} Употребявана машина</span>
         </div>
         
@@ -978,7 +974,7 @@ budget_body = f'''
     <div>
       <div class="budget-item">{I['cal'].replace('#6c6c6c', '#4dbc4d')}<div><h4>Текущи месечни вноски</h4><p>Тук влизат твоите активни кредити, ипотеки или други лизинги, които изплащаш в момента.</p></div></div>
       <div class="budget-item">{I['compare']}<div><h4>Кредитни карти и лимити</h4><p>Дори да не ги ползваш изцяло, лимитите по кредитни карти и овърдрафти са част от твоя финансов профил и ние ги отчитаме за максимална точност.</p></div></div>
-      <div class="budget-item">{I['mach-new']}<div><h4>Твоята нова вноска</h4><p>Прогнозната месечна сума за машината, която си избрал. Можеш да експериментираш с различни срокове, докато откриеш сумата, която ти пасва идеално.</p></div></div>
+      <div class="budget-item">{I['checkc']}<div><h4>Твоята нова вноска</h4><p>Прогнозната месечна сума за машината, която си избрал. Можеш да експериментираш с различни срокове, докато откриеш сумата, която ти пасва идеално.</p></div></div>
       <div class="budget-item">{I['power'].replace('#6c6c6c', '#4dbc4d')}<div><h4>Общи месечни разходи</h4><p>Сборът от всички тези елементи ти дава ясна представа за твоите ангажименти, за да знаеш точно с какъв ресурс разполагаш за всичко останало.</p></div></div>
     </div>
   </div>
@@ -1142,7 +1138,6 @@ contacts_body = f'''
       <div class="team-card">
         <div class="team-photo-wrap">
           <img src="img/team-jivka.png" alt="Живка Димова" loading="lazy" decoding="async">
-          <span class="brand-badge valtra">Valtra</span>
         </div>
         <div class="team-info">
           <h3>Живка Димова</h3>
@@ -1157,7 +1152,6 @@ contacts_body = f'''
       <div class="team-card">
         <div class="team-photo-wrap">
           <img src="img/team-yana.png" alt="Яна Какарашева" loading="lazy" decoding="async">
-          <span class="brand-badge fendt">Fendt</span>
         </div>
         <div class="team-info">
           <h3>Яна Какарашева</h3>
@@ -1172,7 +1166,6 @@ contacts_body = f'''
       <div class="team-card">
         <div class="team-photo-wrap">
           <img src="img/team-petya.png" alt="Петя Георгиева" loading="lazy" decoding="async">
-          <span class="brand-badge manitou">Manitou</span>
         </div>
         <div class="team-info">
           <h3>Петя Георгиева</h3>
