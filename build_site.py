@@ -498,9 +498,9 @@ def product_page(m):
       <div class="product-head">
         <h1>{m['title']}</h1>
         <div class="product-tools">
-          <a href="#">{I['compare']} Добави за<br>сравнение</a>
-          <a href="#">{I['heart']} Добави в<br>любими</a>
-          <a href="#">{I['share']} Сподели с<br>приятели</a>
+          <a href="#">{I['compare']} <span>Сравни</span></a>
+          <a href="#">{I['heart']} <span>Любими</span></a>
+          <a href="#">{I['share']} <span>Сподели</span></a>
         </div>
       </div>
       <div class="gallery">
