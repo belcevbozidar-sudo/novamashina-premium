@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <defs><linearGradient id="sky5" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#dfeef7"/><stop offset="1" stop-color="#f4f8f4"/></linearGradient></defs>
+  <rect width="640" height="360" fill="url(#sky5)"/>
+  <rect y="276" width="640" height="84" fill="#e7e2d6"/>
+  <rect y="270" width="640" height="10" fill="#d8d2c2"/>
+  <polygon points="130,110 510,110 478,232 162,232" fill="#c0c8d0"/>
+  <polygon points="142,122 498,122 472,220 168,220" fill="#9aa6b2"/>
+  <g stroke="#7e8a96" stroke-width="8">
+    <line x1="200" y1="116" x2="188" y2="226"/><line x1="280" y1="116" x2="276" y2="226"/>
+    <line x1="360" y1="116" x2="364" y2="226"/><line x1="440" y1="116" x2="452" y2="226"/>
+  </g>
+  <rect x="120" y="98" width="400" height="20" rx="8" fill="#5b6770"/>
+  <circle cx="250" cy="276" r="44" fill="#2b2b2b"/><circle cx="250" cy="276" r="26" fill="#777"/>
+  <circle cx="390" cy="276" r="44" fill="#2b2b2b"/><circle cx="390" cy="276" r="26" fill="#777"/>
+  <g stroke="#3a3a3a" stroke-width="10"><line x1="160" y1="232" x2="60" y2="262"/></g>
+  <circle cx="56" cy="264" r="10" fill="#555"/>
+  <rect x="486" y="150" width="14" height="82" fill="#5b6770"/>
+</svg>

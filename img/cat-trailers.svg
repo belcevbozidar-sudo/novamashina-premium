@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="172" height="124" viewBox="0 0 172 124"><polygon points="28,44 148,44 138,86 38,86" fill="#c0c8d0"/>
+  <rect x="24" y="38" width="128" height="9" rx="4" fill="#5b6770"/>
+  <g stroke="#7e8a96" stroke-width="4"><line x1="60" y1="46" x2="56" y2="84"/><line x1="92" y1="46" x2="92" y2="84"/><line x1="124" y1="46" x2="128" y2="84"/></g>
+  <circle cx="66" cy="100" r="15" fill="#2b2b2b"/><circle cx="66" cy="100" r="8" fill="#777"/>
+  <circle cx="112" cy="100" r="15" fill="#2b2b2b"/><circle cx="112" cy="100" r="8" fill="#777"/>
+  <g stroke="#3a3a3a" stroke-width="5"><line x1="38" y1="86" x2="10" y2="96"/></g></svg>

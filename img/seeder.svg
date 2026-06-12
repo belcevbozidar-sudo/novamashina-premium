@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <defs><linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#dfeef7"/><stop offset="1" stop-color="#f4f8f4"/></linearGradient></defs>
+  <rect width="640" height="360" fill="url(#sky3)"/>
+  <rect y="276" width="640" height="84" fill="#e7e2d6"/>
+  <rect y="270" width="640" height="10" fill="#d8d2c2"/>
+  <rect x="90" y="120" width="460" height="26" rx="10" fill="#3a3a3a"/>
+  <g fill="#c43b2e">
+    <rect x="110" y="86" width="64" height="56" rx="8"/>
+    <rect x="206" y="86" width="64" height="56" rx="8"/>
+    <rect x="302" y="86" width="64" height="56" rx="8"/>
+    <rect x="398" y="86" width="64" height="56" rx="8"/>
+    <rect x="470" y="86" width="64" height="56" rx="8"/>
+  </g>
+  <g fill="#7d1f16">
+    <polygon points="118,142 166,142 150,170 134,170"/>
+    <polygon points="214,142 262,142 246,170 230,170"/>
+    <polygon points="310,142 358,142 342,170 326,170"/>
+    <polygon points="406,142 454,142 438,170 422,170"/>
+    <polygon points="478,142 526,142 510,170 494,170"/>
+  </g>
+  <g stroke="#3a3a3a" stroke-width="8">
+    <line x1="142" y1="170" x2="142" y2="252"/><line x1="238" y1="170" x2="238" y2="252"/>
+    <line x1="334" y1="170" x2="334" y2="252"/><line x1="430" y1="170" x2="430" y2="252"/>
+    <line x1="502" y1="170" x2="502" y2="252"/>
+  </g>
+  <g fill="#9a9a9a">
+    <circle cx="142" cy="262" r="14"/><circle cx="238" cy="262" r="14"/><circle cx="334" cy="262" r="14"/>
+    <circle cx="430" cy="262" r="14"/><circle cx="502" cy="262" r="14"/>
+  </g>
+  <circle cx="200" cy="276" r="34" fill="#2b2b2b"/><circle cx="200" cy="276" r="20" fill="#777"/>
+  <circle cx="452" cy="276" r="34" fill="#2b2b2b"/><circle cx="452" cy="276" r="20" fill="#777"/>
+  <rect x="40" y="120" width="60" height="14" rx="7" fill="#3a3a3a"/>
+  <circle cx="40" cy="127" r="10" fill="#555"/>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="680" viewBox="0 0 600 680" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="ng" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#6aa6c8"/><stop offset="1" stop-color="#2c5570"/></linearGradient></defs>
+  <rect width="600" height="680" fill="url(#ng)"/>
+  <g stroke="#fff" stroke-width="8" opacity=".55"><line x1="150" y1="180" x2="150" y2="280"/><line x1="100" y1="230" x2="200" y2="230"/><line x1="115" y1="195" x2="185" y2="265"/><line x1="185" y1="195" x2="115" y2="265"/><line x1="430" y1="380" x2="430" y2="500"/><line x1="370" y1="440" x2="490" y2="440"/><line x1="388" y1="398" x2="472" y2="482"/><line x1="472" y1="398" x2="388" y2="482"/></g>
+</svg>

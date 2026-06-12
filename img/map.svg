@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice">
+  <rect width="1600" height="800" fill="#e8ecde"/>
+  <g stroke="#ffffff" stroke-width="22" fill="none" opacity=".9">
+    <path d="M-20 200 H 1620"/><path d="M-20 480 H 1620"/>
+    <path d="M300 -20 V 820"/><path d="M760 -20 V 820"/><path d="M1180 -20 V 820"/>
+  </g>
+  <g stroke="#fff" stroke-width="10" fill="none" opacity=".8">
+    <path d="M-20 340 q400 60 760 0 t880 30"/><path d="M520 -20 q40 400 -60 840"/><path d="M980 -20 q-30 380 60 840"/>
+  </g>
+  <g fill="#d4e6c3">
+    <rect x="60" y="60" width="180" height="100" rx="10"/><rect x="1280" y="560" width="220" height="140" rx="10"/>
+    <rect x="840" y="80" width="240" height="80" rx="10"/><rect x="360" y="560" width="280" height="160" rx="10"/>
+  </g>
+  <g fill="#cfd6db">
+    <rect x="340" y="240" width="160" height="90" rx="6"/><rect x="800" y="520" width="120" height="90" rx="6"/>
+    <rect x="1220" y="240" width="200" height="80" rx="6"/><rect x="80" y="520" width="140" height="110" rx="6"/>
+  </g>
+  <g transform="translate(770,330)">
+    <path d="M30 0 C 12 0 0 14 0 32 c0 24 30 56 30 56 s30 -32 30 -56 C 60 14 48 0 30 0z" fill="#c0392b"/>
+    <circle cx="30" cy="30" r="12" fill="#fff"/>
+  </g>
+</svg>

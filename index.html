@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Нова Машина – Сайт No.1 за лизинг на селскостопанска техника</title>
+<meta name="description" content="NovaMashina.bg – Сайт No.1 за лизинг на селскостопанска техника. Нови и употребявани трактори, комбайни, сеялки, пръскачки, ремаркета и инвентар.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/svg+xml" href="img/cat-tractors.svg">
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-top">
+      <a class="logo" href="index.html">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="14" width="60" height="48" rx="12" fill="#4dbc4d"/><rect x="2" y="14" width="60" height="12" rx="6" fill="#006b3f"/><rect x="28" y="6" width="8" height="16" rx="3" fill="#006b3f"/><g transform="translate(9,24)"><rect x="2" y="12" width="26" height="12" rx="3" fill="#fff"/><rect x="24" y="4" width="14" height="20" rx="3" fill="#eafbea"/><rect x="27" y="7" width="8" height="8" rx="2" fill="#4dbc4d"/><circle cx="10" cy="28" r="6.5" fill="#0e4d2c"/><circle cx="10" cy="28" r="3" fill="#fff"/><circle cx="32" cy="26" r="8.5" fill="#0e4d2c"/><circle cx="32" cy="26" r="4" fill="#fff"/><rect x="6" y="6" width="3.5" height="8" fill="#0e4d2c"/></g></svg>
+        <span>
+          <span class="logo-text">NOVA <span>MASHINA</span><small style="font-size:15px">.BG</small></span>
+          <div class="logo-sub">селскостопанска техника на лизинг</div>
+        </span>
+      </a>
+      <div class="header-top-right">
+        <a class="btn-ai" href="#ai"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4L12 2z" fill="#ffffff"/><path d="M19 14l.9 2.6L22 17l-2.1.7L19 20l-.9-2.3L16 17l2.1-.4L19 14z" fill="#ffffff"/><path d="M5 15l.7 2L8 17.6l-2.3.8L5 20l-.7-1.6L2 17.6 4.3 17 5 15z" fill="#ffffff"/></svg> AI Асистент</a>
+        <div class="auth-links"><a href="#">Вход</a><span>|</span><a href="#">Регистрация</a></div>
+        <a class="compare-link" href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3" fill="none" stroke="#4dbc4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Сравни оферти</a>
+        <div class="powered-by"><div class="pb-label">Powered by</div><div class="pb-brand">ЗЛАТЕКС</div></div>
+      </div>
+    </div>
+    <div class="header-nav">
+      <nav class="main-nav">
+        <a href="index.html" class="active">Начало</a>
+        <a href="catalog.html">Машини на лизинг</a>
+        <a href="calculator.html">Лизингов калкулатор</a>
+        <a href="budget-calculator.html">Бюджетен калкулатор</a>
+        <a href="dealers.html">Търговци</a>
+        <a href="news.html">Новини</a>
+        <a href="about.html">За нас</a>
+        <a href="contacts.html">Контакти</a>
+      </nav>
+      <div class="nav-right">
+        <div class="currency-toggle">
+          <button type="button" class="cur-eur active" onclick="setCurrency('EUR')">Евро</button>
+          <button type="button" class="cur-bgn" onclick="setCurrency('BGN')">Лева</button>
+        </div>
+        <a class="btn-add" href="#"><span class="plus">+</span> Добави<br>обява</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-bg" src="img/hero-field.jpg" alt="">
+  <svg class="hero-badge" viewBox="0 0 130 130"><circle cx="65" cy="65" r="60" fill="#0e2d14"/><circle cx="65" cy="65" r="60" fill="none" stroke="#4dbc4d" stroke-width="3" stroke-dasharray="6 7"/><text x="65" y="50" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#4dbc4d">ПРОЛЕТНА</text><text x="65" y="70" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#fff">КАМПАНИЯ</text><text x="65" y="90" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="11" fill="#4dbc4d">-3,33% ЛИХВА</text></svg>
+  <div class="hero-inner">
+    <h1 class="hero-title">Вземи John Deere 6R 150<br>с 3,33% лихва и подаръци до<br>30.6.2026г.</h1>
+  </div>
+</section>
+
+<div class="ai-search" id="ai">
+  <div class="ai-search-row">
+    <span class="ai-sparkle"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4L12 2z" fill="#4dbc4d"/><path d="M19 14l.9 2.6L22 17l-2.1.7L19 20l-.9-2.3L16 17l2.1-.4L19 14z" fill="#4dbc4d"/><path d="M5 15l.7 2L8 17.6l-2.3.8L5 20l-.7-1.6L2 17.6 4.3 17 5 15z" fill="#4dbc4d"/></svg></span>
+    <div class="ai-input-wrap">
+      <input type="text" id="aiInput" placeholder="Попитай нашия AI асистент за машина или лизингови условия...">
+      <button class="ai-send" type="button"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 11.5L21 3l-8.5 18-2.3-7.2L3 11.5z" fill="none" stroke="#4dbc4d" stroke-width="2" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</div>
+
+
+<div class="search-card" id="search">
+  <div class="search-grid">
+    <div class="field">
+      <label>Избери марка:</label>
+      <div class="select-wrap"><select><option>Марка</option><option>John Deere</option><option>CLAAS</option><option>New Holland</option><option>Case IH</option><option>Fendt</option><option>Massey Ferguson</option><option>Deutz-Fahr</option><option>Kubota</option><option>Valtra</option><option>Zetor</option><option>Amazone</option><option>Lemken</option><option>Väderstad</option><option>Hardi</option></select></div>
+    </div>
+    <div class="field">
+      <label>Избери модел:</label>
+      <div class="select-wrap"><select><option>Модел</option></select></div>
+    </div>
+    <div class="field">
+      <label>Месечна вноска (€):</label>
+      <div class="range-pair">
+        <div class="range-input"><span class="prefix">от</span><input type="text" value="0"><div class="range-note">0.00лв</div></div>
+        <div class="range-input"><span class="prefix">до</span><input type="text" value="8500"><div class="range-note">16 624.56лв</div></div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Първоначална вноска (€):</label>
+      <div class="range-pair">
+        <div class="range-input"><span class="prefix">от</span><input type="text" value="1000"></div>
+        <div class="range-input"><span class="prefix">до</span><input type="text" value="142000"></div>
+      </div>
+    </div>
+  </div>
+  <div class="search-bottom">
+    <div class="field">
+      <label>1-ва регистрация</label>
+      <div class="range-input"><span class="prefix">след</span><input type="text" value="2016"></div>
+    </div>
+    <div class="field">
+      <label>Моточасове</label>
+      <div class="range-input"><span class="prefix">до</span><input type="text" value="10000"></div>
+    </div>
+    <div class="search-actions">
+      <a class="btn-show" href="catalog.html" style="color:#fff">Покажи</a>
+      <span class="more-params">⊕ още параметри</span>
+    </div>
+    <div class="checks">
+      <label class="check"><input type="checkbox" checked><span class="box"></span> Нови</label>
+      <label class="check"><input type="checkbox" checked><span class="box"></span> Употребявани</label>
+      <label class="check"><input type="checkbox"><span class="box"></span> Трактори</label>
+      <label class="check"><input type="checkbox"><span class="box"></span> Комбайни</label>
+      <label class="check"><input type="checkbox"><span class="box"></span> Сеялки</label>
+      <label class="check"><input type="checkbox"><span class="box"></span> Пръскачки</label>
+      <label class="check"><input type="checkbox"><span class="box"></span> Ремаркета</label>
+      <label class="check"><input type="checkbox"><span class="box"></span> Инвентар</label>
+    </div>
+  </div>
+  <div class="powered-mini">Powered by <b>ЗЛАТЕКС Лизинг</b></div>
+</div>
+
+<section class="cats">
+  <div class="cats-track">
+    <a class="cat-card" href="catalog.html"><img src="img/cat-tractors.svg" alt="Трактори"><div class="cat-name">Трактори</div><div class="cat-count">412 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-combines.svg" alt="Комбайни"><div class="cat-name">Комбайни</div><div class="cat-count">126 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-seeders.svg" alt="Сеялки"><div class="cat-name">Сеялки</div><div class="cat-count">98 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-sprayers.svg" alt="Пръскачки"><div class="cat-name">Пръскачки</div><div class="cat-count">74 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-trailers.svg" alt="Ремаркета"><div class="cat-name">Ремаркета</div><div class="cat-count">63 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-inventar.svg" alt="Инвентар"><div class="cat-name">Инвентар</div><div class="cat-count">187 активни оферти</div></a>
+  </div>
+</section>
+
+<section class="section container">
+  <h2 class="section-title">Топ оферти за нова техника на лизинг</h2>
+  <p class="section-sub">Специални предложения за налични машини с бърза доставка</p>
+  <div class="offers-grid">
+    
+<article class="offer-card">
+  <a class="offer-media" href="product-1.html">
+    <div class="badge new"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="14" width="18" height="9" rx="2.5" fill="#fff"/><rect x="19" y="8" width="10" height="15" rx="2.5" fill="#fff" opacity=".85"/><rect x="21.5" y="10.5" width="5" height="5.5" rx="1.2" fill="#4dbc4d"/><circle cx="10" cy="26.5" r="4.6" fill="#fff"/><circle cx="25.5" cy="25.5" r="6" fill="#fff"/><circle cx="10" cy="26.5" r="2" fill="#4dbc4d"/><circle cx="25.5" cy="25.5" r="2.6" fill="#4dbc4d"/><rect x="7" y="9" width="2.6" height="6" fill="#fff"/></svg><span>НОВА</span></div>
+    <img src="img/tractor-green.jpg" alt="John Deere 6R 150">
+    <div class="ribbon">
+      <div class="monthly">
+        <div class="m-price"><span class="money" data-eur="1254">€1 254</span> <small>/мес</small></div>
+        <div class="m-note">с ДДС средно за периода</div>
+      </div>
+      <div class="total">
+        <div class="t-label">ЦЕНА:</div>
+        <div class="t-price money" data-eur="152900">€152 900</div>
+      </div>
+    </div>
+  </a>
+  <h3 class="offer-title"><a href="product-1.html" style="color:inherit">John Deere 6R 150</a></h3>
+  <div class="offer-specs two"><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="3" width="10" height="18" rx="2" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><rect x="6.5" y="5.5" width="5" height="4" rx="1" fill="#6c6c6c"/><path d="M14 9h2.4a1.6 1.6 0 011.6 1.6V17a1.5 1.5 0 003 0v-6l-2-2" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>Дизел</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 21h10M9 21V10a3 3 0 016 0v11M12 3v4M8 5l1.5 2.5M16 5l-1.5 2.5" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>150 к.с.</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.6" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="9.5" fill="#6c6c6c">М</text></svg><span>AutoPowr 50 км/ч</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-6.4-5.4-7.7-9.6C3.3 8 6 4 12 4s8.7 4 7.7 7.4C18.4 15.6 12 21 12 21z" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><circle cx="12" cy="10.5" r="2.4" fill="#6c6c6c"/></svg><span>гр. Стара Загора</span></div></div>
+  <div class="offer-actions">
+    <a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3" fill="none" stroke="#4dbc4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Сравни</a><span class="sep"></span><a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20s-7.5-4.8-9.3-9.1C1.3 7.6 3.3 4.5 6.6 4.5c2 0 3.6 1.1 4.4 2.7l1 .1c.8-1.7 2.4-2.8 4.4-2.8 3.3 0 5.3 3.1 3.9 6.4C18.5 15.2 12 20 12 20z" fill="none" stroke="#4dbc4d" stroke-width="1.8"/></svg> Любими</a>
+  </div>
+</article>
+<article class="offer-card">
+  <a class="offer-media" href="product-2.html">
+    <div class="badge new"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="14" width="18" height="9" rx="2.5" fill="#fff"/><rect x="19" y="8" width="10" height="15" rx="2.5" fill="#fff" opacity=".85"/><rect x="21.5" y="10.5" width="5" height="5.5" rx="1.2" fill="#4dbc4d"/><circle cx="10" cy="26.5" r="4.6" fill="#fff"/><circle cx="25.5" cy="25.5" r="6" fill="#fff"/><circle cx="10" cy="26.5" r="2" fill="#4dbc4d"/><circle cx="25.5" cy="25.5" r="2.6" fill="#4dbc4d"/><rect x="7" y="9" width="2.6" height="6" fill="#fff"/></svg><span>НОВА</span></div>
+    <img src="img/combine-yellow.jpg" alt="CLAAS LEXION 5400">
+    <div class="ribbon">
+      <div class="monthly">
+        <div class="m-price"><span class="money" data-eur="3190">€3 190</span> <small>/мес</small></div>
+        <div class="m-note">с ДДС средно за периода</div>
+      </div>
+      <div class="total">
+        <div class="t-label">ЦЕНА:</div>
+        <div class="t-price money" data-eur="389000">€389 000</div>
+      </div>
+    </div>
+  </a>
+  <h3 class="offer-title"><a href="product-2.html" style="color:inherit">CLAAS LEXION 5400</a></h3>
+  <div class="offer-specs two"><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="3" width="10" height="18" rx="2" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><rect x="6.5" y="5.5" width="5" height="4" rx="1" fill="#6c6c6c"/><path d="M14 9h2.4a1.6 1.6 0 011.6 1.6V17a1.5 1.5 0 003 0v-6l-2-2" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>Дизел</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 21h10M9 21V10a3 3 0 016 0v11M12 3v4M8 5l1.5 2.5M16 5l-1.5 2.5" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>313 к.с.</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.6" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="9.5" fill="#6c6c6c">М</text></svg><span>CMATIC</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-6.4-5.4-7.7-9.6C3.3 8 6 4 12 4s8.7 4 7.7 7.4C18.4 15.6 12 21 12 21z" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><circle cx="12" cy="10.5" r="2.4" fill="#6c6c6c"/></svg><span>гр. Добрич</span></div></div>
+  <div class="offer-actions">
+    <a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3" fill="none" stroke="#4dbc4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Сравни</a><span class="sep"></span><a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20s-7.5-4.8-9.3-9.1C1.3 7.6 3.3 4.5 6.6 4.5c2 0 3.6 1.1 4.4 2.7l1 .1c.8-1.7 2.4-2.8 4.4-2.8 3.3 0 5.3 3.1 3.9 6.4C18.5 15.2 12 20 12 20z" fill="none" stroke="#4dbc4d" stroke-width="1.8"/></svg> Любими</a>
+  </div>
+</article>
+<article class="offer-card">
+  <a class="offer-media" href="product-5.html">
+    <div class="badge new"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="14" width="18" height="9" rx="2.5" fill="#fff"/><rect x="19" y="8" width="10" height="15" rx="2.5" fill="#fff" opacity=".85"/><rect x="21.5" y="10.5" width="5" height="5.5" rx="1.2" fill="#4dbc4d"/><circle cx="10" cy="26.5" r="4.6" fill="#fff"/><circle cx="25.5" cy="25.5" r="6" fill="#fff"/><circle cx="10" cy="26.5" r="2" fill="#4dbc4d"/><circle cx="25.5" cy="25.5" r="2.6" fill="#4dbc4d"/><rect x="7" y="9" width="2.6" height="6" fill="#fff"/></svg><span>НОВА</span></div>
+    <img src="img/tractor-lime.jpg" alt="Fendt 724 Vario">
+    <div class="ribbon">
+      <div class="monthly">
+        <div class="m-price"><span class="money" data-eur="2039">€2 039</span> <small>/мес</small></div>
+        <div class="m-note">с ДДС средно за периода</div>
+      </div>
+      <div class="total">
+        <div class="t-label">ЦЕНА:</div>
+        <div class="t-price money" data-eur="248700">€248 700</div>
+      </div>
+    </div>
+  </a>
+  <h3 class="offer-title"><a href="product-5.html" style="color:inherit">Fendt 724 Vario</a></h3>
+  <div class="offer-specs two"><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="3" width="10" height="18" rx="2" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><rect x="6.5" y="5.5" width="5" height="4" rx="1" fill="#6c6c6c"/><path d="M14 9h2.4a1.6 1.6 0 011.6 1.6V17a1.5 1.5 0 003 0v-6l-2-2" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>Дизел</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 21h10M9 21V10a3 3 0 016 0v11M12 3v4M8 5l1.5 2.5M16 5l-1.5 2.5" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>246 к.с.</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.6" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="9.5" fill="#6c6c6c">М</text></svg><span>Vario безстепенна</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-6.4-5.4-7.7-9.6C3.3 8 6 4 12 4s8.7 4 7.7 7.4C18.4 15.6 12 21 12 21z" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><circle cx="12" cy="10.5" r="2.4" fill="#6c6c6c"/></svg><span>гр. София</span></div></div>
+  <div class="offer-actions">
+    <a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3" fill="none" stroke="#4dbc4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Сравни</a><span class="sep"></span><a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20s-7.5-4.8-9.3-9.1C1.3 7.6 3.3 4.5 6.6 4.5c2 0 3.6 1.1 4.4 2.7l1 .1c.8-1.7 2.4-2.8 4.4-2.8 3.3 0 5.3 3.1 3.9 6.4C18.5 15.2 12 20 12 20z" fill="none" stroke="#4dbc4d" stroke-width="1.8"/></svg> Любими</a>
+  </div>
+</article>
+<article class="offer-card">
+  <a class="offer-media" href="product-6.html">
+    <div class="badge new"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="14" width="18" height="9" rx="2.5" fill="#fff"/><rect x="19" y="8" width="10" height="15" rx="2.5" fill="#fff" opacity=".85"/><rect x="21.5" y="10.5" width="5" height="5.5" rx="1.2" fill="#4dbc4d"/><circle cx="10" cy="26.5" r="4.6" fill="#fff"/><circle cx="25.5" cy="25.5" r="6" fill="#fff"/><circle cx="10" cy="26.5" r="2" fill="#4dbc4d"/><circle cx="25.5" cy="25.5" r="2.6" fill="#4dbc4d"/><rect x="7" y="9" width="2.6" height="6" fill="#fff"/></svg><span>НОВА</span></div>
+    <img src="img/seeder.jpg" alt="Amazone Cirrus 6003-2">
+    <div class="ribbon">
+      <div class="monthly">
+        <div class="m-price"><span class="money" data-eur="921">€921</span> <small>/мес</small></div>
+        <div class="m-note">с ДДС средно за периода</div>
+      </div>
+      <div class="total">
+        <div class="t-label">ЦЕНА:</div>
+        <div class="t-price money" data-eur="112300">€112 300</div>
+      </div>
+    </div>
+  </a>
+  <h3 class="offer-title"><a href="product-6.html" style="color:inherit">Amazone Cirrus 6003-2</a></h3>
+  <div class="offer-specs two"><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="3" width="10" height="18" rx="2" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><rect x="6.5" y="5.5" width="5" height="4" rx="1" fill="#6c6c6c"/><path d="M14 9h2.4a1.6 1.6 0 011.6 1.6V17a1.5 1.5 0 003 0v-6l-2-2" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>Прикачна</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 21h10M9 21V10a3 3 0 016 0v11M12 3v4M8 5l1.5 2.5M16 5l-1.5 2.5" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>6 м работна ширина</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.6" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="9.5" fill="#6c6c6c">М</text></svg><span>ISOBUS</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-6.4-5.4-7.7-9.6C3.3 8 6 4 12 4s8.7 4 7.7 7.4C18.4 15.6 12 21 12 21z" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><circle cx="12" cy="10.5" r="2.4" fill="#6c6c6c"/></svg><span>гр. Пловдив</span></div></div>
+  <div class="offer-actions">
+    <a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3" fill="none" stroke="#4dbc4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Сравни</a><span class="sep"></span><a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20s-7.5-4.8-9.3-9.1C1.3 7.6 3.3 4.5 6.6 4.5c2 0 3.6 1.1 4.4 2.7l1 .1c.8-1.7 2.4-2.8 4.4-2.8 3.3 0 5.3 3.1 3.9 6.4C18.5 15.2 12 20 12 20z" fill="none" stroke="#4dbc4d" stroke-width="1.8"/></svg> Любими</a>
+  </div>
+</article>
+<article class="offer-card">
+  <a class="offer-media" href="product-7.html">
+    <div class="badge new"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="14" width="18" height="9" rx="2.5" fill="#fff"/><rect x="19" y="8" width="10" height="15" rx="2.5" fill="#fff" opacity=".85"/><rect x="21.5" y="10.5" width="5" height="5.5" rx="1.2" fill="#4dbc4d"/><circle cx="10" cy="26.5" r="4.6" fill="#fff"/><circle cx="25.5" cy="25.5" r="6" fill="#fff"/><circle cx="10" cy="26.5" r="2" fill="#4dbc4d"/><circle cx="25.5" cy="25.5" r="2.6" fill="#4dbc4d"/><rect x="7" y="9" width="2.6" height="6" fill="#fff"/></svg><span>НОВА</span></div>
+    <img src="img/tractor-orange.jpg" alt="Massey Ferguson 8S.205">
+    <div class="ribbon">
+      <div class="monthly">
+        <div class="m-price"><span class="money" data-eur="1627">€1 627</span> <small>/мес</small></div>
+        <div class="m-note">с ДДС средно за периода</div>
+      </div>
+      <div class="total">
+        <div class="t-label">ЦЕНА:</div>
+        <div class="t-price money" data-eur="198400">€198 400</div>
+      </div>
+    </div>
+  </a>
+  <h3 class="offer-title"><a href="product-7.html" style="color:inherit">Massey Ferguson 8S.205</a></h3>
+  <div class="offer-specs two"><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="3" width="10" height="18" rx="2" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><rect x="6.5" y="5.5" width="5" height="4" rx="1" fill="#6c6c6c"/><path d="M14 9h2.4a1.6 1.6 0 011.6 1.6V17a1.5 1.5 0 003 0v-6l-2-2" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>Дизел</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 21h10M9 21V10a3 3 0 016 0v11M12 3v4M8 5l1.5 2.5M16 5l-1.5 2.5" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>205 к.с.</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.6" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="9.5" fill="#6c6c6c">М</text></svg><span>Dyna-7</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-6.4-5.4-7.7-9.6C3.3 8 6 4 12 4s8.7 4 7.7 7.4C18.4 15.6 12 21 12 21z" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><circle cx="12" cy="10.5" r="2.4" fill="#6c6c6c"/></svg><span>гр. Бургас</span></div></div>
+  <div class="offer-actions">
+    <a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3" fill="none" stroke="#4dbc4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Сравни</a><span class="sep"></span><a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20s-7.5-4.8-9.3-9.1C1.3 7.6 3.3 4.5 6.6 4.5c2 0 3.6 1.1 4.4 2.7l1 .1c.8-1.7 2.4-2.8 4.4-2.8 3.3 0 5.3 3.1 3.9 6.4C18.5 15.2 12 20 12 20z" fill="none" stroke="#4dbc4d" stroke-width="1.8"/></svg> Любими</a>
+  </div>
+</article>
+    <article class="promo-card">
+      <img class="promo-bg" src="img/promo-fleet.jpg" alt="">
+      <div class="promo-tag"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4L12 2z" fill="#ffffff"/><path d="M19 14l.9 2.6L22 17l-2.1.7L19 20l-.9-2.3L16 17l2.1-.4L19 14z" fill="#ffffff"/><path d="M5 15l.7 2L8 17.6l-2.3.8L5 20l-.7-1.6L2 17.6 4.3 17 5 15z" fill="#ffffff"/></svg><span>СПЕЦИАЛНИ<br>УСЛОВИЯ</span></div>
+      <div class="promo-overlay">
+        <h3>Немско инженерство на нова цена: Вземи своя нов Fendt от NovaMashina.bg с вноска от 950 €!</h3>
+        <p>Специални условия: лихва 3,65% и атрактивни вноски до 30.06.2026 г</p>
+      </div>
+    </article>
+    <article class="promo-card">
+      <img class="promo-bg" src="img/promo-harvest.jpg" alt="">
+      <div class="promo-overlay">
+        <h3>Готови за жътва: Лимитирана серия CLAAS GO! Edition при ексклузивни условия от NovaMashina.bg</h3>
+        <p>Месечна вноска от €1 990 и промоционална плаваща лихва 3.5%</p>
+      </div>
+    </article>
+  </div>
+  <div class="cta-center"><a class="btn-cta" href="catalog.html">Нова техника на лизинг</a></div>
+</section>
+
+<section class="section container">
+  <h2 class="section-title">Употребявана техника на лизинг</h2>
+  <p class="section-sub">Проверени, обслужени и върнати от лизинг машини с гаранция</p>
+  <div class="offers-grid">
+    
+<article class="offer-card">
+  <a class="offer-media" href="product-3.html">
+    <div class="badge used"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 7a13 13 0 0111.5 7l-3.4 1.9A9 9 0 0020 11z" fill="#fff"/><path d="M33 22a13 13 0 01-9.5 10.6l-1-3.8A9 9 0 0029 22z" fill="#fff"/><path d="M9 28A13 13 0 017.2 15.5l3.8 1.2A9 9 0 0012 25z" fill="#fff"/><polygon points="29,12 34,16 28,18" fill="#fff"/><polygon points="24,34 18,33 22,28" fill="#fff"/><polygon points="6,24 8,18 12,23" fill="#fff"/></svg><span>УПОТРЕБЯВАНА</span></div><div class="lease-corner"><span>Лизингова машина</span></div>
+    <img src="img/tractor-blue.jpg" alt="New Holland T6.180">
+    <div class="ribbon">
+      <div class="monthly">
+        <div class="m-price"><span class="money" data-eur="644">€644</span> <small>/мес</small></div>
+        <div class="m-note">с ДДС средно за периода</div>
+      </div>
+      <div class="total">
+        <div class="t-label">ЦЕНА:</div>
+        <div class="t-price money" data-eur="78500">€78 500</div>
+      </div>
+    </div>
+  </a>
+  <h3 class="offer-title"><a href="product-3.html" style="color:inherit">New Holland T6.180</a></h3>
+  <div class="offer-specs "><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><path d="M12 6.5V12l3.6 2.4" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>4 200 мч</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="5" width="17" height="16" rx="2.5" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>2021 г.</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="3" width="10" height="18" rx="2" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><rect x="6.5" y="5.5" width="5" height="4" rx="1" fill="#6c6c6c"/><path d="M14 9h2.4a1.6 1.6 0 011.6 1.6V17a1.5 1.5 0 003 0v-6l-2-2" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>Дизел</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 21h10M9 21V10a3 3 0 016 0v11M12 3v4M8 5l1.5 2.5M16 5l-1.5 2.5" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>175 к.с.</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.6" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="9.5" fill="#6c6c6c">М</text></svg><span>Electro Command</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-6.4-5.4-7.7-9.6C3.3 8 6 4 12 4s8.7 4 7.7 7.4C18.4 15.6 12 21 12 21z" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><circle cx="12" cy="10.5" r="2.4" fill="#6c6c6c"/></svg><span>гр. Русe</span></div></div>
+  <div class="offer-actions">
+    <a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3" fill="none" stroke="#4dbc4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Сравни</a><span class="sep"></span><a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20s-7.5-4.8-9.3-9.1C1.3 7.6 3.3 4.5 6.6 4.5c2 0 3.6 1.1 4.4 2.7l1 .1c.8-1.7 2.4-2.8 4.4-2.8 3.3 0 5.3 3.1 3.9 6.4C18.5 15.2 12 20 12 20z" fill="none" stroke="#4dbc4d" stroke-width="1.8"/></svg> Любими</a>
+  </div>
+</article>
+<article class="offer-card">
+  <a class="offer-media" href="product-4.html">
+    <div class="badge used"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 7a13 13 0 0111.5 7l-3.4 1.9A9 9 0 0020 11z" fill="#fff"/><path d="M33 22a13 13 0 01-9.5 10.6l-1-3.8A9 9 0 0029 22z" fill="#fff"/><path d="M9 28A13 13 0 017.2 15.5l3.8 1.2A9 9 0 0012 25z" fill="#fff"/><polygon points="29,12 34,16 28,18" fill="#fff"/><polygon points="24,34 18,33 22,28" fill="#fff"/><polygon points="6,24 8,18 12,23" fill="#fff"/></svg><span>УПОТРЕБЯВАНА</span></div>
+    <img src="img/tractor-red.jpg" alt="Case IH Puma 165">
+    <div class="ribbon">
+      <div class="monthly">
+        <div class="m-price"><span class="money" data-eur="532">€532</span> <small>/мес</small></div>
+        <div class="m-note">с ДДС средно за периода</div>
+      </div>
+      <div class="total">
+        <div class="t-label">ЦЕНА:</div>
+        <div class="t-price money" data-eur="64900">€64 900</div>
+      </div>
+    </div>
+  </a>
+  <h3 class="offer-title"><a href="product-4.html" style="color:inherit">Case IH Puma 165</a></h3>
+  <div class="offer-specs "><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><path d="M12 6.5V12l3.6 2.4" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>6 800 мч</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="5" width="17" height="16" rx="2.5" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>2019 г.</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="3" width="10" height="18" rx="2" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><rect x="6.5" y="5.5" width="5" height="4" rx="1" fill="#6c6c6c"/><path d="M14 9h2.4a1.6 1.6 0 011.6 1.6V17a1.5 1.5 0 003 0v-6l-2-2" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>Дизел</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 21h10M9 21V10a3 3 0 016 0v11M12 3v4M8 5l1.5 2.5M16 5l-1.5 2.5" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>165 к.с.</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.6" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="9.5" fill="#6c6c6c">М</text></svg><span>Full Powershift</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-6.4-5.4-7.7-9.6C3.3 8 6 4 12 4s8.7 4 7.7 7.4C18.4 15.6 12 21 12 21z" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><circle cx="12" cy="10.5" r="2.4" fill="#6c6c6c"/></svg><span>гр. Плевен</span></div></div>
+  <div class="offer-actions">
+    <a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3" fill="none" stroke="#4dbc4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Сравни</a><span class="sep"></span><a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20s-7.5-4.8-9.3-9.1C1.3 7.6 3.3 4.5 6.6 4.5c2 0 3.6 1.1 4.4 2.7l1 .1c.8-1.7 2.4-2.8 4.4-2.8 3.3 0 5.3 3.1 3.9 6.4C18.5 15.2 12 20 12 20z" fill="none" stroke="#4dbc4d" stroke-width="1.8"/></svg> Любими</a>
+  </div>
+</article>
+<article class="offer-card">
+  <a class="offer-media" href="product-8.html">
+    <div class="badge used"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 7a13 13 0 0111.5 7l-3.4 1.9A9 9 0 0020 11z" fill="#fff"/><path d="M33 22a13 13 0 01-9.5 10.6l-1-3.8A9 9 0 0029 22z" fill="#fff"/><path d="M9 28A13 13 0 017.2 15.5l3.8 1.2A9 9 0 0012 25z" fill="#fff"/><polygon points="29,12 34,16 28,18" fill="#fff"/><polygon points="24,34 18,33 22,28" fill="#fff"/><polygon points="6,24 8,18 12,23" fill="#fff"/></svg><span>УПОТРЕБЯВАНА</span></div>
+    <img src="img/combine-green.jpg" alt="CLAAS TUCANO 580">
+    <div class="ribbon">
+      <div class="monthly">
+        <div class="m-price"><span class="money" data-eur="1189">€1 189</span> <small>/мес</small></div>
+        <div class="m-note">с ДДС средно за периода</div>
+      </div>
+      <div class="total">
+        <div class="t-label">ЦЕНА:</div>
+        <div class="t-price money" data-eur="145000">€145 000</div>
+      </div>
+    </div>
+  </a>
+  <h3 class="offer-title"><a href="product-8.html" style="color:inherit">CLAAS TUCANO 580</a></h3>
+  <div class="offer-specs "><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><path d="M12 6.5V12l3.6 2.4" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>2 350 мч</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="5" width="17" height="16" rx="2.5" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>2020 г.</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="3" width="10" height="18" rx="2" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><rect x="6.5" y="5.5" width="5" height="4" rx="1" fill="#6c6c6c"/><path d="M14 9h2.4a1.6 1.6 0 011.6 1.6V17a1.5 1.5 0 003 0v-6l-2-2" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>Дизел</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 21h10M9 21V10a3 3 0 016 0v11M12 3v4M8 5l1.5 2.5M16 5l-1.5 2.5" fill="none" stroke="#6c6c6c" stroke-width="1.7" stroke-linecap="round"/></svg><span>299 к.с.</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.6" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><text x="12" y="15.5" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="9.5" fill="#6c6c6c">М</text></svg><span>Хидростатична</span></div><div class="spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-6.4-5.4-7.7-9.6C3.3 8 6 4 12 4s8.7 4 7.7 7.4C18.4 15.6 12 21 12 21z" fill="none" stroke="#6c6c6c" stroke-width="1.7"/><circle cx="12" cy="10.5" r="2.4" fill="#6c6c6c"/></svg><span>гр. Сливен</span></div></div>
+  <div class="offer-actions">
+    <a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3" fill="none" stroke="#4dbc4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Сравни</a><span class="sep"></span><a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20s-7.5-4.8-9.3-9.1C1.3 7.6 3.3 4.5 6.6 4.5c2 0 3.6 1.1 4.4 2.7l1 .1c.8-1.7 2.4-2.8 4.4-2.8 3.3 0 5.3 3.1 3.9 6.4C18.5 15.2 12 20 12 20z" fill="none" stroke="#4dbc4d" stroke-width="1.8"/></svg> Любими</a>
+  </div>
+</article>
+  </div>
+  <div class="cta-center"><a class="btn-cta dark" href="catalog.html">Употребявана техника на лизинг</a></div>
+</section>
+
+<section class="two-sided container">
+  <h2 class="two-sided-title">Търсиш или продаваш машина?<br><span class="brand">NovaMashina.bg</span> е твоето място</h2>
+  <div class="two-sided-card">
+    <div class="side">
+      <h4>За купувачи</h4>
+      <div class="lead">Само сигурни и проверени обяви за техника. Намери бързо машината, която търсиш.</div>
+      <p>Разгледай хиляди оферти за нови и употребявани машини от официални представители и доверени търговци в цялата страна.</p>
+      <a class="btn-cta" href="catalog.html">Разгледай обявите</a>
+    </div>
+    <svg class="two-sided-art" viewBox="0 0 220 160"><ellipse cx="110" cy="120" rx="100" ry="26" fill="#eef7ee"/><g transform="translate(40,30)"><rect x="10" y="36" width="80" height="34" rx="9" fill="#3f9e3f"/><rect x="78" y="12" width="44" height="58" rx="9" fill="#1f6b2d"/><rect x="84" y="20" width="32" height="26" rx="5" fill="#cfe3ef"/><circle cx="36" cy="78" r="20" fill="#2b2b2b"/><circle cx="36" cy="78" r="11" fill="#777"/><circle cx="100" cy="72" r="26" fill="#2b2b2b"/><circle cx="100" cy="72" r="14" fill="#777"/><rect x="20" y="14" width="9" height="20" rx="4" fill="#333"/></g><path d="M150 50 l24 -18 24 18" fill="none" stroke="#4dbc4d" stroke-width="5" stroke-linecap="round"/></svg>
+    <div class="side">
+      <h4>За продавачи</h4>
+      <div class="lead">Публикувай обявата си тук, където клиентите търсят своята нова машина.</div>
+      <p>Достигни до хиляди земеделски стопани и агрофирми. Публикуването е бързо, лесно и с пълно съдействие от нашия екип.</p>
+      <a class="btn-cta dark" href="#">Добави обява</a>
+    </div>
+  </div>
+</section>
+
+<section class="seek-wrap">
+  <div class="seek-card">
+    <h3>Най-търсени марки</h3>
+    <div class="seek-grid">
+      <a href="catalog.html">John Deere</a><a href="catalog.html">CLAAS</a><a href="catalog.html">New Holland</a><a href="catalog.html">Case IH</a>
+      <a href="catalog.html">Fendt</a><a href="catalog.html">Massey Ferguson</a><a href="catalog.html">Deutz-Fahr</a><a href="catalog.html">Kubota</a>
+      <a href="catalog.html">Valtra</a><a href="catalog.html">Zetor</a><a href="catalog.html">Amazone</a><a href="catalog.html">Lemken</a>
+      <a href="catalog.html">Väderstad</a><a href="catalog.html">Hardi</a><a href="catalog.html">Kverneland</a><a href="catalog.html">Pöttinger</a>
+    </div>
+  </div>
+  <div class="seek-card">
+    <h3>Най-търсени модели</h3>
+    <div class="seek-grid cols-4">
+      <a href="catalog.html">John Deere 6R</a><a href="catalog.html">CLAAS LEXION</a><a href="catalog.html">New Holland T6</a><a href="catalog.html">Case IH Puma</a>
+      <a href="catalog.html">Fendt 724 Vario</a><a href="catalog.html">John Deere 8R</a><a href="catalog.html">CLAAS TUCANO</a><a href="catalog.html">Deutz-Fahr 6 Series</a>
+      <a href="catalog.html">Massey Ferguson 8S</a><a href="catalog.html">Kubota M7</a><a href="catalog.html">CLAAS ARION</a><a href="catalog.html">New Holland CX</a>
+      <a href="catalog.html">Amazone Cirrus</a><a href="catalog.html">Lemken Juwel</a><a href="catalog.html">Väderstad Rapid</a><a href="catalog.html">Hardi Aeon</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <a class="logo" href="index.html">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="14" width="60" height="48" rx="12" fill="#4dbc4d"/><rect x="2" y="14" width="60" height="12" rx="6" fill="#006b3f"/><rect x="28" y="6" width="8" height="16" rx="3" fill="#006b3f"/><g transform="translate(9,24)"><rect x="2" y="12" width="26" height="12" rx="3" fill="#fff"/><rect x="24" y="4" width="14" height="20" rx="3" fill="#eafbea"/><rect x="27" y="7" width="8" height="8" rx="2" fill="#4dbc4d"/><circle cx="10" cy="28" r="6.5" fill="#0e4d2c"/><circle cx="10" cy="28" r="3" fill="#fff"/><circle cx="32" cy="26" r="8.5" fill="#0e4d2c"/><circle cx="32" cy="26" r="4" fill="#fff"/><rect x="6" y="6" width="3.5" height="8" fill="#0e4d2c"/></g></svg>
+        <span>
+          <span class="logo-text">NOVA <span>MASHINA</span><small style="font-size:15px">.BG</small></span>
+          <div class="logo-sub">селскостопанска техника на лизинг</div>
+        </span>
+      </a>
+      <div class="powered-by"><div class="pb-label">Powered by</div><div class="pb-brand" style="font-size:24px">ЗЛАТЕКС</div></div>
+    </div>
+    <div class="footer-grid">
+      <div class="f-col f-contacts">
+        <h5>Контакти</h5>
+        <div class="f-item"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-6.4-5.4-7.7-9.6C3.3 8 6 4 12 4s8.7 4 7.7 7.4C18.4 15.6 12 21 12 21z" fill="none" stroke="#4dbc4d" stroke-width="1.8"/><circle cx="12" cy="10.5" r="2.4" fill="#4dbc4d"/></svg><span>Централа на ЗЛАТЕКС ООД<br>гр. Стара Загора, бул. Никола Петков 55</span></div>
+        <div class="f-item"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 005 5L15 13l5 2v4a2 2 0 01-2 2A15 15 0 013 6a2 2 0 012-2z" fill="none" stroke="#4dbc4d" stroke-width="1.8" stroke-linejoin="round"/></svg><span>+359 88 510 4040<br>+359 42 600 046</span></div>
+        <div class="f-item"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5.5" width="18" height="13" rx="2" fill="none" stroke="#4dbc4d" stroke-width="1.8"/><path d="M4 7l8 6 8-6" fill="none" stroke="#4dbc4d" stroke-width="1.8"/></svg><span>contact@novamashina.bg</span></div>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="11" fill="#4dbc4d"/><path d="M13.4 19v-6h2l.4-2.4h-2.4V9.2c0-.7.3-1.2 1.3-1.2h1.2V5.9c-.3 0-1 0-1.8 0-1.9 0-3.1 1.1-3.1 3.1v1.6H9V13h2v6z" fill="#fff"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="#4dbc4d" stroke-width="2"/><circle cx="12" cy="12" r="4.4" fill="none" stroke="#4dbc4d" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.4" fill="#4dbc4d"/></svg></a>
+        </div>
+      </div>
+      <div class="f-col f-links">
+        <h5>Полезни връзки</h5>
+        <a href="#">Вход за потребители</a>
+        <a href="#">Вход за дилъри</a>
+        <a href="#">Регистрация на оферта</a>
+        <a href="#">Златекс Лизинг</a>
+        <a href="#">Застрахователен брокер</a>
+      </div>
+      <div class="f-col f-ai">
+        <div class="ai-box">
+          <div class="ai-box-badge">
+            <span class="ai-dot-pulse"></span>
+            <span>АгроAI Онлайн</span>
+          </div>
+          <h5>Попитайте нашия AI Асистент</h5>
+          <p>Намерете бързо точната машина и най-изгодните лизингови условия.</p>
+          <a class="ai-link" href="#ai">Задай въпрос <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4L12 2z" fill="#4dbc4d"/><path d="M19 14l.9 2.6L22 17l-2.1.7L19 20l-.9-2.3L16 17l2.1-.4L19 14z" fill="#4dbc4d"/><path d="M5 15l.7 2L8 17.6l-2.3.8L5 20l-.7-1.6L2 17.6 4.3 17 5 15z" fill="#4dbc4d"/></svg></a>
+        </div>
+      </div>
+      <div class="f-col newsletter">
+        <h5>Бюлетин</h5>
+        <p class="nl-desc">Абонирайте се за най-новите и изгодни оферти на пазара.</p>
+        <div class="nl-form">
+          <input type="text" placeholder="Вашето име">
+          <input type="email" placeholder="Имейл адрес">
+          <button class="btn-send" type="button">Абониране</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Нова Машина</span>
+      <div class="fb-links"><a href="#">Общи условия</a><a href="#">Права и условия за ползване</a></div>
+      <span>Уеб сайт от ЗЛАТЕКС ООД</span>
+    </div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
