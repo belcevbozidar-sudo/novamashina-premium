@@ -421,6 +421,17 @@ function resetCcForm() {
 window.addEventListener('DOMContentLoaded', function () {
   initLcCalculator();
   initCcCalculator();
+  
+  // Hamburger menu toggle logic
+  var menuToggle = document.getElementById('menuToggle');
+  var headerNav = document.querySelector('.header-nav');
+  if (menuToggle && headerNav) {
+    menuToggle.addEventListener('click', function () {
+      menuToggle.classList.toggle('active');
+      headerNav.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+    });
+  }
 });
 
 /* ---------- Бюджетен калкулатор ---------- */

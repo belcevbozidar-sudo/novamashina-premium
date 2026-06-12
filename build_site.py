@@ -7,7 +7,7 @@ EUR = "€"
 
 # ---------------------------------------------------------------- ИКОНИ (inline SVG)
 I = {
- 'logo': '''<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="14" width="60" height="48" rx="12" fill="#4dbc4d"/><rect x="2" y="14" width="60" height="12" rx="6" fill="#006b3f"/><rect x="28" y="6" width="8" height="16" rx="3" fill="#006b3f"/><g transform="translate(9,24)"><rect x="2" y="12" width="26" height="12" rx="3" fill="#fff"/><rect x="24" y="4" width="14" height="20" rx="3" fill="#eafbea"/><rect x="27" y="7" width="8" height="8" rx="2" fill="#4dbc4d"/><circle cx="10" cy="28" r="6.5" fill="#0e4d2c"/><circle cx="10" cy="28" r="3" fill="#fff"/><circle cx="32" cy="26" r="8.5" fill="#0e4d2c"/><circle cx="32" cy="26" r="4" fill="#fff"/><rect x="6" y="6" width="3.5" height="8" fill="#0e4d2c"/></g></svg>''',
+ 'logo': '''<img src="img/logo.png" alt="ZLATEX Logo" style="height: 42px; width: auto; object-fit: contain; vertical-align: middle;">''',
  'spark': '''<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4L12 2z" fill="#4dbc4d"/><path d="M19 14l.9 2.6L22 17l-2.1.7L19 20l-.9-2.3L16 17l2.1-.4L19 14z" fill="#4dbc4d"/><path d="M5 15l.7 2L8 17.6l-2.3.8L5 20l-.7-1.6L2 17.6 4.3 17 5 15z" fill="#4dbc4d"/></svg>''',
  'send': '''<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 11.5L21 3l-8.5 18-2.3-7.2L3 11.5z" fill="none" stroke="#4dbc4d" stroke-width="2" stroke-linejoin="round"/></svg>''',
  'info': '''<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="#969696" stroke-width="1.6"/><rect x="11.1" y="10" width="1.8" height="7" rx=".9" fill="#969696"/><circle cx="12" cy="7" r="1.2" fill="#969696"/></svg>''',
@@ -50,42 +50,42 @@ MACHINES = [
       cat='Трактор', state='new', img='tractor-green.jpg', price=152900, monthly=1254,
       fuel='Дизел', hp='150 к.с.', trans='AutoPowr 50 км/ч', loc='гр. Стара Загора', year='2026 г.', hours=None,
       dealer='Агротех България ООД', offer='NMN100214', views=842, engine='6.8 л, 6 цил.', tank='ДДС вкл.',
-      desc='Купи нов John Deere 6R 150 на лизинг с атрактивна месечна вноска от €1 254 / 2 453 лв. и цена на машината €152 900 / 299 047 лв.'),
+      desc='Купи нов John Deere 6R 150 на лизинг с атрактивна месечна вноска от €1 254 и цена на машината €152 900 без ДДС.'),
  dict(id=2, slug='claas-lexion-5400', brand='CLAAS', model='LEXION 5400', title='CLAAS LEXION 5400',
       cat='Комбайн', state='new', img='combine-yellow.jpg', price=389000, monthly=3190,
       fuel='Дизел', hp='313 к.с.', trans='CMATIC', loc='гр. Добрич', year='2026 г.', hours=None, engine='8.9 л, 6 цил.',
       offer='NMN100377', views=1174, dealer='Агро Лидер ООД', tank='ДДС вкл.',
-      desc='Купи нов CLAAS LEXION 5400 на лизинг с атрактивна месечна вноска от €3 190 / 6 239 лв. и цена на машината €389 000 / 760 818 лв.'),
+      desc='Купи нов CLAAS LEXION 5400 на лизинг с атрактивна месечна вноска от €3 190 и цена на машината €389 000 без ДДС.'),
  dict(id=3, slug='new-holland-t6-180', brand='New Holland', model='T6.180', title='New Holland T6.180',
       cat='Трактор', state='used', img='tractor-blue.jpg', price=78500, monthly=644,
       fuel='Дизел', hp='175 к.с.', trans='Electro Command', loc='гр. Русe', year='2021 г.', hours='4 200 мч', engine='6.7 л, 6 цил.',
       offer='NMN100455', views=689, dealer='Фермер Машини ЕООД', tank='ДДС вкл.',
-      desc='Купи употребяван New Holland T6.180 на лизинг с атрактивна месечна вноска от €644 / 1 260 лв. и цена на машината €78 500 / 153 533 лв.'),
+      desc='Купи употребяван New Holland T6.180 на лизинг с атрактивна месечна вноска от €644 и цена на машината €78 500 без ДДС.'),
  dict(id=4, slug='case-ih-puma-165', brand='Case IH', model='Puma 165', title='Case IH Puma 165',
       cat='Трактор', state='used', img='tractor-red.jpg', price=64900, monthly=532,
-      fuel='Дизел', hp='165 к.с.', trans='Full Powershift', loc='гр. Плевен', year='2019 г.', hours='6 800 мч', engine='6.7 л, 6 цил.',
+      fuel='Дизел', hp='165 к.с.', trans='Full Powershift', loc='гр. Плевен', year='2019 г.', hours='6 800 мч', engine='6.7 л, 6 ciл.',
       offer='NMN100502', views=914, dealer='Агрикола Трейд ООД', tank='ДДС вкл.',
-      desc='Купи употребяван Case IH Puma 165 на лизинг с атрактивна месечна вноска от €532 / 1 040 лв. и цена на машината €64 900 / 126 933 лв.'),
+      desc='Купи употребяван Case IH Puma 165 на лизинг с атрактивна месечна вноска от €532 и цена на машината €64 900 без ДДС.'),
  dict(id=5, slug='fendt-724-vario', brand='Fendt', model='724 Vario', title='Fendt 724 Vario',
       cat='Трактор', state='new', img='tractor-lime.jpg', price=248700, monthly=2039,
       fuel='Дизел', hp='246 к.с.', trans='Vario безстепенна', loc='гр. София', year='2026 г.', hours=None, engine='6.1 л, 6 цил.',
       offer='NMN100618', views=1532, dealer='Силоз Агро ЕООД', tank='ДДС вкл.',
-      desc='Купи нов Fendt 724 Vario на лизинг с атрактивна месечна вноска от €2 039 / 3 988 лв. и цена на машината €248 700 / 486 415 лв.'),
+      desc='Купи нов Fendt 724 Vario на лизинг с атрактивна месечна вноска от €2 039 и цена на машината €248 700 без ДДС.'),
  dict(id=6, slug='amazone-cirrus-6003', brand='Amazone', model='Cirrus 6003-2', title='Amazone Cirrus 6003-2',
       cat='Сеялка', state='new', img='seeder.jpg', price=112300, monthly=921,
       fuel='Прикачна', hp='6 м работна ширина', trans='ISOBUS', loc='гр. Пловдив', year='2026 г.', hours=None, engine='—',
       offer='NMN100704', views=455, dealer='Земеделска Техника ЕООД', tank='ДДС вкл.',
-      desc='Купи нова сеялка Amazone Cirrus 6003-2 на лизинг с атрактивна месечна вноска от €921 / 1 801 лв. и цена €112 300 / 219 640 лв.'),
+      desc='Купи нова сеялка Amazone Cirrus 6003-2 на лизинг с атрактивна месечна вноска от €921 и цена €112 300 без ДДС.'),
  dict(id=7, slug='massey-ferguson-8s-205', brand='Massey Ferguson', model='8S.205', title='Massey Ferguson 8S.205',
       cat='Трактор', state='new', img='tractor-orange.jpg', price=198400, monthly=1627,
       fuel='Дизел', hp='205 к.с.', trans='Dyna-7', loc='гр. Бургас', year='2026 г.', hours=None, engine='7.4 л, 6 цил.',
       offer='NMN100791', views=698, dealer='БГ Агро Машини ООД', tank='ДДС вкл.',
-      desc='Купи нов Massey Ferguson 8S.205 на лизинг с атрактивна месечна вноска от €1 627 / 3 182 лв. и цена на машината €198 400 / 388 037 лв.'),
+      desc='Купи нов Massey Ferguson 8S.205 на лизинг с атрактивна месечна вноска от €1 627 и цена на машината €198 400 без ДДС.'),
  dict(id=8, slug='claas-tucano-580', brand='CLAAS', model='TUCANO 580', title='CLAAS TUCANO 580',
       cat='Комбайн', state='used', img='combine-green.jpg', price=145000, monthly=1189,
       fuel='Дизел', hp='299 к.с.', trans='Хидростатична', loc='гр. Сливен', year='2020 г.', hours='2 350 мч', engine='8.7 л, 6 цил.',
       offer='NMN100846', views=1043, dealer='Комбайн Сервиз ООД', tank='ДДС вкл.',
-      desc='Купи употребяван CLAAS TUCANO 580 на лизинг с атрактивна месечна вноска от €1 189 / 2 326 лв. и цена €145 000 / 283 595 лв.'),
+      desc='Купи употребяван CLAAS TUCANO 580 на лизинг с атрактивна месечна вноска от €1 189 и цена €145 000 без ДДС.'),
 ]
 
 def calculate_initial_monthly(price, state):
@@ -129,6 +129,11 @@ def header(active=''):
         <div class="auth-links"><a href="#">Вход</a><span>|</span><a href="#">Регистрация</a></div>
         <a class="compare-link" href="#">{I['compare']} Сравни оферти</a>
         <div class="powered-by"><div class="pb-label">Powered by</div><div class="pb-brand">ЗЛАТЕКС</div></div>
+        <button class="hamburger-menu" id="menuToggle" aria-label="Меню" type="button">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
     <div class="header-nav">
@@ -138,16 +143,14 @@ def header(active=''):
         <a href="calculator.html"{cls('calc')}>Лизингов калкулатор</a>
         <a href="budget-calculator.html"{cls('budget')}>Бюджетен калкулатор</a>
         <a href="dealers.html"{cls('dealers')}>Търговци</a>
-        <a href="news.html"{cls('news')}>Новини</a>
         <a href="about.html"{cls('about')}>За нас</a>
         <a href="contacts.html"{cls('contacts')}>Контакти</a>
       </nav>
       <div class="nav-right">
-        <div class="currency-toggle">
-          <button type="button" class="cur-eur active" onclick="setCurrency('EUR')">Евро</button>
-          <button type="button" class="cur-bgn" onclick="setCurrency('BGN')">Лева</button>
+        <div class="auth-links-mobile">
+          <a href="#">Вход</a><span>|</span><a href="#">Регистрация</a>
         </div>
-        <a class="btn-add" href="#"><span class="plus">+</span> Добави<br>обява</a>
+        <a class="btn-add" href="#"><span class="plus">+</span> Добави обява</a>
       </div>
     </div>
   </div>
@@ -169,8 +172,8 @@ FOOTER = f'''
     <div class="footer-grid">
       <div class="f-col f-contacts">
         <h5>Контакти</h5>
-        <div class="f-item">{I['pin-g']}<span>Централа на ЗЛАТЕКС ООД<br>гр. Стара Загора, бул. Никола Петков 55</span></div>
-        <div class="f-item">{I['phone']}<span>+359 88 510 4040<br>+359 42 600 046</span></div>
+        <div class="f-item">{I['pin-g']}<span>Централен офис на ЗЛАТЕКС<br>гр. Стара Загора, бул. "Патриарх Евтимий" №52<br>Офис сграда ЗЛАТЕКС</span></div>
+        <div class="f-item">{I['phone']}<span>042/919 700</span></div>
         <div class="f-item">{I['mail']}<span>contact@novamashina.bg</span></div>
         <div class="socials">
           <a href="#" aria-label="Facebook">{I['fb']}</a>
@@ -179,11 +182,13 @@ FOOTER = f'''
       </div>
       <div class="f-col f-links">
         <h5>Полезни връзки</h5>
-        <a href="#">Вход за потребители</a>
-        <a href="#">Вход за дилъри</a>
-        <a href="#">Регистрация на оферта</a>
-        <a href="#">Златекс Лизинг</a>
-        <a href="#">Застрахователен брокер</a>
+        <a href="index.html">Начало</a>
+        <a href="catalog.html">Машини на лизинг</a>
+        <a href="calculator.html">Лизингов калкулатор</a>
+        <a href="dealers.html">Търговци</a>
+        <a href="about.html">За нас</a>
+        <a href="contacts.html">Контакти</a>
+        <a href="faq.html">Често задавани въпроси</a>
       </div>
       <div class="f-col f-ai">
         <div class="ai-box">
@@ -194,15 +199,6 @@ FOOTER = f'''
           <h5>Попитайте нашия AI Асистент</h5>
           <p>Намерете бързо точната машина и най-изгодните лизингови условия.</p>
           <a class="ai-link" href="#ai">Задай въпрос {I['spark']}</a>
-        </div>
-      </div>
-      <div class="f-col newsletter">
-        <h5>Бюлетин</h5>
-        <p class="nl-desc">Абонирайте се за най-новите и изгодни оферти на пазара.</p>
-        <div class="nl-form">
-          <input type="text" placeholder="Вашето име">
-          <input type="email" placeholder="Имейл адрес">
-          <button class="btn-send" type="button">Абониране</button>
         </div>
       </div>
     </div>
@@ -292,8 +288,8 @@ SEARCH_FORM = f'''
     <div class="field">
       <label>Месечна вноска (€):</label>
       <div class="range-pair">
-        <div class="range-input"><span class="prefix">от</span><input type="text" value="0"><div class="range-note">0.00лв</div></div>
-        <div class="range-input"><span class="prefix">до</span><input type="text" value="8500"><div class="range-note">16 624.56лв</div></div>
+        <div class="range-input"><span class="prefix">от</span><input type="text" value="0"></div>
+        <div class="range-input"><span class="prefix">до</span><input type="text" value="8500"></div>
       </div>
     </div>
     <div class="field">
@@ -360,10 +356,10 @@ index_body = f'''
 
 <section class="cats">
   <div class="cats-track">
-    <a class="cat-card" href="catalog.html"><img src="img/cat-tractors.svg" alt="Трактори"><div class="cat-name">Трактори</div><div class="cat-count">412 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-combines.svg" alt="Комбайни"><div class="cat-name">Комбайни</div><div class="cat-count">126 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-seeders.svg" alt="Сеялки"><div class="cat-name">Сеялки</div><div class="cat-count">98 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-sprayers.svg" alt="Пръскачки"><div class="cat-name">Пръскачки</div><div class="cat-count">74 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-tractors.png" alt="Трактори"><div class="cat-name">Трактори</div><div class="cat-count">412 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-combines.png" alt="Комбайни"><div class="cat-name">Комбайни</div><div class="cat-count">126 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-seeders.png" alt="Сеялки"><div class="cat-name">Сеялки</div><div class="cat-count">98 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-sprayers.png" alt="Пръскачки"><div class="cat-name">Пръскачки</div><div class="cat-count">74 активни оферти</div></a>
     <a class="cat-card" href="catalog.html"><img src="img/cat-trailers.svg" alt="Ремаркета"><div class="cat-name">Ремаркета</div><div class="cat-count">63 активни оферти</div></a>
     <a class="cat-card" href="catalog.html"><img src="img/cat-inventar.svg" alt="Инвентар"><div class="cat-name">Инвентар</div><div class="cat-count">187 активни оферти</div></a>
   </div>
@@ -453,7 +449,7 @@ catalog_cards.insert(2, f'''
   <svg class="hero-badge" style="position:absolute;top:14px;right:14px;width:96px;height:96px" viewBox="0 0 130 130"><circle cx="65" cy="65" r="60" fill="#0e2d14"/><circle cx="65" cy="65" r="60" fill="none" stroke="#4dbc4d" stroke-width="3" stroke-dasharray="6 7"/><text x="65" y="56" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="14" fill="#4dbc4d">ПРОЛЕТНА</text><text x="65" y="78" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="14" fill="#fff">КАМПАНИЯ</text></svg>
   <div class="promo-overlay">
     <h3>Новият Deutz-Fahr 6160 вече е в NovaMashina.bg!</h3>
-    <p>С месечна вноска от 1 152 €/2 253 лв. и отстъпка от цената</p>
+    <p>С месечна вноска от 1 152 € и отстъпка от цената</p>
   </div>
 </article>''')
 
@@ -587,7 +583,7 @@ def product_page(m):
           <h3>Калкулирай своя лизинг</h3>
           <div class="cc-sub">Според твоите предпочитания</div>
           <div class="cc-price-label">Стойност на машината</div>
-          <div class="cc-price"><span class="money" data-eur="{m['price']}">€{fmt(m['price'])}</span> без ДДС<small>{price_bgn} лв. без ДДС</small></div>
+          <div class="cc-price"><span class="money" data-eur="{m['price']}">€{fmt(m['price'])}</span> без ДДС</div>
           
           <div class="cc-field">
             <label>Първоначална вноска (ПВ)</label>
@@ -800,7 +796,6 @@ calculator_body = f'''
             <div class="cf-field">
               <label>Цена – EUR без ДДС</label>
               <input type="number" id="lcPrice" value="100000">
-              <div class="cf-note" id="lcPriceBgn">Цена в лв: 195 583 лв. без ДДС</div>
             </div>
             
             <div class="cf-field">
@@ -1065,26 +1060,148 @@ about_body = f'''
 
 # ---------------------------------------------------------------- КОНТАКТИ
 contacts_body = f'''
-<div class="contacts-wrap">
-  <div class="map-bg"><img src="img/map.svg" alt="Карта"></div>
-  <div class="contact-card">
-    <h1>Свържете се с нас</h1>
-    <div class="contact-grid">
-      <input type="text" placeholder="Име и фамилия">
-      <textarea placeholder="Вашето съобщение…"></textarea>
-      <input type="email" placeholder="Email адрес">
-      <input type="tel" placeholder="Телефонен номер">
+<main class="page container">
+  <div class="contacts-page-header">
+    <h1>Контакти</h1>
+    <p class="subtitle">Свържете се с екипа на ЗЛАТЕКС и NovaMashina.bg</p>
+  </div>
+  
+  <div class="contacts-wrapper">
+    <div class="contacts-info-panel">
+      <div class="info-block main-office">
+        <div class="icon-wrap">{I['pin-g']}</div>
+        <div class="info-text">
+          <h3>Централен офис на ЗЛАТЕКС</h3>
+          <p>гр. Стара Загора, бул. "Патриарх Евтимий" №52, Офис сграда ЗЛАТЕКС</p>
+        </div>
+      </div>
+      
+      <div class="info-block working-hours">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="info-text">
+          <h3>Работно време</h3>
+          <p>От понеделник до петък: 8:00 - 17:00 ч.</p>
+        </div>
+      </div>
+      
+      <div class="info-block contact-phone">
+        <div class="icon-wrap">{I['phone']}</div>
+        <div class="info-text">
+          <h3>Телефон за връзка</h3>
+          <p class="highlight-phone"><a href="tel:042919700">042/919 700</a></p>
+          <p class="sub-text">Обадете ни се или ни потърсете на картата по-долу</p>
+        </div>
+      </div>
+      
+      <div class="info-block networks">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="info-text">
+          <h3>Търговско-сервизни комплекси</h3>
+          <p>За удобство на нашите клиенти ЗЛАТЕКС разполага със 7 собствени търговско-сервизни комплекси на територията на цялата страна:</p>
+          <div class="cities-grid">
+            <span>Стара Загора</span>
+            <span>Чирпан</span>
+            <span>Ямбол</span>
+            <span>Добрич</span>
+            <span>Разград</span>
+            <span>Плевен</span>
+            <span>Враца</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <label class="consent"><input type="checkbox"> Съгласен съм да получавам новини и имейл съобщения от NovaMashina.bg на посочения от мен адрес.</label>
-    <label class="consent"><input type="checkbox"> Съгласен съм да получавам маркетингова информация и промоционални предложения от NovaMashina.bg и нашите партньори.</label>
-    <button class="btn-send" type="button" style="margin-top:22px;padding:14px 38px">Изпрати</button>
-    <div class="contact-info-row">
-      <div class="ci">{I['pin-g']}<span>Централа на ЗЛАТЕКС ООД<br>гр. Стара Загора, 6000, бул. Никола Петков 55</span></div>
-      <div class="ci">{I['phone']}<span>+359 88 510 4040<br>+359 42 600 046</span></div>
-      <div class="ci">{I['mail']}<span>contact@novamashina.bg</span></div>
+    
+    <div class="contacts-form-panel">
+      <h3>Пишете ни</h3>
+      <p class="form-intro">Имате въпроси? Изпратете ни съобщение и наш представител ще се свърже с вас.</p>
+      <form class="contacts-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Съобщението е изпратено успешно!');">
+        <div class="form-group">
+          <label for="cName">Име и фамилия</label>
+          <input type="text" id="cName" placeholder="Вашите имена" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cEmail">Имейл адрес</label>
+            <input type="email" id="cEmail" placeholder="example@domain.com" required>
+          </div>
+          <div class="form-group">
+            <label for="cPhone">Телефонен номер</label>
+            <input type="tel" id="cPhone" placeholder="0888 888 888" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cMessage">Вашето съобщение</label>
+          <textarea id="cMessage" placeholder="Напишете вашето запитване тук..." rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn-send-message">Изпрати запитване</button>
+      </form>
     </div>
   </div>
-</div>'''
+
+  <section class="team-section">
+    <h2 class="team-title">Продуктови мениджъри</h2>
+    <p class="team-sub">Свържете се директно с нашите експерти за консултация</p>
+    
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img src="img/team-jivka.png" alt="Живка Димова">
+          <span class="brand-badge valtra">Valtra</span>
+        </div>
+        <div class="team-info">
+          <h3>Живка Димова</h3>
+          <p class="team-role">Продуктов мениджър Valtra</p>
+          <div class="team-contact-details">
+            <a href="tel:0878811832" class="team-link">{I['phone']} <span>0878 811 832</span></a>
+            <a href="mailto:jivka.dimova@zlatex.net" class="team-link">{I['mail']} <span>jivka.dimova@zlatex.net</span></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img src="img/team-yana.png" alt="Яна Какарашева">
+          <span class="brand-badge fendt">Fendt</span>
+        </div>
+        <div class="team-info">
+          <h3>Яна Какарашева</h3>
+          <p class="team-role">Продуктов мениджър Fendt</p>
+          <div class="team-contact-details">
+            <a href="tel:0878818146" class="team-link">{I['phone']} <span>0878 818 146</span></a>
+            <a href="mailto:yana.kakarasheva@zlatex.net" class="team-link">{I['mail']} <span>yana.kakarasheva@zlatex.net</span></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img src="img/team-petya.png" alt="Петя Георгиева">
+          <span class="brand-badge manitou">Manitou</span>
+        </div>
+        <div class="team-info">
+          <h3>Петя Георгиева</h3>
+          <p class="team-role">Продуктов мениджър Manitou</p>
+          <div class="team-contact-details">
+            <a href="tel:0878818129" class="team-link">{I['phone']} <span>0878 818 129</span></a>
+            <a href="mailto:petia.georgieva@zlatex.net" class="team-link">{I['mail']} <span>petia.georgieva@zlatex.net</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="locations-map-section">
+    <h2>Нашите представителства в страната</h2>
+    <p class="map-desc">Потърсете най-близката до вас локация на ЗЛАТЕКС на картата или се обадете на 042/919 700</p>
+    <div class="map-frame" style="margin-top: 20px;">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2946.331456108153!2d25.6415664!3d42.4206587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a8698ca1522f7b%3A0xe9f799bd0fb0383d!2z0JfQm9CQ0KLQldCa0KEg0J7QntCUIC0g0KbQtdC90YLRgNCw0LvQtdC9INCe0YTQuNGB!5e0!3m2!1sbg!2sbg!4v1718228300000!5m2!1sbg!2sbg" width="100%" height="450" style="border:0; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+</main>'''
 
 # ---------------------------------------------------------------- FAQ
 FAQS = [
@@ -1115,7 +1232,6 @@ pages = {
  'dealers.html': ('Търговци – Нова Машина', dealers_body, 'dealers'),
  'calculator.html': ('Лизингов калкулатор – Нова Машина', calculator_body, 'calc'),
  'budget-calculator.html': ('Бюджетен калкулатор за лизинг – Нова Машина', budget_body, 'budget'),
- 'news.html': ('Новини – Ексклузивни оферти за лизинг на техника', news_body, 'news'),
  'about.html': ('За Нова Машина', about_body, 'about'),
  'contacts.html': ('Контакти – Нова Машина', contacts_body, 'contacts'),
  'faq.html': ('Често задавани въпроси – Нова Машина', faq_body, 'about'),
