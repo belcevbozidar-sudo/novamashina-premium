@@ -40,6 +40,7 @@ export const add = mutation({
     tank: v.string(),
     desc: v.string(),
     lease_ret: v.boolean(),
+    imgs: v.optional(v.array(v.string())),
   },
   handler: async (ctx, args) => {
     const data = {
@@ -85,6 +86,7 @@ export const update = mutation({
     tank: v.string(),
     desc: v.string(),
     lease_ret: v.boolean(),
+    imgs: v.optional(v.array(v.string())),
     views: v.optional(v.number()),
   },
   handler: async (ctx, args) => {

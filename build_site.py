@@ -482,6 +482,18 @@ def get_catalog_body(machines):
 # ---------------------------------------------------------------- ПРОДУКТОВИ СТРАНИЦИ
 def product_page(m):
     img_src = m['img'] if (m['img'].startswith('http://') or m['img'].startswith('https://')) else f"img/{m['img']}"
+    
+    # Handle dynamic product images list
+    imgs = m.get('imgs') if m.get('imgs') else [m['img']]
+    thumbs_list = []
+    for idx, url in enumerate(imgs):
+        src = url if (url.startswith('http') or url.startswith('img/') or url.startswith('/img/')) else f"img/{url}"
+        active_class = "active" if idx == 0 else ""
+        thumbs_list.append(f'<div class="th {active_class}" onclick="galSet({idx})"><img src="{src}" alt=""></div>')
+    thumbs_html = ''.join(thumbs_list)
+    
+    nav_display = 'style="display:none"' if len(imgs) <= 1 else ''
+    thumbs_display = 'style="display:none"' if len(imgs) <= 1 else ''
     badge_html = f'<div class="badge new-badge" style="top:14px; left:14px;">НОВО</div>' if m['state'] == 'new' \
         else f'<div class="badge used-badge" style="top:14px; left:14px;"><img src="img/badge-used.webp" alt="Used Icon" class="used-icon"><span>УПОТРЕБЯВАНА</span></div>'
     hours_row = f'<div class="tech-row"><span class="k">Моточасове</span><span class="v">{m["hours"]}</span></div>' if m['hours'] else ''
@@ -517,14 +529,11 @@ def product_page(m):
       <div class="gallery">
         {badge_html}
         <div class="main-img"><img id="galMain" src="{img_src}" alt="{m['title']}" fetchpriority="high"></div>
-        <button class="gal-nav prev" onclick="galPrev()"><svg viewBox="0 0 18 18"><path d="M12 2L5 9l7 7" fill="none" stroke="#333" stroke-width="2.4" stroke-linecap="round"/></svg></button>
-        <button class="gal-nav next" onclick="galNext()"><svg viewBox="0 0 18 18"><path d="M6 2l7 7-7 7" fill="none" stroke="#333" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+        <button class="gal-nav prev" onclick="galPrev()" {nav_display}><svg viewBox="0 0 18 18"><path d="M12 2L5 9l7 7" fill="none" stroke="#333" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+        <button class="gal-nav next" onclick="galNext()" {nav_display}><svg viewBox="0 0 18 18"><path d="M6 2l7 7-7 7" fill="none" stroke="#333" stroke-width="2.4" stroke-linecap="round"/></svg></button>
       </div>
-      <div class="thumbs" id="thumbs">
-        <div class="th active" onclick="galSet(0)"><img src="{img_src}" alt=""></div>
-        <div class="th" onclick="galSet(1)"><img src="img/promo-fleet.webp" alt=""></div>
-        <div class="th" onclick="galSet(2)"><img src="img/hero-field.webp" alt=""></div>
-        <div class="th" onclick="galSet(3)"><img src="img/promo-harvest.webp" alt=""></div>
+      <div class="thumbs" id="thumbs" {thumbs_display}>
+        {thumbs_html}
       </div>
       <p class="disclaimer">Показаните изображения са илюстративни и информативни. ЗЛАТЕКС запазва правото си на промяна на цените, цветовете и техническата информация на моделите.</p>
       <div class="offer-meta">

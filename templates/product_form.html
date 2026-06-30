@@ -227,6 +227,171 @@
             box-shadow: 0 6px 16px rgba(27, 138, 72, 0.25);
             transform: translateY(-1px);
         }
+
+        /* Image Upload Section */
+        .upload-section {
+            grid-column: 1 / -1;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding-bottom: 30px;
+        }
+
+        .upload-dropzone {
+            border: 2px dashed rgba(27, 138, 72, 0.3);
+            background-color: var(--green-pale);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .upload-dropzone:hover {
+            border-color: var(--green);
+            background-color: var(--green-light);
+        }
+
+        .upload-dropzone svg {
+            color: var(--green);
+            margin-bottom: 6px;
+        }
+
+        .upload-dropzone p {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-soft);
+        }
+
+        .upload-dropzone span {
+            font-size: 12px;
+            color: var(--text-mute);
+        }
+
+        /* Image Previews Grid */
+        .previews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .preview-card {
+            position: relative;
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            cursor: grab;
+            touch-action: none;
+        }
+
+        .preview-card.ghost {
+            opacity: 0.4;
+            background: var(--green-light);
+            border-color: var(--green);
+        }
+
+        .preview-card.chosen {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview-card img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        /* Drag Handle with 6 dots */
+        .drag-handle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-mute);
+            cursor: grab;
+            width: 100%;
+            padding: 2px 0;
+            font-size: 16px;
+            font-weight: bold;
+            user-select: none;
+        }
+
+        .drag-handle::before {
+            content: "⋮⋮";
+            letter-spacing: 2px;
+        }
+
+        /* Badge for Main Image */
+        .main-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background-color: var(--green);
+            color: var(--white);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 6px rgba(27, 138, 72, 0.2);
+            z-index: 10;
+        }
+
+        /* Delete Button */
+        .btn-delete-img {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: #ff4d4d;
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(255, 77, 77, 0.3);
+            transition: background 0.2s;
+            z-index: 10;
+        }
+
+        .btn-delete-img:hover {
+            background: #cc0000;
+        }
+
+        /* Loading card */
+        .preview-card.loading-card {
+            justify-content: center;
+            height: 120px;
+            border-style: dashed;
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--green-light);
+            border-top: 3px solid var(--green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -238,6 +403,34 @@
             </div>
 
             <form method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="sorted_imgs" id="sortedImgsInput" value="">
+                
+                <div class="upload-section">
+                    <label style="margin-bottom: 8px; display: block;">Снимки на продукта * (Първата снимка е главна)</label>
+                    <div class="upload-dropzone" id="dropzone">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        <p>Кликни за избор или пусни снимки тук</p>
+                        <span>Могат да се избират множество файлове (WebP, JPG, PNG)</span>
+                    </div>
+                    <input type="file" id="imageFilesInput" multiple accept="image/*" style="display: none;">
+                    
+                    <div class="previews-grid" id="previewsGrid">
+                        {% if product %}
+                            {% set imgs_list = product.imgs if product.imgs else ([product.img] if product.img else []) %}
+                            {% for img_url in imgs_list %}
+                                <div class="preview-card" data-url="{{ img_url }}">
+                                    <div class="drag-handle"></div>
+                                    {% if loop.first %}
+                                        <span class="main-badge">Главна</span>
+                                    {% endif %}
+                                    <img src="{{ img_url if (img_url.startswith('http') or img_url.startswith('/img/') or img_url.startswith('img/')) else ('/img/' + img_url) }}" alt="">
+                                    <button type="button" class="btn-delete-img" onclick="deleteImage(this)">&times;</button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
                 <div class="form-grid">
                     <!-- Brand -->
                     <div class="form-group">
@@ -279,26 +472,7 @@
                         <input type="number" id="price" name="price" placeholder="напр. 152900" value="{{ product.price|int if product else '' }}" required min="1">
                     </div>
 
-                    <!-- Image -->
-                    <div class="form-group">
-                        <label for="img">Снимка (избор от съществуващи)</label>
-                        <select id="img" name="img">
-                            <option value="tractor-green.webp" {% if product and product.img == 'tractor-green.webp' %}selected{% endif %}>tractor-green.webp (Зелен Трактор)</option>
-                            <option value="combine-yellow.webp" {% if product and product.img == 'combine-yellow.webp' %}selected{% endif %}>combine-yellow.webp (Жълт Комбайн)</option>
-                            <option value="tractor-blue.webp" {% if product and product.img == 'tractor-blue.webp' %}selected{% endif %}>tractor-blue.webp (Син Трактор)</option>
-                            <option value="tractor-red.webp" {% if product and product.img == 'tractor-red.webp' %}selected{% endif %}>tractor-red.webp (Червен Трактор)</option>
-                            <option value="tractor-lime.webp" {% if product and product.img == 'tractor-lime.webp' %}selected{% endif %}>tractor-lime.webp (Лайм Трактор)</option>
-                            <option value="seeder.webp" {% if product and product.img == 'seeder.webp' %}selected{% endif %}>seeder.webp (Сеялка)</option>
-                            <option value="tractor-orange.webp" {% if product and product.img == 'tractor-orange.webp' %}selected{% endif %}>tractor-orange.webp (Оранжев Трактор)</option>
-                            <option value="combine-green.webp" {% if product and product.img == 'combine-green.webp' %}selected{% endif %}>combine-green.webp (Зелен Комбайн)</option>
-                        </select>
-                    </div>
-
-                    <!-- Image File Upload -->
-                    <div class="form-group">
-                        <label for="image_file">Или качи нова снимка</label>
-                        <input type="file" id="image_file" name="image_file" accept="image/*">
-                    </div>
+                    <!-- Old image fields handled dynamically at top -->
 
                     <!-- Fuel -->
                     <div class="form-group">
@@ -383,5 +557,128 @@
             </form>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.getElementById('previewsGrid');
+            Sortable.create(el, {
+                handle: '.drag-handle',
+                ghostClass: 'ghost',
+                chosenClass: 'chosen',
+                animation: 150,
+                onEnd: function () {
+                    updateSortedImgsInput();
+                }
+            });
+            updateSortedImgsInput();
+            
+            var dropzone = document.getElementById('dropzone');
+            var fileInput = document.getElementById('imageFilesInput');
+            
+            dropzone.addEventListener('click', function () {
+                fileInput.click();
+            });
+            
+            dropzone.addEventListener('dragover', function (e) {
+                e.preventDefault();
+                dropzone.style.borderColor = 'var(--green)';
+                dropzone.style.backgroundColor = 'var(--green-light)';
+            });
+            
+            dropzone.addEventListener('dragleave', function (e) {
+                e.preventDefault();
+                dropzone.style.borderColor = 'rgba(27, 138, 72, 0.3)';
+                dropzone.style.backgroundColor = 'var(--green-pale)';
+            });
+            
+            dropzone.addEventListener('drop', function (e) {
+                e.preventDefault();
+                dropzone.style.borderColor = 'rgba(27, 138, 72, 0.3)';
+                dropzone.style.backgroundColor = 'var(--green-pale)';
+                if (e.dataTransfer.files.length) {
+                    handleFileUploads(e.dataTransfer.files);
+                }
+            });
+            
+            fileInput.addEventListener('change', function () {
+                if (fileInput.files.length) {
+                    handleFileUploads(fileInput.files);
+                }
+            });
+        });
+
+        function updateSortedImgsInput() {
+            var urls = [];
+            document.querySelectorAll('#previewsGrid .preview-card').forEach(function (card) {
+                var url = card.getAttribute('data-url');
+                if (url) urls.push(url);
+            });
+            document.getElementById('sortedImgsInput').value = JSON.stringify(urls);
+            
+            document.querySelectorAll('#previewsGrid .preview-card .main-badge').forEach(function (badge) {
+                badge.remove();
+            });
+            var firstCard = document.querySelector('#previewsGrid .preview-card');
+            if (firstCard) {
+                var badge = document.createElement('span');
+                badge.className = 'main-badge';
+                badge.textContent = 'Главна';
+                firstCard.appendChild(badge);
+            }
+        }
+
+        function handleFileUploads(files) {
+            var grid = document.getElementById('previewsGrid');
+            
+            Array.from(files).forEach(function (file) {
+                var loadingCard = document.createElement('div');
+                loadingCard.className = 'preview-card loading-card';
+                loadingCard.innerHTML = '<div class="spinner"></div>';
+                grid.appendChild(loadingCard);
+                
+                var formData = new FormData();
+                formData.append('file', file);
+                
+                fetch('/admin/upload-image-ajax', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                    if (data.url) {
+                        var previewCard = document.createElement('div');
+                        previewCard.className = 'preview-card';
+                        previewCard.setAttribute('data-url', data.url);
+                        
+                        previewCard.innerHTML = `
+                            <div class="drag-handle"></div>
+                            <img src="${data.url}" alt="">
+                            <button type="button" class="btn-delete-img" onclick="deleteImage(this)">&times;</button>
+                        `;
+                        
+                        grid.replaceChild(previewCard, loadingCard);
+                        updateSortedImgsInput();
+                    } else {
+                        loadingCard.remove();
+                        alert('Грешка при качване: ' + (data.error || 'Неизвестна грешка'));
+                    }
+                })
+                .catch(function (err) {
+                    loadingCard.remove();
+                    console.error(err);
+                    alert('Мрежова грешка при качване.');
+                });
+            });
+        }
+
+        function deleteImage(btn) {
+            if (confirm('Сигурни ли сте, че искате да премахнете тази снимка?')) {
+                var card = btn.closest('.preview-card');
+                card.remove();
+                updateSortedImgsInput();
+            }
+        }
+    </script>
 </body>
 </html>

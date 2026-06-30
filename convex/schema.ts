@@ -25,6 +25,7 @@ export default defineSchema({
     tank: v.string(),
     desc: v.string(),
     lease_ret: v.boolean(),
+    imgs: v.optional(v.array(v.string())),
     isDeleted: v.optional(v.boolean()),
     deletedAt: v.optional(v.string()),
   }),

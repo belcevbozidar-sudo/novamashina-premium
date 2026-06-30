@@ -5,7 +5,7 @@ import sys
 import secrets
 import re
 from datetime import datetime, timedelta, timezone
-from flask import Flask, request, render_template, redirect, url_for, make_response, session, flash, send_from_directory
+from flask import Flask, request, render_template, redirect, url_for, make_response, session, flash, send_from_directory, jsonify
 from convex import ConvexClient
 import urllib.request
 from build_site import load_machines_from_db, page, get_index_body, get_catalog_body, product_page
@@ -283,10 +283,13 @@ def add_product():
         title = f"{brand} {model}"
         cat = request.form.get('cat', '').strip()
         state = request.form.get('state', '').strip()
-        img = request.form.get('img', '').strip() or 'tractor-green.webp'
-        uploaded_img = upload_image_to_convex(request.files.get('image_file'))
-        if uploaded_img:
-            img = uploaded_img
+        
+        try:
+            imgs = json.loads(request.form.get('sorted_imgs', '[]'))
+        except Exception:
+            imgs = []
+        img = imgs[0] if imgs else 'tractor-green.webp'
+        
         price = int(float(request.form.get('price', 0)))
         fuel = request.form.get('fuel', '').strip()
         hp = request.form.get('hp', '').strip()
@@ -322,7 +325,7 @@ def add_product():
             "state": state, "img": img, "price": price, "monthly": monthly, "fuel": fuel, 
             "hp": hp, "trans": trans, "loc": loc, "year": year, "hours": hours, 
             "engine": engine, "offer": offer, "dealer": dealer, "tank": tank, 
-            "desc": desc, "lease_ret": lease_ret
+            "desc": desc, "lease_ret": lease_ret, "imgs": imgs
         })
         
         trigger_rebuild_async()
@@ -349,10 +352,12 @@ def edit_product(id):
         title = f"{brand} {model}"
         cat = request.form.get('cat', '').strip()
         state = request.form.get('state', '').strip()
-        img = request.form.get('img', '').strip() or product['img']
-        uploaded_img = upload_image_to_convex(request.files.get('image_file'))
-        if uploaded_img:
-            img = uploaded_img
+        try:
+            imgs = json.loads(request.form.get('sorted_imgs', '[]'))
+        except Exception:
+            imgs = []
+        img = imgs[0] if imgs else (product.get('img') or 'tractor-green.webp')
+        
         price = int(float(request.form.get('price', 0)))
         fuel = request.form.get('fuel', '').strip()
         hp = request.form.get('hp', '').strip()
@@ -387,7 +392,8 @@ def edit_product(id):
             "state": state, "img": img, "price": price, "monthly": monthly, "fuel": fuel, 
             "hp": hp, "trans": trans, "loc": loc, "year": year, "hours": hours, 
             "engine": engine, "offer": offer, "dealer": dealer, "tank": tank, 
-            "desc": desc, "lease_ret": lease_ret, "views": int(product.get('views')) if product.get('views') is not None else 0
+            "desc": desc, "lease_ret": lease_ret, "views": int(product.get('views')) if product.get('views') is not None else 0,
+            "imgs": imgs
         })
         
         trigger_rebuild_async()
@@ -424,6 +430,20 @@ def delete_product(id):
         flash("Продуктът не беше намерен.", "danger")
         
     return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/upload-image-ajax', methods=['POST'])
+def upload_image_ajax():
+    if not check_auth():
+        return jsonify({"error": "Unauthorized"}), 401
+        
+    file_obj = request.files.get('file')
+    if not file_obj:
+        return jsonify({"error": "No file uploaded"}), 400
+        
+    url = upload_image_to_convex(file_obj)
+    if url:
+        return jsonify({"url": url})
+    return jsonify({"error": "Failed to upload image"}), 500
 
 @app.route('/')
 @app.route('/index.html')
