@@ -163,16 +163,8 @@ def slugify(text):
 
 # ----------------- PUBLIC ROUTES -----------------
 
-@app.route('/')
-def home():
-    if not os.path.exists('index.html'):
-        rebuild_static_site()
-    return send_from_directory('.', 'index.html')
-
 @app.route('/<path:path>')
 def serve_static_pages(path):
-    if path.endswith('.html') and os.path.exists(path):
-        return send_from_directory('.', path)
     for folder in ['css', 'js', 'img']:
         if path.startswith(folder + '/'):
             return send_from_directory('.', path)
