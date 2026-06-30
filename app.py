@@ -98,10 +98,8 @@ def rebuild_static_site():
             print("Error rebuilding static site:", e)
             return False
 
-import threading
 def trigger_rebuild_async():
-    thread = threading.Thread(target=rebuild_static_site)
-    thread.start()
+    rebuild_static_site()
 
 from io import BytesIO
 import json
