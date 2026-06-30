@@ -421,6 +421,7 @@ function resetCcForm() {
 window.addEventListener('DOMContentLoaded', function () {
   initLcCalculator();
   initCcCalculator();
+  initCatalogFilter();
   
   // Hamburger menu toggle logic
   var menuToggle = document.getElementById('menuToggle');
@@ -489,3 +490,46 @@ function galPrev() { galSet(galIdx - 1); }
 function galNext() { galSet(galIdx + 1); }
 
 /* ---------- FAQ е inline (onclick) ---------- */
+
+/* ---------- Динамично филтриране в каталога ---------- */
+function initCatalogFilter() {
+  var searchInput = document.getElementById('catalogSearch');
+  var brandSelect = document.getElementById('filterBrand');
+  var stateSelect = document.getElementById('filterState');
+  
+  if (!searchInput && !brandSelect && !stateSelect) return;
+  
+  function filterCatalog() {
+    var query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    var brand = brandSelect ? brandSelect.value.toLowerCase() : 'all';
+    var state = stateSelect ? stateSelect.value.toLowerCase() : 'all';
+    
+    var cards = document.querySelectorAll('.offers-grid .offer-card');
+    cards.forEach(function (card) {
+      var cBrand = card.getAttribute('data-brand') || '';
+      var cState = card.getAttribute('data-state') || '';
+      var cTitle = card.getAttribute('data-title') || '';
+      var cOffer = card.getAttribute('data-offer') || '';
+      
+      var matchesSearch = !query || cTitle.indexOf(query) !== -1 || cBrand.indexOf(query) !== -1 || cOffer.indexOf(query) !== -1;
+      var matchesBrand = brand === 'all' || cBrand === brand;
+      var matchesState = state === 'all' || cState === state;
+      
+      if (matchesSearch && matchesBrand && matchesState) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+  
+  if (searchInput) {
+    searchInput.addEventListener('input', filterCatalog);
+  }
+  if (brandSelect) {
+    brandSelect.addEventListener('change', filterCatalog);
+  }
+  if (stateSelect) {
+    stateSelect.addEventListener('change', filterCatalog);
+  }
+}

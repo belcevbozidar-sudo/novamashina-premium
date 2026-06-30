@@ -56,6 +56,7 @@ def load_machines_from_db():
             m = dict(r)
             m['id'] = m['_id']
             machines.append(m)
+        machines.sort(key=lambda x: x.get('_creationTime', 0), reverse=True)
         return machines
     except Exception as e:
         print(f"Error loading products from Convex: {e}")
@@ -218,8 +219,7 @@ def offer_card(m, link=True):
     specs.append(f'<div class="spec">{I["pin"]}<span>{m["loc"]}</span></div>')
     href = f'product-{m["id"]}.html'
     title_tag = f'<a href="{href}" style="color:inherit">{m["title"]}</a>' if link else m['title']
-    return f'''
-<article class="offer-card">
+    return f'''<article class="offer-card" data-brand="{m['brand'].lower()}" data-state="{m['state']}" data-price="{m['price']}" data-monthly="{m['monthly']}" data-title="{m['title'].lower()}" data-offer="{m['offer'].lower()}">
   <a class="offer-media" href="{href}">
     {badge}{corner}
     <img src="{img_src}" alt="{m['title']}" loading="lazy" decoding="async">
@@ -421,11 +421,36 @@ catalog_cards.insert(2, f'''
   </div>
 </article>''')
 
+unique_brands = sorted(list(set(m['brand'] for m in MACHINES if m.get('brand'))))
+brand_options = ''.join(f'<option value="{b.lower()}">{b}</option>' for b in unique_brands)
+
 catalog_body = f'''
 <main class="page container">
   {SEARCH_FORM.replace('id="search"', 'id="search" style="width:100%;margin-top:0"')}
   <h1 class="page-title green" style="margin-top:48px">Оферти за нова и употребявана техника на лизинг</h1>
   <p class="page-sub">Изберете своята машина от ЗЛАТЕКС</p>
+  
+  <div class="catalog-filter-bar" style="margin-top:24px">
+    <div class="filter-group">
+      <input type="text" id="catalogSearch" placeholder="Търсене на оферти по марка, модел, оферта №..." class="filter-input">
+    </div>
+    <div class="filter-group select-group">
+      <div class="select-wrap">
+        <select id="filterBrand">
+          <option value="all">Всички марки</option>
+          {brand_options}
+        </select>
+      </div>
+      <div class="select-wrap">
+        <select id="filterState">
+          <option value="all">Всички състояния</option>
+          <option value="new">Нови</option>
+          <option value="used">Употребявани</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
   <div class="catalog-toolbar">
     <div class="cat-tabs">
       <span class="cat-tab">Нови</span>
