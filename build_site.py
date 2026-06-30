@@ -305,7 +305,10 @@ def get_index_body(machines):
 
     index_body_val = f'''
 <section class="hero">
-  <img class="hero-bg" src="img/hero-field.webp" alt="">
+  <picture class="hero-bg">
+    <source media="(max-width: 767px)" srcset="img/hero-mobile.webp">
+    <img src="img/hero-desktop.webp" alt="">
+  </picture>
   <svg class="hero-badge" viewBox="0 0 130 130"><circle cx="65" cy="65" r="60" fill="#0e2d14"/><circle cx="65" cy="65" r="60" fill="none" stroke="#4dbc4d" stroke-width="3" stroke-dasharray="6 7"/><text x="65" y="50" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#4dbc4d">ПРОЛЕТНА</text><text x="65" y="70" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#fff">КАМПАНИЯ</text><text x="65" y="90" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="11" fill="#4dbc4d">-3,33% ЛИХВА</text></svg>
   <div class="hero-inner">
     <h1 class="hero-title">Вземи John Deere 6R 150<br>с 3,33% лихва и подаръци до<br>30.6.2026г.</h1>
