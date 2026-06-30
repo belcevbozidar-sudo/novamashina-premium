@@ -94,8 +94,8 @@ def rebuild_static_site():
             result = subprocess.run([sys.executable, 'build_site.py'], capture_output=True, text=True, check=True)
             print("Static site rebuilt successfully:", result.stdout)
             return True
-        except subprocess.CalledProcessError as e:
-            print("Error rebuilding static site:", e.stderr)
+        except Exception as e:
+            print("Error rebuilding static site:", e)
             return False
 
 def slugify(text):
@@ -342,7 +342,7 @@ def edit_product(id):
             "state": state, "img": img, "price": price, "monthly": monthly, "fuel": fuel, 
             "hp": hp, "trans": trans, "loc": loc, "year": year, "hours": hours, 
             "engine": engine, "offer": offer, "dealer": dealer, "tank": tank, 
-            "desc": desc, "lease_ret": lease_ret, "views": product.get('views', 0)
+            "desc": desc, "lease_ret": lease_ret, "views": int(product.get('views')) if product.get('views') is not None else 0
         })
         
         rebuild_static_site()
