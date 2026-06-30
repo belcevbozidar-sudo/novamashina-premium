@@ -276,7 +276,7 @@
                     <!-- Price -->
                     <div class="form-group">
                         <label for="price">Цена (€ без ДДС) *</label>
-                        <input type="number" id="price" name="price" placeholder="напр. 152900" value="{{ product.price if product else '' }}" required min="1">
+                        <input type="number" id="price" name="price" placeholder="напр. 152900" value="{{ product.price|int if product else '' }}" required min="1">
                     </div>
 
                     <!-- Image -->

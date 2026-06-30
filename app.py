@@ -245,7 +245,7 @@ def add_product():
         cat = request.form.get('cat', '').strip()
         state = request.form.get('state', '').strip()
         img = request.form.get('img', '').strip() or 'tractor-green.jpg'
-        price = int(request.form.get('price', 0))
+        price = int(float(request.form.get('price', 0)))
         fuel = request.form.get('fuel', '').strip()
         hp = request.form.get('hp', '').strip()
         trans = request.form.get('trans', '').strip()
@@ -308,7 +308,7 @@ def edit_product(id):
         cat = request.form.get('cat', '').strip()
         state = request.form.get('state', '').strip()
         img = request.form.get('img', '').strip() or product['img']
-        price = int(request.form.get('price', 0))
+        price = int(float(request.form.get('price', 0)))
         fuel = request.form.get('fuel', '').strip()
         hp = request.form.get('hp', '').strip()
         trans = request.form.get('trans', '').strip()
