@@ -237,7 +237,7 @@
                 <a href="{{ url_for('admin_dashboard') }}" class="btn-close">&times;</a>
             </div>
 
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="form-grid">
                     <!-- Brand -->
                     <div class="form-group">
@@ -281,17 +281,23 @@
 
                     <!-- Image -->
                     <div class="form-group">
-                        <label for="img">Снимка (име на файл) *</label>
-                        <select id="img" name="img" required>
-                            <option value="tractor-green.jpg" {% if product and product.img == 'tractor-green.jpg' %}selected{% endif %}>tractor-green.jpg (Зелен Трактор)</option>
-                            <option value="combine-yellow.jpg" {% if product and product.img == 'combine-yellow.jpg' %}selected{% endif %}>combine-yellow.jpg (Жълт Комбайн)</option>
-                            <option value="tractor-blue.jpg" {% if product and product.img == 'tractor-blue.jpg' %}selected{% endif %}>tractor-blue.jpg (Син Трактор)</option>
-                            <option value="tractor-red.jpg" {% if product and product.img == 'tractor-red.jpg' %}selected{% endif %}>tractor-red.jpg (Червен Трактор)</option>
-                            <option value="tractor-lime.jpg" {% if product and product.img == 'tractor-lime.jpg' %}selected{% endif %}>tractor-lime.jpg (Лайм Трактор)</option>
-                            <option value="seeder.jpg" {% if product and product.img == 'seeder.jpg' %}selected{% endif %}>seeder.jpg (Сеялка)</option>
-                            <option value="tractor-orange.jpg" {% if product and product.img == 'tractor-orange.jpg' %}selected{% endif %}>tractor-orange.jpg (Оранжев Трактор)</option>
-                            <option value="combine-green.jpg" {% if product and product.img == 'combine-green.jpg' %}selected{% endif %}>combine-green.jpg (Зелен Комбайн)</option>
+                        <label for="img">Снимка (избор от съществуващи)</label>
+                        <select id="img" name="img">
+                            <option value="tractor-green.webp" {% if product and product.img == 'tractor-green.webp' %}selected{% endif %}>tractor-green.webp (Зелен Трактор)</option>
+                            <option value="combine-yellow.webp" {% if product and product.img == 'combine-yellow.webp' %}selected{% endif %}>combine-yellow.webp (Жълт Комбайн)</option>
+                            <option value="tractor-blue.webp" {% if product and product.img == 'tractor-blue.webp' %}selected{% endif %}>tractor-blue.webp (Син Трактор)</option>
+                            <option value="tractor-red.webp" {% if product and product.img == 'tractor-red.webp' %}selected{% endif %}>tractor-red.webp (Червен Трактор)</option>
+                            <option value="tractor-lime.webp" {% if product and product.img == 'tractor-lime.webp' %}selected{% endif %}>tractor-lime.webp (Лайм Трактор)</option>
+                            <option value="seeder.webp" {% if product and product.img == 'seeder.webp' %}selected{% endif %}>seeder.webp (Сеялка)</option>
+                            <option value="tractor-orange.webp" {% if product and product.img == 'tractor-orange.webp' %}selected{% endif %}>tractor-orange.webp (Оранжев Трактор)</option>
+                            <option value="combine-green.webp" {% if product and product.img == 'combine-green.webp' %}selected{% endif %}>combine-green.webp (Зелен Комбайн)</option>
                         </select>
+                    </div>
+
+                    <!-- Image File Upload -->
+                    <div class="form-group">
+                        <label for="image_file">Или качи нова снимка</label>
+                        <input type="file" id="image_file" name="image_file" accept="image/*">
                     </div>
 
                     <!-- Fuel -->

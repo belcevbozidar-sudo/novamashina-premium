@@ -98,6 +98,55 @@ def rebuild_static_site():
             print("Error rebuilding static site:", e)
             return False
 
+import threading
+def trigger_rebuild_async():
+    thread = threading.Thread(target=rebuild_static_site)
+    thread.start()
+
+from io import BytesIO
+import json
+from PIL import Image
+
+def upload_image_to_convex(file_obj):
+    if not file_obj or file_obj.filename == '':
+        return None
+    
+    try:
+        # Open uploaded image with Pillow
+        with Image.open(file_obj) as img:
+            # Convert RGBA to RGB
+            if img.mode in ('RGBA', 'LA'):
+                background = Image.new('RGB', img.size, (255, 255, 255))
+                background.paste(img, mask=img.split()[3])
+                img = background
+            
+            # Save optimized WebP to memory buffer
+            buffer = BytesIO()
+            img.save(buffer, format='WEBP', quality=80)
+            optimized_data = buffer.getvalue()
+        
+        # Get upload URL from Convex
+        client = get_convex_client()
+        upload_url = client.mutation("products:generateUploadUrl")
+        
+        # POST file to Convex storage
+        req = urllib.request.Request(
+            upload_url,
+            data=optimized_data,
+            headers={'Content-Type': 'image/webp'},
+            method='POST'
+        )
+        
+        with urllib.request.urlopen(req) as response:
+            result = json.loads(response.read().decode('utf-8'))
+            storage_id = result['storageId']
+            
+        # Return public URL
+        return f"{CONVEX_URL}/api/storage/{storage_id}"
+    except Exception as e:
+        print("Error uploading image to Convex storage:", e)
+        return None
+
 def slugify(text):
     translit = {
         'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m',
@@ -244,7 +293,10 @@ def add_product():
         title = f"{brand} {model}"
         cat = request.form.get('cat', '').strip()
         state = request.form.get('state', '').strip()
-        img = request.form.get('img', '').strip() or 'tractor-green.jpg'
+        img = request.form.get('img', '').strip() or 'tractor-green.webp'
+        uploaded_img = upload_image_to_convex(request.files.get('image_file'))
+        if uploaded_img:
+            img = uploaded_img
         price = int(float(request.form.get('price', 0)))
         fuel = request.form.get('fuel', '').strip()
         hp = request.form.get('hp', '').strip()
@@ -283,7 +335,7 @@ def add_product():
             "desc": desc, "lease_ret": lease_ret
         })
         
-        rebuild_static_site()
+        trigger_rebuild_async()
         flash(f"Продуктът '{title}' беше добавен успешно!", "success")
         return redirect(url_for('admin_dashboard'))
         
@@ -308,6 +360,9 @@ def edit_product(id):
         cat = request.form.get('cat', '').strip()
         state = request.form.get('state', '').strip()
         img = request.form.get('img', '').strip() or product['img']
+        uploaded_img = upload_image_to_convex(request.files.get('image_file'))
+        if uploaded_img:
+            img = uploaded_img
         price = int(float(request.form.get('price', 0)))
         fuel = request.form.get('fuel', '').strip()
         hp = request.form.get('hp', '').strip()
@@ -345,7 +400,7 @@ def edit_product(id):
             "desc": desc, "lease_ret": lease_ret, "views": int(product.get('views')) if product.get('views') is not None else 0
         })
         
-        rebuild_static_site()
+        trigger_rebuild_async()
         flash(f"Продуктът '{title}' беше редактиран успешно!", "success")
         return redirect(url_for('admin_dashboard'))
         
@@ -373,7 +428,7 @@ def delete_product(id):
             except OSError as e:
                 print(f"Error deleting file {product_file}: {e}")
                 
-        rebuild_static_site()
+        trigger_rebuild_async()
         flash(f"Продуктът '{title}' беше изтрит успешно!", "success")
     else:
         flash("Продуктът не беше намерен.", "danger")

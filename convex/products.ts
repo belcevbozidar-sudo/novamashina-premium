@@ -145,3 +145,10 @@ export const hardDeleteForTest = mutation({
     await ctx.db.delete(args.id);
   },
 });
+
+export const generateUploadUrl = mutation({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.storage.generateUploadUrl();
+  },
+});

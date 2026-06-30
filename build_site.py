@@ -7,7 +7,7 @@ EUR = "€"
 
 # ---------------------------------------------------------------- ИКОНИ (inline SVG)
 I = {
- 'logo': '''<img src="img/logo.png" alt="ZLATEX Logo" style="height: 42px; width: auto; object-fit: contain; vertical-align: middle;">''',
+ 'logo': '''<img src="img/logo.webp" alt="ZLATEX Logo" style="height: 42px; width: auto; object-fit: contain; vertical-align: middle;">''',
  'spark': '''<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4L12 2z" fill="#4dbc4d"/><path d="M19 14l.9 2.6L22 17l-2.1.7L19 20l-.9-2.3L16 17l2.1-.4L19 14z" fill="#4dbc4d"/><path d="M5 15l.7 2L8 17.6l-2.3.8L5 20l-.7-1.6L2 17.6 4.3 17 5 15z" fill="#4dbc4d"/></svg>''',
  'send': '''<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 11.5L21 3l-8.5 18-2.3-7.2L3 11.5z" fill="none" stroke="#4dbc4d" stroke-width="2" stroke-linejoin="round"/></svg>''',
  'info': '''<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="#969696" stroke-width="1.6"/><rect x="11.1" y="10" width="1.8" height="7" rx=".9" fill="#969696"/><circle cx="12" cy="7" r="1.2" fill="#969696"/></svg>''',
@@ -202,8 +202,9 @@ def page(title, body, active='', extra_head=''):
 
 # ---------------------------------------------------------------- ПРОДУКТОВА КАРТА
 def offer_card(m, link=True):
+    img_src = m['img'] if (m['img'].startswith('http://') or m['img'].startswith('https://')) else f"img/{m['img']}"
     badge = '<div class="badge new-badge">НОВО</div>' if m['state'] == 'new' \
-        else '<div class="badge used-badge"><img src="img/badge-used.png" alt="Used Icon" class="used-icon"><span>УПОТРЕБЯВАНА</span></div>'
+        else '<div class="badge used-badge"><img src="img/badge-used.webp" alt="Used Icon" class="used-icon"><span>УПОТРЕБЯВАНА</span></div>'
     corner = ''
     if m.get('lease_ret'):
         corner = '<div class="lease-corner"><span>Лизингова машина</span></div>'
@@ -221,7 +222,7 @@ def offer_card(m, link=True):
 <article class="offer-card">
   <a class="offer-media" href="{href}">
     {badge}{corner}
-    <img src="img/{m['img']}" alt="{m['title']}" loading="lazy" decoding="async">
+    <img src="{img_src}" alt="{m['title']}" loading="lazy" decoding="async">
     <div class="ribbon">
       <div class="monthly">
         <div class="m-price"><span class="money" data-eur="{m['monthly']}">€{fmt(m['monthly'])}</span> <small>/мес</small></div>
@@ -302,7 +303,7 @@ used_cards = ''.join(offer_card(m) for m in used_machs)
 
 index_body = f'''
 <section class="hero">
-  <img class="hero-bg" src="img/hero-field.jpg" alt="">
+  <img class="hero-bg" src="img/hero-field.webp" alt="">
   <svg class="hero-badge" viewBox="0 0 130 130"><circle cx="65" cy="65" r="60" fill="#0e2d14"/><circle cx="65" cy="65" r="60" fill="none" stroke="#4dbc4d" stroke-width="3" stroke-dasharray="6 7"/><text x="65" y="50" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#4dbc4d">ПРОЛЕТНА</text><text x="65" y="70" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#fff">КАМПАНИЯ</text><text x="65" y="90" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="11" fill="#4dbc4d">-3,33% ЛИХВА</text></svg>
   <div class="hero-inner">
     <h1 class="hero-title">Вземи John Deere 6R 150<br>с 3,33% лихва и подаръци до<br>30.6.2026г.</h1>
@@ -323,12 +324,12 @@ index_body = f'''
 
 <section class="cats">
   <div class="cats-track">
-    <a class="cat-card" href="catalog.html"><img src="img/cat-tractors.png" alt="Трактори" loading="lazy" decoding="async"><div class="cat-name">Трактори</div><div class="cat-count">412 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-combines.png" alt="Комбайни" loading="lazy" decoding="async"><div class="cat-name">Комбайни</div><div class="cat-count">126 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-seeders.png" alt="Сеялки" loading="lazy" decoding="async"><div class="cat-name">Сеялки</div><div class="cat-count">98 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-sprayers.png" alt="Пръскачки" loading="lazy" decoding="async"><div class="cat-name">Пръскачки</div><div class="cat-count">74 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-trailers.png" alt="Ремаркета" loading="lazy" decoding="async"><div class="cat-name">Ремаркета</div><div class="cat-count">63 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-inventar.png" alt="Инвентар" loading="lazy" decoding="async"><div class="cat-name">Инвентар</div><div class="cat-count">187 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-tractors.webp" alt="Трактори" loading="lazy" decoding="async"><div class="cat-name">Трактори</div><div class="cat-count">412 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-combines.webp" alt="Комбайни" loading="lazy" decoding="async"><div class="cat-name">Комбайни</div><div class="cat-count">126 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-seeders.webp" alt="Сеялки" loading="lazy" decoding="async"><div class="cat-name">Сеялки</div><div class="cat-count">98 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-sprayers.webp" alt="Пръскачки" loading="lazy" decoding="async"><div class="cat-name">Пръскачки</div><div class="cat-count">74 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-trailers.webp" alt="Ремаркета" loading="lazy" decoding="async"><div class="cat-name">Ремаркета</div><div class="cat-count">63 активни оферти</div></a>
+    <a class="cat-card" href="catalog.html"><img src="img/cat-inventar.webp" alt="Инвентар" loading="lazy" decoding="async"><div class="cat-name">Инвентар</div><div class="cat-count">187 активни оферти</div></a>
   </div>
 </section>
 
@@ -338,7 +339,7 @@ index_body = f'''
   <div class="offers-grid">
     {new_cards}
     <article class="promo-card">
-      <img class="promo-bg" src="img/promo-fleet.jpg" alt="" loading="lazy" decoding="async">
+      <img class="promo-bg" src="img/promo-fleet.webp" alt="" loading="lazy" decoding="async">
       <div class="promo-tag">{I['spark'].replace('#4dbc4d', '#ffffff')}<span>СПЕЦИАЛНИ<br>УСЛОВИЯ</span></div>
       <div class="promo-overlay">
         <h3>Немско инженерство на нова цена: Вземи своя нов Fendt от ЗЛАТЕКС с вноска от 950 €!</h3>
@@ -346,7 +347,7 @@ index_body = f'''
       </div>
     </article>
     <article class="promo-card">
-      <img class="promo-bg" src="img/promo-harvest.jpg" alt="" loading="lazy" decoding="async">
+      <img class="promo-bg" src="img/promo-harvest.webp" alt="" loading="lazy" decoding="async">
       <div class="promo-overlay">
         <h3>Готови за жътва: Лимитирана серия CLAAS GO! Edition при ексклузивни условия от ЗЛАТЕКС</h3>
         <p>Месечна вноска от €1 990 и промоционална плаваща лихва 3.5%</p>
@@ -374,7 +375,7 @@ index_body = f'''
       <p>Разгледай хиляди оферти за нови и употребявани машини от официални представители и доверени търговци в цялата страна.</p>
       <a class="btn-cta" href="catalog.html">Разгледай обявите</a>
     </div>
-    <img class="two-sided-art" src="img/cat-tractors.png" alt="Трактор" loading="lazy" decoding="async">
+    <img class="two-sided-art" src="img/cat-tractors.webp" alt="Трактор" loading="lazy" decoding="async">
     <div class="side">
       <h4>За продавачи</h4>
       <div class="lead">Публикувай обявата си тук, където клиентите търсят своята нова машина.</div>
@@ -412,7 +413,7 @@ for i in order:
     catalog_cards.append(offer_card(MACHINES[i]))
 catalog_cards.insert(2, f'''
 <article class="promo-card">
-  <img class="promo-bg" src="img/promo-fleet.jpg" alt="">
+  <img class="promo-bg" src="img/promo-fleet.webp" alt="">
   <svg class="hero-badge" style="position:absolute;top:14px;right:14px;width:96px;height:96px" viewBox="0 0 130 130"><circle cx="65" cy="65" r="60" fill="#0e2d14"/><circle cx="65" cy="65" r="60" fill="none" stroke="#4dbc4d" stroke-width="3" stroke-dasharray="6 7"/><text x="65" y="56" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="14" fill="#4dbc4d">ПРОЛЕТНА</text><text x="65" y="78" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="14" fill="#fff">КАМПАНИЯ</text></svg>
   <div class="promo-overlay">
     <h3>Новият Deutz-Fahr 6160 вече е при нас!</h3>
@@ -446,8 +447,9 @@ catalog_body = f'''
 
 # ---------------------------------------------------------------- ПРОДУКТОВИ СТРАНИЦИ
 def product_page(m):
+    img_src = m['img'] if (m['img'].startswith('http://') or m['img'].startswith('https://')) else f"img/{m['img']}"
     badge_html = f'<div class="badge new-badge" style="top:14px; left:14px;">НОВО</div>' if m['state'] == 'new' \
-        else f'<div class="badge used-badge" style="top:14px; left:14px;"><img src="img/badge-used.png" alt="Used Icon" class="used-icon"><span>УПОТРЕБЯВАНА</span></div>'
+        else f'<div class="badge used-badge" style="top:14px; left:14px;"><img src="img/badge-used.webp" alt="Used Icon" class="used-icon"><span>УПОТРЕБЯВАНА</span></div>'
     hours_row = f'<div class="tech-row"><span class="k">Моточасове</span><span class="v">{m["hours"]}</span></div>' if m['hours'] else ''
     year_row = f'<div class="tech-row"><span class="k">Първа регистрация</span><span class="v">{m["year"]}</span></div>'
     price_bgn = fmt(round(m['price'] * 1.95583))
@@ -480,15 +482,15 @@ def product_page(m):
       </div>
       <div class="gallery">
         {badge_html}
-        <div class="main-img"><img id="galMain" src="img/{m['img']}" alt="{m['title']}" fetchpriority="high"></div>
+        <div class="main-img"><img id="galMain" src="{img_src}" alt="{m['title']}" fetchpriority="high"></div>
         <button class="gal-nav prev" onclick="galPrev()"><svg viewBox="0 0 18 18"><path d="M12 2L5 9l7 7" fill="none" stroke="#333" stroke-width="2.4" stroke-linecap="round"/></svg></button>
         <button class="gal-nav next" onclick="galNext()"><svg viewBox="0 0 18 18"><path d="M6 2l7 7-7 7" fill="none" stroke="#333" stroke-width="2.4" stroke-linecap="round"/></svg></button>
       </div>
       <div class="thumbs" id="thumbs">
-        <div class="th active" onclick="galSet(0)"><img src="img/{m['img']}" alt=""></div>
-        <div class="th" onclick="galSet(1)"><img src="img/promo-fleet.jpg" alt=""></div>
-        <div class="th" onclick="galSet(2)"><img src="img/hero-field.jpg" alt=""></div>
-        <div class="th" onclick="galSet(3)"><img src="img/promo-harvest.jpg" alt=""></div>
+        <div class="th active" onclick="galSet(0)"><img src="{img_src}" alt=""></div>
+        <div class="th" onclick="galSet(1)"><img src="img/promo-fleet.webp" alt=""></div>
+        <div class="th" onclick="galSet(2)"><img src="img/hero-field.webp" alt=""></div>
+        <div class="th" onclick="galSet(3)"><img src="img/promo-harvest.webp" alt=""></div>
       </div>
       <p class="disclaimer">Показаните изображения са илюстративни и информативни. ЗЛАТЕКС запазва правото си на промяна на цените, цветовете и техническата информация на моделите.</p>
       <div class="offer-meta">
@@ -942,10 +944,10 @@ budget_body = f'''
       <p class="page-sub">Намери идеалния баланс и подкарай новата си машина с усмивка</p>
       <p class="budget-lead">Покупката на земеделска машина е важен момент, който бележи нов етап в твоето стопанство. Но за да е празник, инвестицията трябва да е съобразена с възможностите на фермата. Бюджетният калкулатор ти помага да прецениш точно каква месечна вноска можеш да си позволиш — без излишен риск и без изненади.</p>
     </div>
-    <img class="budget-art" src="img/budget-hero.jpg" alt="" fetchpriority="high">
+    <img class="budget-art" src="img/budget-hero.webp" alt="" fetchpriority="high">
   </div>
   <div class="budget-row">
-    <img src="img/budget-side.jpg" alt="">
+    <img src="img/budget-side.webp" alt="">
     <div>
       <div class="budget-item">{I['cal'].replace('#6c6c6c', '#4dbc4d')}<div><h4>Текущи месечни вноски</h4><p>Тук влизат твоите активни кредити, ипотеки или други лизинги, които изплащаш в момента.</p></div></div>
       <div class="budget-item">{I['compare']}<div><h4>Кредитни карти и лимити</h4><p>Дори да не ги ползваш изцяло, лимитите по кредитни карти и овърдрафти са част от твоя финансов профил и ние ги отчитаме за максимална точност.</p></div></div>
@@ -968,12 +970,12 @@ budget_body = f'''
 
 # ---------------------------------------------------------------- НОВИНИ
 NEWS = [
- ('Петъчна топ оферта: Вземи John Deere 6R 150 с 3,33% лихва и подаръци!', 'Промоционални условия от ЗЛАТЕКС до 30.6.2026 г.', '05/06/2026', 'news-1.jpg'),
- ('Жътвата идва с CLAAS: Ексклузивни оферти и подаръци с ЗЛАТЕКС', 'Твоето лято на пълни обороти — с комбайн от ново поколение.', '01/06/2026', 'news-2.jpg'),
- ('Немско инженерство на нова цена: Вземи своя нов Fendt с вноска от 950 €!', 'Специални условия: лихва 3,65% и атрактивни вноски до 30.06.2026 г', '29/05/2026', 'news-3.jpg'),
- ('Пазарът на агротехника през април 2026 г.', 'Агро прелом 2026: Ренесанс на прецизното земеделие и нови марки в България.', '26/05/2026', 'news-4.jpg'),
- ('Полски правила: Какво (наистина) трябва да знаем преди сеитба?', 'Пет златни правила за пролетната кампания.', '18/05/2026', 'news-5.jpg'),
- ('Подготви машината за зимата: пълен чеклист от сервизните ни партньори', 'Съхранение, консервация и профилактика на техниката.', '12/05/2026', 'news-6.jpg'),
+ ('Петъчна топ оферта: Вземи John Deere 6R 150 с 3,33% лихва и подаръци!', 'Промоционални условия от ЗЛАТЕКС до 30.6.2026 г.', '05/06/2026', 'news-1.webp'),
+ ('Жътвата идва с CLAAS: Ексклузивни оферти и подаръци с ЗЛАТЕКС', 'Твоето лято на пълни обороти — с комбайн от ново поколение.', '01/06/2026', 'news-2.webp'),
+ ('Немско инженерство на нова цена: Вземи своя нов Fendt с вноска от 950 €!', 'Специални условия: лихва 3,65% и атрактивни вноски до 30.06.2026 г', '29/05/2026', 'news-3.webp'),
+ ('Пазарът на агротехника през април 2026 г.', 'Агро прелом 2026: Ренесанс на прецизното земеделие и нови марки в България.', '26/05/2026', 'news-4.webp'),
+ ('Полски правила: Какво (наистина) трябва да знаем преди сеитба?', 'Пет златни правила за пролетната кампания.', '18/05/2026', 'news-5.webp'),
+ ('Подготви машината за зимата: пълен чеклист от сервизните ни партньори', 'Съхранение, консервация и профилактика на техниката.', '12/05/2026', 'news-6.webp'),
 ]
 news_cards = ''.join(f'''
 <a class="news-card" href="#">
@@ -1001,10 +1003,10 @@ about_body = f'''
       <h1>Нова Машина е платформа на ЗЛАТЕКС, която прави избора и закупуването на земетелска техника лесно, бързо и удобно</h1>
       <p>Предлагаме ви лесен и удобен дигитален асистент в избора на Вашата Нова Машина. В тази динамично променяща се среда, където дистанционните услуги вече са ежедневие, ние ви даваме възможността да изберете, тествате и купите на лизинг своята мечтана нова машина изцяло дистанционно.</p>
     </div>
-    <img src="img/about-1.jpg" alt="" loading="lazy" decoding="async">
+    <img src="img/about-1.webp" alt="" loading="lazy" decoding="async">
   </div>
   <div class="about-row">
-    <img src="img/about-2.jpg" alt="" loading="lazy" decoding="async">
+    <img src="img/about-2.webp" alt="" loading="lazy" decoding="async">
     <div>
       <h2>Желаната Нова Машина е само на няколко клика разстояние</h2>
       <p>Платформата е интуитивна и лесна за използване, като с няколко клика задавате критериите си за мечтаната машина и веднага получавате списък с най-подходящите оферти, от които можете да избирате, както и да заявите демонстрация в стопанството. По този начин ви даваме възможност да изберете своята Нова Машина и да я вземете при най-добрите условия за лизинг.</p>
@@ -1017,7 +1019,7 @@ about_body = f'''
       <p>Чрез ЗЛАТЕКС Лизинг получавате пълно съдействие: индивидуален лизингов план, застраховка на техниката, регистрация и доставка до стопанството. Нашите консултанти са до вас на всяка стъпка — от избора до първата бразда.</p>
       <a class="btn-cta dark" href="calculator.html">Лизингов калкулатор</a>
     </div>
-    <img src="img/budget-side.jpg" alt="" loading="lazy" decoding="async">
+    <img src="img/budget-side.webp" alt="" loading="lazy" decoding="async">
   </div>
 </main>'''
 
@@ -1112,7 +1114,7 @@ contacts_body = f'''
     <div class="team-grid">
       <div class="team-card">
         <div class="team-photo-wrap">
-          <img src="img/team-jivka.png" alt="Живка Димова" loading="lazy" decoding="async">
+          <img src="img/team-jivka.webp" alt="Живка Димова" loading="lazy" decoding="async">
         </div>
         <div class="team-info">
           <h3>Живка Димова</h3>
@@ -1126,7 +1128,7 @@ contacts_body = f'''
       
       <div class="team-card">
         <div class="team-photo-wrap">
-          <img src="img/team-yana.png" alt="Яна Какарашева" loading="lazy" decoding="async">
+          <img src="img/team-yana.webp" alt="Яна Какарашева" loading="lazy" decoding="async">
         </div>
         <div class="team-info">
           <h3>Яна Какарашева</h3>
@@ -1140,7 +1142,7 @@ contacts_body = f'''
       
       <div class="team-card">
         <div class="team-photo-wrap">
-          <img src="img/team-petya.png" alt="Петя Георгиева" loading="lazy" decoding="async">
+          <img src="img/team-petya.webp" alt="Петя Георгиева" loading="lazy" decoding="async">
         </div>
         <div class="team-info">
           <h3>Петя Георгиева</h3>
