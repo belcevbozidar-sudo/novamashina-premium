@@ -1,0 +1,7 @@
+{
+  "name": "novamashina-premium",
+  "version": "1.0.0",
+  "dependencies": {
+    "convex": "^1.42.1"
+  }
+}

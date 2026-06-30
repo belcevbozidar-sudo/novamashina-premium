@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ action }} на оферта | Нова Машина</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #1b8a48;
+            --green-dark: #0e5e2e;
+            --green-light: #e2f4ea;
+            --green-pale: #f2faf5;
+            --gold: #cca010;
+            --text: #2c3531;
+            --text-soft: #5c6660;
+            --text-mute: #8e9c93;
+            --bg-gray: #f4f7f5;
+            --white: #ffffff;
+            --radius: 16px;
+            --shadow: 0 10px 30px rgba(14, 94, 46, 0.06);
+            --font-ui: 'Manrope', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-ui);
+            background-color: var(--bg-gray);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+
+        .container {
+            width: min(800px, 94%);
+            margin: 0 auto;
+        }
+
+        /* Form Card */
+        .form-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+        }
+
+        .form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding-bottom: 20px;
+        }
+
+        .form-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .btn-close {
+            text-decoration: none;
+            color: var(--text-mute);
+            font-size: 28px;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+
+        .btn-close:hover {
+            color: var(--text);
+        }
+
+        /* Form Layout */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-soft);
+            letter-spacing: 0.2px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1.5px solid rgba(0, 0, 0, 0.08);
+            font-size: 14.5px;
+            font-family: var(--font-ui);
+            color: var(--text);
+            outline: none;
+            background-color: var(--white);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 10px rgba(27, 138, 72, 0.06);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Checkbox styling */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-soft);
+            margin-top: 10px;
+        }
+
+        .checkbox-container input {
+            display: none;
+        }
+
+        .checkmark {
+            width: 22px;
+            height: 22px;
+            border: 1.5px solid rgba(0, 0, 0, 0.15);
+            border-radius: 6px;
+            margin-right: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            background: var(--white);
+        }
+
+        .checkbox-container input:checked + .checkmark {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        .checkbox-container input:checked + .checkmark::after {
+            content: "";
+            width: 5px;
+            height: 10px;
+            border: solid var(--white);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) translate(-0.5px, -1px);
+        }
+
+        /* Footer buttons */
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding-top: 24px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: none;
+            font-family: var(--font-ui);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1.5px solid var(--text-mute);
+            color: var(--text-soft);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text);
+            color: var(--text);
+            background-color: rgba(0,0,0,0.02);
+        }
+
+        .btn-primary {
+            background-color: var(--green);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(27, 138, 72, 0.15);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--green-dark);
+            box-shadow: 0 6px 16px rgba(27, 138, 72, 0.25);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-card">
+            <div class="form-header">
+                <h1 class="form-title">{{ action }} на оферта</h1>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn-close">&times;</a>
+            </div>
+
+            <form method="POST">
+                <div class="form-grid">
+                    <!-- Brand -->
+                    <div class="form-group">
+                        <label for="brand">Марка *</label>
+                        <input type="text" id="brand" name="brand" placeholder="напр. John Deere, CLAAS" value="{{ product.brand if product else '' }}" required>
+                    </div>
+
+                    <!-- Model -->
+                    <div class="form-group">
+                        <label for="model">Модел *</label>
+                        <input type="text" id="model" name="model" placeholder="напр. 6R 150, LEXION 5400" value="{{ product.model if product else '' }}" required>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="form-group">
+                        <label for="cat">Категория *</label>
+                        <select id="cat" name="cat" required>
+                            <option value="Трактор" {% if product and product.cat == 'Трактор' %}selected{% endif %}>Трактор</option>
+                            <option value="Комбайн" {% if product and product.cat == 'Комбайн' %}selected{% endif %}>Комбайн</option>
+                            <option value="Сеялка" {% if product and product.cat == 'Сеялка' %}selected{% endif %}>Сеялка</option>
+                            <option value="Пръскачка" {% if product and product.cat == 'Пръскачка' %}selected{% endif %}>Пръскачка</option>
+                            <option value="Ремарке" {% if product and product.cat == 'Ремарке' %}selected{% endif %}>Ремарке</option>
+                            <option value="Друго" {% if product and product.cat not in ['Трактор','Комбайн','Сеялка','Пръскачка','Ремарке'] %}selected{% endif %}>Друго</option>
+                        </select>
+                    </div>
+
+                    <!-- State -->
+                    <div class="form-group">
+                        <label for="state">Състояние *</label>
+                        <select id="state" name="state" required>
+                            <option value="new" {% if product and product.state == 'new' %}selected{% endif %}>Нова</option>
+                            <option value="used" {% if product and product.state == 'used' %}selected{% endif %}>Употребявана</option>
+                        </select>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="form-group">
+                        <label for="price">Цена (€ без ДДС) *</label>
+                        <input type="number" id="price" name="price" placeholder="напр. 152900" value="{{ product.price if product else '' }}" required min="1">
+                    </div>
+
+                    <!-- Image -->
+                    <div class="form-group">
+                        <label for="img">Снимка (име на файл) *</label>
+                        <select id="img" name="img" required>
+                            <option value="tractor-green.jpg" {% if product and product.img == 'tractor-green.jpg' %}selected{% endif %}>tractor-green.jpg (Зелен Трактор)</option>
+                            <option value="combine-yellow.jpg" {% if product and product.img == 'combine-yellow.jpg' %}selected{% endif %}>combine-yellow.jpg (Жълт Комбайн)</option>
+                            <option value="tractor-blue.jpg" {% if product and product.img == 'tractor-blue.jpg' %}selected{% endif %}>tractor-blue.jpg (Син Трактор)</option>
+                            <option value="tractor-red.jpg" {% if product and product.img == 'tractor-red.jpg' %}selected{% endif %}>tractor-red.jpg (Червен Трактор)</option>
+                            <option value="tractor-lime.jpg" {% if product and product.img == 'tractor-lime.jpg' %}selected{% endif %}>tractor-lime.jpg (Лайм Трактор)</option>
+                            <option value="seeder.jpg" {% if product and product.img == 'seeder.jpg' %}selected{% endif %}>seeder.jpg (Сеялка)</option>
+                            <option value="tractor-orange.jpg" {% if product and product.img == 'tractor-orange.jpg' %}selected{% endif %}>tractor-orange.jpg (Оранжев Трактор)</option>
+                            <option value="combine-green.jpg" {% if product and product.img == 'combine-green.jpg' %}selected{% endif %}>combine-green.jpg (Зелен Комбайн)</option>
+                        </select>
+                    </div>
+
+                    <!-- Fuel -->
+                    <div class="form-group">
+                        <label for="fuel">Двигател / Задвижване</label>
+                        <input type="text" id="fuel" name="fuel" placeholder="напр. Дизел или Прикачна" value="{{ product.fuel if product else 'Дизел' }}">
+                    </div>
+
+                    <!-- HP -->
+                    <div class="form-group">
+                        <label for="hp">Мощност / Ширина</label>
+                        <input type="text" id="hp" name="hp" placeholder="напр. 150 к.с. или 6 м" value="{{ product.hp if product else '' }}">
+                    </div>
+
+                    <!-- Transmission -->
+                    <div class="form-group">
+                        <label for="trans">Трансмисия / Контрол</label>
+                        <input type="text" id="trans" name="trans" placeholder="напр. AutoPowr 50 км/ч или ISOBUS" value="{{ product.trans if product else '' }}">
+                    </div>
+
+                    <!-- Location -->
+                    <div class="form-group">
+                        <label for="loc">Локация</label>
+                        <input type="text" id="loc" name="loc" placeholder="напр. гр. Стара Загора" value="{{ product.loc if product else 'гр. Стара Загора' }}">
+                    </div>
+
+                    <!-- Year -->
+                    <div class="form-group">
+                        <label for="year">Година на производство</label>
+                        <input type="text" id="year" name="year" placeholder="напр. 2026 г." value="{{ product.year if product else '2026 г.' }}">
+                    </div>
+
+                    <!-- Hours -->
+                    <div class="form-group">
+                        <label for="hours">Моточасове (за употребявани)</label>
+                        <input type="text" id="hours" name="hours" placeholder="напр. 2 350 мч (оставете празно за нови)" value="{{ product.hours if (product and product.hours != None) else '' }}">
+                    </div>
+
+                    <!-- Engine capacity/type -->
+                    <div class="form-group">
+                        <label for="engine">Двигател (детайли)</label>
+                        <input type="text" id="engine" name="engine" placeholder="напр. 6.8 л, 6 цил. или —" value="{{ product.engine if product else '' }}">
+                    </div>
+
+                    <!-- Offer ID -->
+                    <div class="form-group">
+                        <label for="offer">Оферта № *</label>
+                        <input type="text" id="offer" name="offer" placeholder="напр. NMN100214" value="{{ product.offer if product else '' }}" required>
+                    </div>
+
+                    <!-- Dealer -->
+                    <div class="form-group">
+                        <label for="dealer">Търговец *</label>
+                        <input type="text" id="dealer" name="dealer" placeholder="напр. Агротех България ООД" value="{{ product.dealer if product else 'Агротех България ООД' }}" required>
+                    </div>
+
+                    <!-- VAT text -->
+                    <div class="form-group">
+                        <label for="tank">ДДС забележка</label>
+                        <input type="text" id="tank" name="tank" placeholder="напр. ДДС вкл. или без ДДС" value="{{ product.tank if product else 'ДДС вкл.' }}">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group full-width">
+                        <label for="desc">Описание *</label>
+                        <textarea id="desc" name="desc" placeholder="Кратко описание на офертата за лизинг..." required>{{ product.desc if product else '' }}</textarea>
+                    </div>
+
+                    <!-- Special status checkbox -->
+                    <div class="form-group full-width">
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="lease_ret" id="lease_ret" {% if product and product.lease_ret %}checked{% endif %}>
+                            <span class="checkmark"></span>
+                            Специален етикет "Лизингова машина" в каталога
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline">Отказ</a>
+                    <button type="submit" class="btn btn-primary">Запази офертата</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

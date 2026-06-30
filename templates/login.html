@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в администрацията | Нова Машина</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #1b8a48;
+            --green-dark: #0e5e2e;
+            --gold: #cca010;
+            --white: #ffffff;
+            --dark-bg: #0b110e;
+            --card-bg: rgba(20, 30, 26, 0.65);
+            --border-color: rgba(27, 138, 72, 0.25);
+            --text-color: #e2f4ea;
+            --text-mute: #8e9c93;
+            --font: 'Manrope', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--dark-bg);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Glowing background circles for modern premium aesthetic */
+        .glowing-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+        }
+
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--green);
+            top: -100px;
+            left: -100px;
+            animation: float 20s infinite alternate;
+        }
+
+        .circle-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--gold);
+            bottom: -150px;
+            right: -100px;
+            animation: float 25s infinite alternate-reverse;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 440px;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px 32px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 
+                        0 0 40px rgba(27, 138, 72, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .login-card:hover {
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 
+                        0 0 50px rgba(27, 138, 72, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--white);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo span {
+            color: var(--green);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-mute);
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text-mute);
+            margin-bottom: 8px;
+            letter-spacing: 0.2px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(10, 15, 12, 0.8);
+            border: 1.5px solid rgba(27, 138, 72, 0.2);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: var(--white);
+            font-size: 15px;
+            font-family: var(--font);
+            transition: all 0.25s ease;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--green);
+            background: rgba(10, 15, 12, 0.95);
+            box-shadow: 0 0 15px rgba(27, 138, 72, 0.15);
+        }
+
+        .remember-forgot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            font-size: 14px;
+            color: var(--text-mute);
+            font-weight: 500;
+        }
+
+        .checkbox-container input {
+            display: none;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 1.5px solid rgba(27, 138, 72, 0.4);
+            border-radius: 6px;
+            margin-right: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            background: rgba(10, 15, 12, 0.6);
+        }
+
+        .checkbox-container input:checked + .checkmark {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        .checkbox-container input:checked + .checkmark::after {
+            content: "";
+            width: 5px;
+            height: 10px;
+            border: solid var(--white);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) translate(-0.5px, -1px);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            color: var(--white);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 20px rgba(14, 94, 46, 0.2);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(27, 138, 72, 0.35);
+            background: linear-gradient(135deg, #22a357 0%, var(--green-dark) 100%);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .alert-error {
+            background: rgba(219, 68, 85, 0.15);
+            border: 1px solid rgba(219, 68, 85, 0.4);
+            color: #ff8591;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        .alert-flash {
+            background: rgba(27, 138, 72, 0.15);
+            border: 1px solid rgba(27, 138, 72, 0.4);
+            color: #5ddc90;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="glowing-bg">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="header">
+                <div class="logo">Нова<span>Машина</span></div>
+                <div class="subtitle">Панел за управление</div>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert-flash">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% if error %}
+                <div class="alert-error">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span>{{ error }}</span>
+                </div>
+            {% endif %}
+
+            <form action="{{ url_for('admin_login') }}" method="POST">
+                <div class="form-group">
+                    <label class="form-label" for="username">Потребителско име</label>
+                    <div class="input-wrapper">
+                        <input class="form-input" type="text" id="username" name="username" placeholder="Въведете потребител" required autocomplete="username">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Парола</label>
+                    <div class="input-wrapper">
+                        <input class="form-input" type="password" id="password" name="password" placeholder="Въведете парола" required autocomplete="current-password">
+                    </div>
+                </div>
+
+                <div class="remember-forgot">
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="remember" id="remember">
+                        <span class="checkmark"></span>
+                        Запомни ме за 2 седмици
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-submit">Вход в панела</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

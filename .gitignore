@@ -3,3 +3,7 @@
 __pycache__/
 *.pyc
 *.log
+database.db
+.env.local
+node_modules/
+package-lock.json

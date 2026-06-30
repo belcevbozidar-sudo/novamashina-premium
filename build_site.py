@@ -45,48 +45,23 @@ I = {
 }
 
 # ---------------------------------------------------------------- ДАННИ: МАШИНИ
-MACHINES = [
- dict(id=1, slug='john-deere-6r-150', brand='John Deere', model='6R 150', title='John Deere 6R 150',
-      cat='Трактор', state='new', img='tractor-green.jpg', price=152900, monthly=1254,
-      fuel='Дизел', hp='150 к.с.', trans='AutoPowr 50 км/ч', loc='гр. Стара Загора', year='2026 г.', hours=None,
-      dealer='Агротех България ООД', offer='NMN100214', views=842, engine='6.8 л, 6 цил.', tank='ДДС вкл.',
-      desc='Купи нов John Deere 6R 150 на лизинг с атрактивна месечна вноска от €1 254 и цена на машината €152 900 без ДДС.'),
- dict(id=2, slug='claas-lexion-5400', brand='CLAAS', model='LEXION 5400', title='CLAAS LEXION 5400',
-      cat='Комбайн', state='new', img='combine-yellow.jpg', price=389000, monthly=3190,
-      fuel='Дизел', hp='313 к.с.', trans='CMATIC', loc='гр. Добрич', year='2026 г.', hours=None, engine='8.9 л, 6 цил.',
-      offer='NMN100377', views=1174, dealer='Агро Лидер ООД', tank='ДДС вкл.',
-      desc='Купи нов CLAAS LEXION 5400 на лизинг с атрактивна месечна вноска от €3 190 и цена на машината €389 000 без ДДС.'),
- dict(id=3, slug='new-holland-t6-180', brand='New Holland', model='T6.180', title='New Holland T6.180',
-      cat='Трактор', state='used', img='tractor-blue.jpg', price=78500, monthly=644,
-      fuel='Дизел', hp='175 к.с.', trans='Electro Command', loc='гр. Русe', year='2021 г.', hours='4 200 мч', engine='6.7 л, 6 цил.',
-      offer='NMN100455', views=689, dealer='Фермер Машини ЕООД', tank='ДДС вкл.',
-      desc='Купи употребяван New Holland T6.180 на лизинг с атрактивна месечна вноска от €644 и цена на машината €78 500 без ДДС.'),
- dict(id=4, slug='case-ih-puma-165', brand='Case IH', model='Puma 165', title='Case IH Puma 165',
-      cat='Трактор', state='used', img='tractor-red.jpg', price=64900, monthly=532,
-      fuel='Дизел', hp='165 к.с.', trans='Full Powershift', loc='гр. Плевен', year='2019 г.', hours='6 800 мч', engine='6.7 л, 6 ciл.',
-      offer='NMN100502', views=914, dealer='Агрикола Трейд ООД', tank='ДДС вкл.',
-      desc='Купи употребяван Case IH Puma 165 на лизинг с атрактивна месечна вноска от €532 и цена на машината €64 900 без ДДС.'),
- dict(id=5, slug='fendt-724-vario', brand='Fendt', model='724 Vario', title='Fendt 724 Vario',
-      cat='Трактор', state='new', img='tractor-lime.jpg', price=248700, monthly=2039,
-      fuel='Дизел', hp='246 к.с.', trans='Vario безстепенна', loc='гр. София', year='2026 г.', hours=None, engine='6.1 л, 6 цил.',
-      offer='NMN100618', views=1532, dealer='Силоз Агро ЕООД', tank='ДДС вкл.',
-      desc='Купи нов Fendt 724 Vario на лизинг с атрактивна месечна вноска от €2 039 и цена на машината €248 700 без ДДС.'),
- dict(id=6, slug='amazone-cirrus-6003', brand='Amazone', model='Cirrus 6003-2', title='Amazone Cirrus 6003-2',
-      cat='Сеялка', state='new', img='seeder.jpg', price=112300, monthly=921,
-      fuel='Прикачна', hp='6 м работна ширина', trans='ISOBUS', loc='гр. Пловдив', year='2026 г.', hours=None, engine='—',
-      offer='NMN100704', views=455, dealer='Земеделска Техника ЕООД', tank='ДДС вкл.',
-      desc='Купи нова сеялка Amazone Cirrus 6003-2 на лизинг с атрактивна месечна вноска от €921 и цена €112 300 без ДДС.'),
- dict(id=7, slug='massey-ferguson-8s-205', brand='Massey Ferguson', model='8S.205', title='Massey Ferguson 8S.205',
-      cat='Трактор', state='new', img='tractor-orange.jpg', price=198400, monthly=1627,
-      fuel='Дизел', hp='205 к.с.', trans='Dyna-7', loc='гр. Бургас', year='2026 г.', hours=None, engine='7.4 л, 6 цил.',
-      offer='NMN100791', views=698, dealer='БГ Агро Машини ООД', tank='ДДС вкл.',
-      desc='Купи нов Massey Ferguson 8S.205 на лизинг с атрактивна месечна вноска от €1 627 и цена на машината €198 400 без ДДС.'),
- dict(id=8, slug='claas-tucano-580', brand='CLAAS', model='TUCANO 580', title='CLAAS TUCANO 580',
-      cat='Комбайн', state='used', img='combine-green.jpg', price=145000, monthly=1189,
-      fuel='Дизел', hp='299 к.с.', trans='Хидростатична', loc='гр. Сливен', year='2020 г.', hours='2 350 мч', engine='8.7 л, 6 цил.',
-      offer='NMN100846', views=1043, dealer='Комбайн Сервиз ООД', tank='ДДС вкл.',
-      desc='Купи употребяван CLAAS TUCANO 580 на лизинг с атрактивна месечна вноска от €1 189 и цена €145 000 без ДДС.'),
-]
+from convex import ConvexClient
+
+def load_machines_from_db():
+    try:
+        client = ConvexClient("https://fearless-sparrow-233.eu-west-1.convex.cloud")
+        rows = client.query("products:list")
+        machines = []
+        for r in rows:
+            m = dict(r)
+            m['id'] = m['_id']
+            machines.append(m)
+        return machines
+    except Exception as e:
+        print(f"Error loading products from Convex: {e}")
+        return []
+
+MACHINES = load_machines_from_db()
 
 def calculate_initial_monthly(price, state):
     pv = price * 0.20
