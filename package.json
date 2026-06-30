@@ -1,6 +1,9 @@
 {
   "name": "novamashina-premium",
   "version": "1.0.0",
+  "scripts": {
+    "build": "python3 build_site.py"
+  },
   "dependencies": {
     "convex": "^1.42.1"
   }

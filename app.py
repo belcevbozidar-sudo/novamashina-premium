@@ -8,7 +8,10 @@ from datetime import datetime, timedelta, timezone
 from flask import Flask, request, render_template, redirect, url_for, make_response, session, flash, send_from_directory
 from convex import ConvexClient
 
-app = Flask(__name__)
+import urllib.request
+
+base_dir = os.path.dirname(os.path.abspath(__file__))
+app = Flask(__name__, template_folder=os.path.join(base_dir, 'templates'))
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', secrets.token_hex(32))
 
 CONVEX_URL = os.environ.get('CONVEX_URL', 'https://fearless-sparrow-233.eu-west-1.convex.cloud')
@@ -76,13 +79,24 @@ def check_auth():
     return False
 
 def rebuild_static_site():
-    try:
-        result = subprocess.run([sys.executable, 'build_site.py'], capture_output=True, text=True, check=True)
-        print("Static site rebuilt successfully:", result.stdout)
-        return True
-    except subprocess.CalledProcessError as e:
-        print("Error rebuilding static site:", e.stderr)
-        return False
+    webhook_url = os.environ.get('VERCEL_DEPLOY_WEBHOOK')
+    if webhook_url:
+        try:
+            req = urllib.request.Request(webhook_url, data=b'', method='POST')
+            with urllib.request.urlopen(req) as response:
+                print("Vercel redeploy triggered successfully:", response.read().decode())
+            return True
+        except Exception as e:
+            print("Error triggering Vercel redeploy webhook:", e)
+            return False
+    else:
+        try:
+            result = subprocess.run([sys.executable, 'build_site.py'], capture_output=True, text=True, check=True)
+            print("Static site rebuilt successfully:", result.stdout)
+            return True
+        except subprocess.CalledProcessError as e:
+            print("Error rebuilding static site:", e.stderr)
+            return False
 
 def slugify(text):
     translit = {
