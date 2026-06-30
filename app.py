@@ -7,8 +7,8 @@ import re
 from datetime import datetime, timedelta, timezone
 from flask import Flask, request, render_template, redirect, url_for, make_response, session, flash, send_from_directory
 from convex import ConvexClient
-
 import urllib.request
+from build_site import load_machines_from_db, page, get_index_body, get_catalog_body, product_page
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, template_folder=os.path.join(base_dir, 'templates'))
@@ -99,7 +99,7 @@ def rebuild_static_site():
             return False
 
 def trigger_rebuild_async():
-    rebuild_static_site()
+    pass
 
 from io import BytesIO
 import json
@@ -432,6 +432,36 @@ def delete_product(id):
         flash("Продуктът не беше намерен.", "danger")
         
     return redirect(url_for('admin_dashboard'))
+
+@app.route('/')
+@app.route('/index.html')
+def ssr_home():
+    machines = load_machines_from_db()
+    body = get_index_body(machines)
+    html_content = page('Нова Машина – Сайт No.1 за лизинг на селскостопанска техника', body, 'home')
+    return html_content
+
+@app.route('/catalog')
+@app.route('/catalog.html')
+def ssr_catalog():
+    machines = load_machines_from_db()
+    body = get_catalog_body(machines)
+    html_content = page('Оферти за нова и употребявана техника на лизинг', body, 'catalog')
+    return html_content
+
+@app.route('/product/<string:id>')
+@app.route('/product-<string:id>.html')
+def ssr_product(id):
+    machines = load_machines_from_db()
+    prod = next((m for m in machines if m['id'] == id), None)
+    if not prod:
+        return page('Машината не е намерена', '<h1>Офертата не е намерена</h1><p>Изглежда тази машина вече не е активна или е изтрита.</p>', 'catalog'), 404
+        
+    state = 'Нов' if prod['state'] == 'new' else 'Употребяван'
+    title = f'{state} {prod["title"]}, {prod["fuel"]} | {prod["offer"]}'
+    body = product_page(prod)
+    html_content = page(title, body, 'catalog')
+    return html_content
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)

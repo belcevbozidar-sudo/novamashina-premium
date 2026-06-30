@@ -296,12 +296,14 @@ SEARCH_FORM = f'''
 </div>'''
 
 # ---------------------------------------------------------------- НАЧАЛНА СТРАНИЦА
-new_cards = ''.join(offer_card(m) for m in MACHINES if m['state'] == 'new')
-used_machs = [dict(m) for m in MACHINES if m['state'] == 'used']
-used_machs[0]['lease_ret'] = True
-used_cards = ''.join(offer_card(m) for m in used_machs)
+def get_index_body(machines):
+    new_cards = ''.join(offer_card(m) for m in machines if m['state'] == 'new')
+    used_machs = [dict(m) for m in machines if m['state'] == 'used']
+    if used_machs:
+        used_machs[0]['lease_ret'] = True
+    used_cards = ''.join(offer_card(m) for m in used_machs)
 
-index_body = f'''
+    index_body_val = f'''
 <section class="hero">
   <img class="hero-bg" src="img/hero-field.webp" alt="">
   <svg class="hero-badge" viewBox="0 0 130 130"><circle cx="65" cy="65" r="60" fill="#0e2d14"/><circle cx="65" cy="65" r="60" fill="none" stroke="#4dbc4d" stroke-width="3" stroke-dasharray="6 7"/><text x="65" y="50" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#4dbc4d">ПРОЛЕТНА</text><text x="65" y="70" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#fff">КАМПАНИЯ</text><text x="65" y="90" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="11" fill="#4dbc4d">-3,33% ЛИХВА</text></svg>
@@ -349,38 +351,38 @@ index_body = f'''
     <article class="promo-card">
       <img class="promo-bg" src="img/promo-harvest.webp" alt="" loading="lazy" decoding="async">
       <div class="promo-overlay">
-        <h3>Готови за жътва: Лимитирана серия CLAAS GO! Edition при ексклузивни условия от ЗЛАТЕКС</h3>
-        <p>Месечна вноска от €1 990 и промоционална плаваща лихва 3.5%</p>
-      </div>
-    </article>
   </div>
   <div class="cta-center"><a class="btn-cta" href="catalog.html">Нова техника на лизинг</a></div>
 </section>
 
-<section class="section container">
-  <h2 class="section-title">Употребявана техника на лизинг</h2>
-  <p class="section-sub">Проверени, обслужени и върнати от лизинг машини с гаранция</p>
+<section class="banner-wide">
+  <img class="banner-bg" src="img/about-2.webp" alt="">
+  <div class="banner-overlay"></div>
+  <div class="banner-content container">
+    <h2>Търсиш специфична машина или индивидуални условия?</h2>
+    <p>Нашите опитни консултанти от ЗЛАТЕКС Лизинг ще изготвят оферта специално за нуждите на твоето стопанство.</p>
+    <a class="btn-cta" href="contacts.html">Свържи се с нас</a>
+  </div>
+</section>
+
+<section class="offers-section container">
+  <div class="section-header">
+    <h2>Проверена употребявана техника</h2>
+    <p>Сигурност и надеждност на достъпни цени с гаранция</p>
+  </div>
   <div class="offers-grid">
     {used_cards}
   </div>
   <div class="cta-center"><a class="btn-cta dark" href="catalog.html">Употребявана техника на лизинг</a></div>
 </section>
 
-<section class="two-sided container">
-  <h2 class="two-sided-title">Търсиш или продаваш машина?<br><span class="brand">ЗЛАТЕКС</span> е твоето място</h2>
-  <div class="two-sided-card">
-    <div class="side">
-      <h4>За купувачи</h4>
-      <div class="lead">Само сигурни и проверени обяви за техника. Намери бързо машината, която търсиш.</div>
-      <p>Разгледай хиляди оферти за нови и употребявани машини от официални представители и доверени търговци в цялата страна.</p>
+<section class="promo-wide container">
+  <div class="promo-grid">
+    <div class="promo-text">
+      <h2>Стани част от бъдещето на земеделието с навигационни системи Valtra Guide</h2>
+      <p>Възползвай се от прецизно земеделие с точност до 2.5 см, намали разходите за гориво и семена и увеличи добивите си. Сега с възможност за финансиране на оборудването при преференциални условия с лихва от 2.99%.</p>
       <a class="btn-cta" href="catalog.html">Разгледай обявите</a>
     </div>
-    <img class="two-sided-art" src="img/cat-tractors.webp" alt="Трактор" loading="lazy" decoding="async">
-    <div class="side">
-      <h4>За продавачи</h4>
-      <div class="lead">Публикувай обявата си тук, където клиентите търсят своята нова машина.</div>
-      <p>Достигни до хиляди земеделски стопани и агрофирми. Публикуването е бързо, лесно и с пълно съдействие от нашия екип.</p>
-      <a class="btn-cta dark" href="#">Добави обява</a>
     </div>
   </div>
 </section>
@@ -405,13 +407,12 @@ index_body = f'''
     </div>
   </div>
 </section>'''
+    return index_body_val
 
 # ---------------------------------------------------------------- КАТАЛОГ
-catalog_cards = []
-order = [0, 2, 1, 3, 4, 7, 5, 6]
-for i in order:
-    catalog_cards.append(offer_card(MACHINES[i]))
-catalog_cards.insert(2, f'''
+def get_catalog_body(machines):
+    catalog_cards = [offer_card(m) for m in machines]
+    promo_card_html = f'''
 <article class="promo-card">
   <img class="promo-bg" src="img/promo-fleet.webp" alt="">
   <svg class="hero-badge" style="position:absolute;top:14px;right:14px;width:96px;height:96px" viewBox="0 0 130 130"><circle cx="65" cy="65" r="60" fill="#0e2d14"/><circle cx="65" cy="65" r="60" fill="none" stroke="#4dbc4d" stroke-width="3" stroke-dasharray="6 7"/><text x="65" y="56" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="14" fill="#4dbc4d">ПРОЛЕТНА</text><text x="65" y="78" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="14" fill="#fff">КАМПАНИЯ</text></svg>
@@ -419,12 +420,16 @@ catalog_cards.insert(2, f'''
     <h3>Новият Deutz-Fahr 6160 вече е при нас!</h3>
     <p>С месечна вноска от 1 152 € и отстъпка от цената</p>
   </div>
-</article>''')
+</article>'''
+    if len(catalog_cards) >= 2:
+        catalog_cards.insert(2, promo_card_html)
+    else:
+        catalog_cards.append(promo_card_html)
+        
+    unique_brands = sorted(list(set(m['brand'] for m in machines if m.get('brand'))))
+    brand_options = ''.join(f'<option value="{b.lower()}">{b}</option>' for b in unique_brands)
 
-unique_brands = sorted(list(set(m['brand'] for m in MACHINES if m.get('brand'))))
-brand_options = ''.join(f'<option value="{b.lower()}">{b}</option>' for b in unique_brands)
-
-catalog_body = f'''
+    catalog_body_val = f'''
 <main class="page container">
   {SEARCH_FORM.replace('id="search"', 'id="search" style="width:100%;margin-top:0"')}
   <h1 class="page-title green" style="margin-top:48px">Оферти за нова и употребявана техника на лизинг</h1>
@@ -469,6 +474,7 @@ catalog_body = f'''
   </div>
   <div class="cta-center"><a class="btn-cta" href="#search">Зареди още оферти</a></div>
 </main>'''
+    return catalog_body_val
 
 # ---------------------------------------------------------------- ПРОДУКТОВИ СТРАНИЦИ
 def product_page(m):
@@ -1213,22 +1219,18 @@ faq_body = f'''
 </main>'''
 
 # ---------------------------------------------------------------- ЗАПИС
-pages = {
- 'index.html': ('Нова Машина – Сайт No.1 за лизинг на селскостопанска техника', index_body, 'home'),
- 'catalog.html': ('Оферти за нова и употребявана техника на лизинг', catalog_body, 'catalog'),
- 'dealers.html': ('Търговци – Нова Машина', dealers_body, 'dealers'),
- 'calculator.html': ('Лизингов калкулатор – Нова Машина', calculator_body, 'calc'),
- 'budget-calculator.html': ('Бюджетен калкулатор за лизинг – Нова Машина', budget_body, 'budget'),
- 'about.html': ('За Нова Машина', about_body, 'about'),
- 'contacts.html': ('Контакти – Нова Машина', contacts_body, 'contacts'),
- 'faq.html': ('Често задавани въпроси – Нова Машина', faq_body, 'about'),
-}
-for m in MACHINES:
-    state = 'Нов' if m['state'] == 'new' else 'Употребяван'
-    pages[f'product-{m["id"]}.html'] = (f'{state} {m["title"]}, {m["fuel"]} | {m["offer"]}', product_page(m), 'catalog')
+if __name__ == '__main__':
+    pages = {
+     'dealers.html': ('Търговци – Нова Машина', dealers_body, 'dealers'),
+     'calculator.html': ('Лизингов калкулатор – Нова Машина', calculator_body, 'calc'),
+     'budget-calculator.html': ('Бюджетен калкулатор за лизинг – Нова Машина', budget_body, 'budget'),
+     'about.html': ('За Нова Машина', about_body, 'about'),
+     'contacts.html': ('Контакти – Нова Машина', contacts_body, 'contacts'),
+     'faq.html': ('Често задавани въпроси – Нова Машина', faq_body, 'about'),
+    }
 
-for fname, (title, body, active) in pages.items():
-    with open(fname, 'w', encoding='utf-8') as f:
-        f.write(page(title, body, active))
+    for fname, (title, body, active) in pages.items():
+        with open(fname, 'w', encoding='utf-8') as f:
+            f.write(page(title, body, active))
 
-print('Generated', len(pages), 'pages')
+    print('Generated', len(pages), 'static pages')

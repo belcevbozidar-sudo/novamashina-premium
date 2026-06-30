@@ -2,6 +2,12 @@
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/admin", "destination": "/api/index" },
-    { "source": "/admin/(.*)", "destination": "/api/index" }
+    { "source": "/admin/(.*)", "destination": "/api/index" },
+    { "source": "/", "destination": "/api/index" },
+    { "source": "/index.html", "destination": "/api/index" },
+    { "source": "/catalog", "destination": "/api/index" },
+    { "source": "/catalog.html", "destination": "/api/index" },
+    { "source": "/product/(.*)", "destination": "/api/index" },
+    { "source": "/product-(.*).html", "destination": "/api/index" }
   ]
 }
