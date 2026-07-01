@@ -474,8 +474,10 @@
                                     <input type="text" class="cat-name-input" data-id="{{ c.id }}" value="{{ c.name }}">
                                 </div>
                                 <div class="form-group">
-                                    <label>Брой активни оферти</label>
-                                    <input type="text" class="cat-count-input" data-id="{{ c.id }}" value="{{ c.count }}">
+                                    <label>Брой активни оферти (изчислява се автоматично)</label>
+                                    <div style="padding: 12px 16px; background: rgba(0,0,0,0.03); border-radius: 10px; font-weight: 700; color: var(--green-dark);">
+                                        {{ cat_counts.get(c.id, 0) }} активни оферти
+                                    </div>
                                 </div>
                                 <div class="form-group full-width">
                                     <label>Изображение на категорията</label>
@@ -721,14 +723,16 @@
                 var mobileImgSrc = slide.mobileImg;
                 var mobilePreview = mobileImgSrc.startsWith('http') || mobileImgSrc.startsWith('img/') || mobileImgSrc.startsWith('/img/') ? mobileImgSrc : '/img/' + mobileImgSrc;
 
+                var titleText = (slide.title || "").replace(/<br\s*\/?>/gi, '\n');
+
                 card.innerHTML = `
                     <div class="slide-drag-handle"></div>
                     <button type="button" class="slide-remove-btn" onclick="removeHeroSlide(${idx})">&times;</button>
                     
                     <div class="slide-fields-grid">
                         <div class="form-group full-width">
-                            <label>Заглавие на слайда (HTML формат)</label>
-                            <input type="text" class="slide-title-input" value="${escapeHtml(slide.title)}" oninput="updateSlideField(${idx}, 'title', this.value)">
+                            <label>Заглавие на слайда (пренася се на нов ред с натискане на Enter)</label>
+                            <textarea class="slide-title-input" rows="3" oninput="updateSlideField(${idx}, 'title', this.value)" style="font-family: var(--font-ui); font-size: 14.5px; line-height: 1.4; resize: vertical; width: 100%; border: 1px solid rgba(7,59,28,0.08); border-radius: 8px; padding: 12px 14px; outline: 0; background: #fff;">${escapeHtml(titleText)}</textarea>
                         </div>
                         <div class="form-group">
                             <label>Badge Заглавие (напр. ПРОЛЕТНА)</label>
@@ -871,12 +875,11 @@
             var ids = ["tractors", "combines", "seeders", "sprayers", "trailers", "inventar"];
             ids.forEach(function (id) {
                 var nameVal = document.querySelector(`.cat-name-input[data-id="${id}"]`).value;
-                var countVal = document.querySelector(`.cat-count-input[data-id="${id}"]`).value;
                 var imgVal = document.querySelector(`.cat-img-input[data-id="${id}"]`).value;
                 categories.push({
                     id: id,
                     name: nameVal,
-                    count: countVal,
+                    count: "",
                     img: imgVal
                 });
             });

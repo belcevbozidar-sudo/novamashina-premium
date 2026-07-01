@@ -49,7 +49,8 @@ from convex import ConvexClient
 
 def load_machines_from_db():
     try:
-        client = ConvexClient("https://fearless-sparrow-233.eu-west-1.convex.cloud")
+        url = os.environ.get('CONVEX_URL', 'https://fearless-sparrow-233.eu-west-1.convex.cloud')
+        client = ConvexClient(url)
         rows = client.query("products:list")
         machines = []
         for r in rows:
@@ -115,12 +116,30 @@ DEFAULT_SETTINGS = {
 
 def load_settings_from_db():
     try:
-        client = ConvexClient("https://fearless-sparrow-233.eu-west-1.convex.cloud")
+        url = os.environ.get('CONVEX_URL', 'https://fearless-sparrow-233.eu-west-1.convex.cloud')
+        client = ConvexClient(url)
         res = client.query("settings:get")
         return dict(res)
     except Exception as e:
         print(f"Error loading settings from Convex: {e}")
         return DEFAULT_SETTINGS
+
+def get_category_id_from_product(cat):
+    if not cat:
+        return 'inventar'
+    c = cat.lower().strip()
+    if 'трактор' in c:
+        return 'tractors'
+    elif 'комбайн' in c:
+        return 'combines'
+    elif 'сеял' in c:
+        return 'seeders'
+    elif 'пръскач' in c:
+        return 'sprayers'
+    elif 'ремарке' in c:
+        return 'trailers'
+    else:
+        return 'inventar'
 
 
 def calculate_initial_monthly(price, state):
@@ -362,11 +381,40 @@ def get_index_body(machines, settings):
         used_machs[0]['lease_ret'] = True
     used_cards = ''.join(offer_card(m) for m in used_machs)
 
-    # 1. Categories track from settings
+    # 1. Categories track from settings - active counts calculated dynamically in real-time
+    cat_counts = {
+        'tractors': 0,
+        'combines': 0,
+        'seeders': 0,
+        'sprayers': 0,
+        'trailers': 0,
+        'inventar': 0
+    }
+    for m in machines:
+        if m.get('isDeleted'):
+            continue
+        cat_id = get_category_id_from_product(m.get('cat', ''))
+        if cat_id in cat_counts:
+            cat_counts[cat_id] += 1
+
     cat_cards_list = []
     for c in settings.get('categories', []):
         src = c['img'] if (c['img'].startswith('http') or c['img'].startswith('img/') or c['img'].startswith('/img/')) else f"img/{c['img']}"
-        cat_cards_list.append(f'<a class="cat-card" href="catalog.html"><img src="{src}" alt="{c["name"]}" loading="lazy" decoding="async"><div class="cat-name">{c["name"]}</div><div class="cat-count">{c["count"]}</div></a>')
+        count = cat_counts.get(c['id'], 0)
+        if count == 1:
+            count_str = "1 active"
+        else:
+            count_str = f"{count} active"
+        
+        # Translate dynamic count labels to Bulgarian
+        if "active" in count_str:
+            c_num = count_str.split()[0]
+            if c_num == "1":
+                count_str = "1 активна оферта"
+            else:
+                count_str = f"{c_num} активни оферти"
+                
+        cat_cards_list.append(f'<a class="cat-card" href="catalog.html"><img src="{src}" alt="{c["name"]}" loading="lazy" decoding="async"><div class="cat-name">{c["name"]}</div><div class="cat-count">{count_str}</div></a>')
     cats_html = ''.join(cat_cards_list)
 
     # 2. Hero slider from settings
@@ -381,6 +429,9 @@ def get_index_body(machines, settings):
         if s.get('badgeTitle') or s.get('badgeSubtitle') or s.get('badgeText'):
             badge_html = f'''<svg class="hero-badge" viewBox="0 0 130 130"><circle cx="65" cy="65" r="60" fill="#0e2d14"/><circle cx="65" cy="65" r="60" fill="none" stroke="#4dbc4d" stroke-width="3" stroke-dasharray="6 7"/><text x="65" y="50" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#4dbc4d">{s.get("badgeTitle", "")}</text><text x="65" y="70" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#fff">{s.get("badgeSubtitle", "")}</text><text x="65" y="90" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="11" fill="#4dbc4d">{s.get("badgeText", "")}</text></svg>'''
         
+        # Replace newlines with HTML <br> tags in slide title
+        title_html = s["title"].replace("\n", "<br>")
+        
         slides_list.append(f'''
         <div class="hero-slide {active_class}">
           <picture class="hero-bg">
@@ -389,7 +440,7 @@ def get_index_body(machines, settings):
           </picture>
           {badge_html}
           <div class="hero-inner">
-            <h1 class="hero-title">{s["title"]}</h1>
+            <h1 class="hero-title">{title_html}</h1>
           </div>
         </div>''')
         

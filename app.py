@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, timezone
 from flask import Flask, request, render_template, redirect, url_for, make_response, session, flash, send_from_directory, jsonify
 from convex import ConvexClient
 import urllib.request
-from build_site import load_machines_from_db, load_settings_from_db, page, get_index_body, get_catalog_body, product_page, get_about_body, get_contacts_body
+from build_site import load_machines_from_db, load_settings_from_db, page, get_index_body, get_catalog_body, product_page, get_about_body, get_contacts_body, get_category_id_from_product
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, template_folder=os.path.join(base_dir, 'templates'))
@@ -528,9 +528,20 @@ def admin_settings():
         client.mutation("settings:update", payload)
         flash("Настройките на сайта бяха запазени успешно!", "success")
         return redirect(url_for('admin_settings'))
-        
     settings = client.query("settings:get")
-    return render_template('settings_form.html', settings=settings)
+    machines = load_machines_from_db()
+    cat_counts = {
+        'tractors': 0, 'combines': 0, 'seeders': 0,
+        'sprayers': 0, 'trailers': 0, 'inventar': 0
+    }
+    for m in machines:
+        if m.get('isDeleted'):
+            continue
+        cat_id = get_category_id_from_product(m.get('cat', ''))
+        if cat_id in cat_counts:
+            cat_counts[cat_id] += 1
+            
+    return render_template('settings_form.html', settings=settings, cat_counts=cat_counts)
 
 @app.route('/')
 @app.route('/index.html')
