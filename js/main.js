@@ -533,3 +533,45 @@ function initCatalogFilter() {
     stateSelect.addEventListener('change', filterCatalog);
   }
 }
+
+/* ---------- Hero Slider ---------- */
+var heroIdx = 0;
+var heroInterval;
+
+function heroSet(idx) {
+  var slides = document.querySelectorAll('.hero-slide');
+  var dots = document.querySelectorAll('.hero-dot');
+  if (!slides.length) return;
+  
+  heroIdx = (idx + slides.length) % slides.length;
+  
+  slides.forEach(function (slide, i) {
+    slide.classList.toggle('active', i === heroIdx);
+  });
+  
+  dots.forEach(function (dot, i) {
+    dot.classList.toggle('active', i === heroIdx);
+  });
+  
+  resetHeroTimer();
+}
+
+function heroPrev() {
+  heroSet(heroIdx - 1);
+}
+
+function heroNext() {
+  heroSet(heroIdx + 1);
+}
+
+function resetHeroTimer() {
+  clearInterval(heroInterval);
+  var slides = document.querySelectorAll('.hero-slide');
+  if (slides.length > 1) {
+    heroInterval = setInterval(heroNext, 6000);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  resetHeroTimer();
+});

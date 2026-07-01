@@ -64,6 +64,65 @@ def load_machines_from_db():
 
 MACHINES = load_machines_from_db()
 
+DEFAULT_SETTINGS = {
+  'heroSlides': [
+    {
+      'title': "Вземи John Deere 6R 150<br>с 3,33% лихва и подаръци до<br>30.6.2026г.",
+      'desktopImg': "img/hero-desktop.webp",
+      'mobileImg': "img/hero-mobile.webp",
+      'badgeTitle': "ПРОЛЕТНА",
+      'badgeSubtitle': "КАМПАНИЯ",
+      'badgeText': "-3,33% ЛИХВА",
+    }
+  ],
+  'categories': [
+    { 'id': "tractors", 'name': "Трактори", 'count': "412 активни оферти", 'img': "img/cat-tractors.webp" },
+    { 'id': "combines", 'name': "Комбайни", 'count': "126 активни оферти", 'img': "img/cat-combines.webp" },
+    { 'id': "seeders", 'name': "Сеялки", 'count': "98 активни оферти", 'img': "img/cat-seeders.webp" },
+    { 'id': "sprayers", 'name': "Пръскачки", 'count': "74 активни оферти", 'img': "img/cat-sprayers.webp" },
+    { 'id': "trailers", 'name': "Ремаркета", 'count': "63 активни оферти", 'img': "img/cat-trailers.webp" },
+    { 'id': "inventar", 'name': "Инвентар", 'count': "187 активни оферти", 'img': "img/cat-inventar.webp" }
+  ],
+  'fendtPromo': {
+    'title': "Немско инженерство на нова цена: Вземи своя нов Fendt от ЗЛАТЕКС с вноска от 950 €!",
+    'subtitle': "Специални условия: лихва 3,65% и атрактивни вноски до 30.06.2026 г",
+    'img': "img/promo-fleet.webp"
+  },
+  'aboutPage': {
+    'sec1Title': "Нова Машина е платформа на ЗЛАТЕКС, която прави избора и закупуването на земеделска техника лесно, бързо и удобно",
+    'sec1Desc': "Предлагаме ви лесен и удобен дигитален асистент в избора на Вашата Нова Машина. В тази динамично променяща се среда, където дистанционните услуги вече са ежедневие, ние ви даваме възможността да изберете, тествате и купите на лизинг своята мечтана нова машина изцяло дистанционно.",
+    'sec1Img': "img/about-1.webp",
+    'sec2Title': "Желаната Нова Машина е само на няколко клика разстояние",
+    'sec2Desc': "Платформата е интуитивна и лесна за използване, като с няколко клика задавате критериите си за мечтаната машина и веднага получавате списък с най-подходящите оферти, от които можете да избирате, както и да заявите демонстрация в стопанството. По този начин ви даваме възможност да изберете своята Нова Машина и да я вземете при най-добрите условия за лизинг.",
+    'sec2Img': "img/about-2.webp",
+    'sec3Title': "Финансиране, застраховка и регистрация — на едно място",
+    'sec3Desc': "Чрез ЗЛАТЕКС Лизинг получавате пълно съдействие: индивидуален лизингов план, застраховка на техниката, регистрация и доставка до стопанството. Нашите консултанти са до вас на всяка стъпка — от избора до първата бразда.",
+    'sec3Img': "img/budget-side.webp"
+  },
+  'contactsPage': {
+    'officeTitle': "Централен офис на ЗЛАТЕКС",
+    'officeAddress': "гр. Стара Загора, бул. \"Патриарх Евтимий\" №52, Офис сграда ЗЛАТЕКС",
+    'workingHoursTitle': "Работно време",
+    'workingHoursDesc': "От понеделник до петък: 8:00 - 17:00 ч.",
+    'phoneTitle': "Телефон за връзка",
+    'phoneNum': "042/919 700",
+    'phoneDesc': "Обадете ни се или ни потърсете на картата по-долу",
+    'networksTitle': "Търговско-сервизни комплекси",
+    'networksDesc': "За удобство на нашите клиенти ЗЛАТЕКС разполага със 7 собствени търговско-сервизни комплекси на територията на цялата страна:",
+    'cities': ["Стара Загора", "Чирпан", "Ямбол", "Добрич", "Разград", "Плевен", "Враца"]
+  }
+}
+
+def load_settings_from_db():
+    try:
+        client = ConvexClient("https://fearless-sparrow-233.eu-west-1.convex.cloud")
+        res = client.query("settings:get")
+        return dict(res)
+    except Exception as e:
+        print(f"Error loading settings from Convex: {e}")
+        return DEFAULT_SETTINGS
+
+
 def calculate_initial_monthly(price, state):
     pv = price * 0.20
     os = price * 0.10
@@ -296,23 +355,78 @@ SEARCH_FORM = f'''
 </div>'''
 
 # ---------------------------------------------------------------- НАЧАЛНА СТРАНИЦА
-def get_index_body(machines):
+def get_index_body(machines, settings):
     new_cards = ''.join(offer_card(m) for m in machines if m['state'] == 'new')
     used_machs = [dict(m) for m in machines if m['state'] == 'used']
     if used_machs:
         used_machs[0]['lease_ret'] = True
     used_cards = ''.join(offer_card(m) for m in used_machs)
 
+    # 1. Categories track from settings
+    cat_cards_list = []
+    for c in settings.get('categories', []):
+        src = c['img'] if (c['img'].startswith('http') or c['img'].startswith('img/') or c['img'].startswith('/img/')) else f"img/{c['img']}"
+        cat_cards_list.append(f'<a class="cat-card" href="catalog.html"><img src="{src}" alt="{c["name"]}" loading="lazy" decoding="async"><div class="cat-name">{c["name"]}</div><div class="cat-count">{c["count"]}</div></a>')
+    cats_html = ''.join(cat_cards_list)
+
+    # 2. Hero slider from settings
+    slides_list = []
+    dots_list = []
+    for idx, s in enumerate(settings.get('heroSlides', [])):
+        desktop_src = s['desktopImg'] if (s['desktopImg'].startswith('http') or s['desktopImg'].startswith('img/') or s['desktopImg'].startswith('/img/')) else f"img/{s['desktopImg']}"
+        mobile_src = s['mobileImg'] if (s['mobileImg'].startswith('http') or s['mobileImg'].startswith('img/') or s['mobileImg'].startswith('/img/')) else f"img/{s['mobileImg']}"
+        active_class = "active" if idx == 0 else ""
+        
+        badge_html = ''
+        if s.get('badgeTitle') or s.get('badgeSubtitle') or s.get('badgeText'):
+            badge_html = f'''<svg class="hero-badge" viewBox="0 0 130 130"><circle cx="65" cy="65" r="60" fill="#0e2d14"/><circle cx="65" cy="65" r="60" fill="none" stroke="#4dbc4d" stroke-width="3" stroke-dasharray="6 7"/><text x="65" y="50" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#4dbc4d">{s.get("badgeTitle", "")}</text><text x="65" y="70" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#fff">{s.get("badgeSubtitle", "")}</text><text x="65" y="90" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="11" fill="#4dbc4d">{s.get("badgeText", "")}</text></svg>'''
+        
+        slides_list.append(f'''
+        <div class="hero-slide {active_class}">
+          <picture class="hero-bg">
+            <source media="(max-width: 767px)" srcset="{mobile_src}">
+            <img src="{desktop_src}" alt="">
+          </picture>
+          {badge_html}
+          <div class="hero-inner">
+            <h1 class="hero-title">{s["title"]}</h1>
+          </div>
+        </div>''')
+        
+        dots_list.append(f'<span class="hero-dot {active_class}" onclick="heroSet({idx})"></span>')
+    
+    slides_html = ''.join(slides_list)
+    
+    if len(settings.get('heroSlides', [])) > 1:
+        slider_controls_html = f'''
+        <button class="hero-nav-arrow prev-arrow" onclick="heroPrev()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button class="hero-nav-arrow next-arrow" onclick="heroNext()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        <div class="hero-dots">
+          {"".join(dots_list)}
+        </div>'''
+    else:
+        slider_controls_html = ''
+
+    # 3. Fendt promo card from settings
+    fendt = settings.get('fendtPromo', {})
+    fendt_src = fendt.get('img', '')
+    fendt_img_src = fendt_src if (fendt_src.startswith('http') or fendt_src.startswith('img/') or fendt_src.startswith('/img/')) else f"img/{fendt_src}"
+    fendt_promo_html = f'''
+    <article class="promo-card">
+      <img class="promo-bg" src="{fendt_img_src}" alt="" loading="lazy" decoding="async">
+      <div class="promo-tag">{I['spark'].replace('#4dbc4d', '#ffffff')}<span>СПЕЦИАЛНИ<br>УСЛОВИЯ</span></div>
+      <div class="promo-overlay">
+        <h3>{fendt.get('title', '')}</h3>
+        <p>{fendt.get('subtitle', '')}</p>
+      </div>
+    </article>'''
+
     index_body_val = f'''
-<section class="hero">
-  <picture class="hero-bg">
-    <source media="(max-width: 767px)" srcset="img/hero-mobile.webp">
-    <img src="img/hero-desktop.webp" alt="">
-  </picture>
-  <svg class="hero-badge" viewBox="0 0 130 130"><circle cx="65" cy="65" r="60" fill="#0e2d14"/><circle cx="65" cy="65" r="60" fill="none" stroke="#4dbc4d" stroke-width="3" stroke-dasharray="6 7"/><text x="65" y="50" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#4dbc4d">ПРОЛЕТНА</text><text x="65" y="70" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="13" fill="#fff">КАМПАНИЯ</text><text x="65" y="90" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="11" fill="#4dbc4d">-3,33% ЛИХВА</text></svg>
-  <div class="hero-inner">
-    <h1 class="hero-title">Вземи John Deere 6R 150<br>с 3,33% лихва и подаръци до<br>30.6.2026г.</h1>
+<section class="hero hero-slider-container">
+  <div class="hero-slides-wrap">
+    {slides_html}
   </div>
+  {slider_controls_html}
 </section>
 
 <div class="ai-search" id="ai">
@@ -329,12 +443,7 @@ def get_index_body(machines):
 
 <section class="cats">
   <div class="cats-track">
-    <a class="cat-card" href="catalog.html"><img src="img/cat-tractors.webp" alt="Трактори" loading="lazy" decoding="async"><div class="cat-name">Трактори</div><div class="cat-count">412 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-combines.webp" alt="Комбайни" loading="lazy" decoding="async"><div class="cat-name">Комбайни</div><div class="cat-count">126 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-seeders.webp" alt="Сеялки" loading="lazy" decoding="async"><div class="cat-name">Сеялки</div><div class="cat-count">98 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-sprayers.webp" alt="Пръскачки" loading="lazy" decoding="async"><div class="cat-name">Пръскачки</div><div class="cat-count">74 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-trailers.webp" alt="Ремаркета" loading="lazy" decoding="async"><div class="cat-name">Ремаркета</div><div class="cat-count">63 активни оферти</div></a>
-    <a class="cat-card" href="catalog.html"><img src="img/cat-inventar.webp" alt="Инвентар" loading="lazy" decoding="async"><div class="cat-name">Инвентар</div><div class="cat-count">187 активни оферти</div></a>
+    {cats_html}
   </div>
 </section>
 
@@ -343,17 +452,7 @@ def get_index_body(machines):
   <p class="section-sub">Специални предложения за налични машини с бърза доставка</p>
   <div class="offers-grid">
     {new_cards}
-    <article class="promo-card">
-      <img class="promo-bg" src="img/promo-fleet.webp" alt="" loading="lazy" decoding="async">
-      <div class="promo-tag">{I['spark'].replace('#4dbc4d', '#ffffff')}<span>СПЕЦИАЛНИ<br>УСЛОВИЯ</span></div>
-      <div class="promo-overlay">
-        <h3>Немско инженерство на нова цена: Вземи своя нов Fendt от ЗЛАТЕКС с вноска от 950 €!</h3>
-        <p>Специални условия: лихва 3,65% и атрактивни вноски до 30.06.2026 г</p>
-      </div>
-    </article>
-    <article class="promo-card">
-      <img class="promo-bg" src="img/promo-harvest.webp" alt="" loading="lazy" decoding="async">
-      <div class="promo-overlay">
+    {fendt_promo_html}
   </div>
   <div class="cta-center"><a class="btn-cta" href="catalog.html">Нова техника на лизинг</a></div>
 </section>
@@ -415,19 +514,6 @@ def get_index_body(machines):
 # ---------------------------------------------------------------- КАТАЛОГ
 def get_catalog_body(machines):
     catalog_cards = [offer_card(m) for m in machines]
-    promo_card_html = f'''
-<article class="promo-card">
-  <img class="promo-bg" src="img/promo-fleet.webp" alt="">
-  <svg class="hero-badge" style="position:absolute;top:14px;right:14px;width:96px;height:96px" viewBox="0 0 130 130"><circle cx="65" cy="65" r="60" fill="#0e2d14"/><circle cx="65" cy="65" r="60" fill="none" stroke="#4dbc4d" stroke-width="3" stroke-dasharray="6 7"/><text x="65" y="56" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="14" fill="#4dbc4d">ПРОЛЕТНА</text><text x="65" y="78" text-anchor="middle" font-family="Comfortaa" font-weight="700" font-size="14" fill="#fff">КАМПАНИЯ</text></svg>
-  <div class="promo-overlay">
-    <h3>Новият Deutz-Fahr 6160 вече е при нас!</h3>
-    <p>С месечна вноска от 1 152 € и отстъпка от цената</p>
-  </div>
-</article>'''
-    if len(catalog_cards) >= 2:
-        catalog_cards.insert(2, promo_card_html)
-    else:
-        catalog_cards.append(promo_card_html)
         
     unique_brands = sorted(list(set(m['brand'] for m in machines if m.get('brand'))))
     brand_options = ''.join(f'<option value="{b.lower()}">{b}</option>' for b in unique_brands)
@@ -1039,35 +1125,52 @@ news_body = f'''
 </main>'''
 
 # ---------------------------------------------------------------- ЗА НАС
-about_body = f'''
+# ---------------------------------------------------------------- ЗА НАС
+def get_about_body(settings):
+    ab = settings.get('aboutPage', {})
+    sec1Img = ab.get('sec1Img', '')
+    sec1_src = sec1Img if (sec1Img.startswith('http') or sec1Img.startswith('img/') or sec1Img.startswith('/img/')) else f"img/{sec1Img}"
+    
+    sec2Img = ab.get('sec2Img', '')
+    sec2_src = sec2Img if (sec2Img.startswith('http') or sec2Img.startswith('img/') or sec2Img.startswith('/img/')) else f"img/{sec2Img}"
+    
+    sec3Img = ab.get('sec3Img', '')
+    sec3_src = sec3Img if (sec3Img.startswith('http') or sec3Img.startswith('img/') or sec3Img.startswith('/img/')) else f"img/{sec3Img}"
+    
+    return f'''
 <main class="page container">
   <div class="about-hero">
     <div>
-      <h1>Нова Машина е платформа на ЗЛАТЕКС, която прави избора и закупуването на земетелска техника лесно, бързо и удобно</h1>
-      <p>Предлагаме ви лесен и удобен дигитален асистент в избора на Вашата Нова Машина. В тази динамично променяща се среда, където дистанционните услуги вече са ежедневие, ние ви даваме възможността да изберете, тествате и купите на лизинг своята мечтана нова машина изцяло дистанционно.</p>
+      <h1>{ab.get('sec1Title', '')}</h1>
+      <p>{ab.get('sec1Desc', '')}</p>
     </div>
-    <img src="img/about-1.webp" alt="" loading="lazy" decoding="async">
+    <img src="{sec1_src}" alt="" loading="lazy" decoding="async">
   </div>
   <div class="about-row">
-    <img src="img/about-2.webp" alt="" loading="lazy" decoding="async">
+    <img src="{sec2_src}" alt="" loading="lazy" decoding="async">
     <div>
-      <h2>Желаната Нова Машина е само на няколко клика разстояние</h2>
-      <p>Платформата е интуитивна и лесна за използване, като с няколко клика задавате критериите си за мечтаната машина и веднага получавате списък с най-подходящите оферти, от които можете да избирате, както и да заявите демонстрация в стопанството. По този начин ви даваме възможност да изберете своята Нова Машина и да я вземете при най-добрите условия за лизинг.</p>
+      <h2>{ab.get('sec2Title', '')}</h2>
+      <p>{ab.get('sec2Desc', '')}</p>
       <a class="btn-cta" href="catalog.html">Нова техника на лизинг</a>
     </div>
   </div>
   <div class="about-row">
     <div>
-      <h2>Финансиране, застраховка и регистрация — на едно място</h2>
-      <p>Чрез ЗЛАТЕКС Лизинг получавате пълно съдействие: индивидуален лизингов план, застраховка на техниката, регистрация и доставка до стопанството. Нашите консултанти са до вас на всяка стъпка — от избора до първата бразда.</p>
+      <h2>{ab.get('sec3Title', '')}</h2>
+      <p>{ab.get('sec3Desc', '')}</p>
       <a class="btn-cta dark" href="calculator.html">Лизингов калкулатор</a>
     </div>
-    <img src="img/budget-side.webp" alt="" loading="lazy" decoding="async">
+    <img src="{sec3_src}" alt="" loading="lazy" decoding="async">
   </div>
 </main>'''
 
 # ---------------------------------------------------------------- КОНТАКТИ
-contacts_body = f'''
+def get_contacts_body(settings):
+    co = settings.get('contactsPage', {})
+    cities_html = ''.join(f'<span>{c}</span>' for c in co.get('cities', []))
+    phone_raw = co.get('phoneNum', '').replace(' ', '').replace('/', '')
+    
+    return f'''
 <main class="page container">
   <div class="contacts-page-header">
     <h1>Контакти</h1>
@@ -1079,8 +1182,8 @@ contacts_body = f'''
       <div class="info-block main-office">
         <div class="icon-wrap">{I['pin-g']}</div>
         <div class="info-text">
-          <h3>Централен офис на ЗЛАТЕКС</h3>
-          <p>гр. Стара Загора, бул. "Патриарх Евтимий" №52, Офис сграда ЗЛАТЕКС</p>
+          <h3>{co.get('officeTitle', '')}</h3>
+          <p>{co.get('officeAddress', '')}</p>
         </div>
       </div>
       
@@ -1089,17 +1192,17 @@ contacts_body = f'''
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
         <div class="info-text">
-          <h3>Работно време</h3>
-          <p>От понеделник до петък: 8:00 - 17:00 ч.</p>
+          <h3>{co.get('workingHoursTitle', '')}</h3>
+          <p>{co.get('workingHoursDesc', '')}</p>
         </div>
       </div>
       
       <div class="info-block contact-phone">
         <div class="icon-wrap">{I['phone']}</div>
         <div class="info-text">
-          <h3>Телефон за връзка</h3>
-          <p class="highlight-phone"><a href="tel:042919700">042/919 700</a></p>
-          <p class="sub-text">Обадете ни се или ни потърсете на картата по-долу</p>
+          <h3>{co.get('phoneTitle', '')}</h3>
+          <p class="highlight-phone"><a href="tel:{phone_raw}">{co.get('phoneNum', '')}</a></p>
+          <p class="sub-text">{co.get('phoneDesc', '')}</p>
         </div>
       </div>
       
@@ -1108,16 +1211,10 @@ contacts_body = f'''
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
         <div class="info-text">
-          <h3>Търговско-сервизни комплекси</h3>
-          <p>За удобство на нашите клиенти ЗЛАТЕКС разполага със 7 собствени търговско-сервизни комплекси на територията на цялата страна:</p>
+          <h3>{co.get('networksTitle', '')}</h3>
+          <p>{co.get('networksDesc', '')}</p>
           <div class="cities-grid">
-            <span>Стара Загора</span>
-            <span>Чирпан</span>
-            <span>Ямбол</span>
-            <span>Добрич</span>
-            <span>Разград</span>
-            <span>Плевен</span>
-            <span>Враца</span>
+            {cities_html}
           </div>
         </div>
       </div>
@@ -1201,7 +1298,7 @@ contacts_body = f'''
 
   <section class="locations-map-section">
     <h2>Нашите представителства в страната</h2>
-    <p class="map-desc">Потърсете най-близката до вас локация на ЗЛАТЕКС на картата или се обадете на 042/919 700</p>
+    <p class="map-desc">Потърсете най-близката до вас локация на ЗЛАТЕКС на картата или се обадете на {co.get('phoneNum', '')}</p>
     <div class="map-frame" style="margin-top: 20px;">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2946.331456108153!2d25.6415664!3d42.4206587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a8698ca1522f7b%3A0xe9f799bd0fb0383d!2z0JfQm9CQ0KLQldCa0KEg0J7QntCUIC0g0KbQtdC90YLRgNCw0LvQtdC9INCe0YTQuNGB!5e0!3m2!1sbg!2sbg!4v1718228300000!5m2!1sbg!2sbg" width="100%" height="450" style="border:0; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
@@ -1236,8 +1333,8 @@ if __name__ == '__main__':
      'dealers.html': ('Търговци – Нова Машина', dealers_body, 'dealers'),
      'calculator.html': ('Лизингов калкулатор – Нова Машина', calculator_body, 'calc'),
      'budget-calculator.html': ('Бюджетен калкулатор за лизинг – Нова Машина', budget_body, 'budget'),
-     'about.html': ('За Нова Машина', about_body, 'about'),
-     'contacts.html': ('Контакти – Нова Машина', contacts_body, 'contacts'),
+     'about.html': ('За Нова Машина', get_about_body(DEFAULT_SETTINGS), 'about'),
+     'contacts.html': ('Контакти – Нова Машина', get_contacts_body(DEFAULT_SETTINGS), 'contacts'),
      'faq.html': ('Често задавани въпроси – Нова Машина', faq_body, 'about'),
     }
 

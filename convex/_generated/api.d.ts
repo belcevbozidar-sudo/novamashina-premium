@@ -11,6 +11,7 @@
 import type * as loginAttempts from "../loginAttempts.js";
 import type * as products from "../products.js";
 import type * as sessions from "../sessions.js";
+import type * as settings from "../settings.js";
 import type * as users from "../users.js";
 
 import type {
@@ -23,6 +24,7 @@ declare const fullApi: ApiFromModules<{
   loginAttempts: typeof loginAttempts;
   products: typeof products;
   sessions: typeof sessions;
+  settings: typeof settings;
   users: typeof users;
 }>;
 

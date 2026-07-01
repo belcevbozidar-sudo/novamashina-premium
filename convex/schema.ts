@@ -60,4 +60,49 @@ export default defineSchema({
     userId: v.string(),
     expiresAt: v.number(),
   }),
+  
+  settings: defineTable({
+    heroSlides: v.array(v.object({
+      title: v.string(),
+      desktopImg: v.string(),
+      mobileImg: v.string(),
+      badgeTitle: v.string(),
+      badgeSubtitle: v.string(),
+      badgeText: v.string(),
+    })),
+    categories: v.array(v.object({
+      id: v.string(),
+      name: v.string(),
+      count: v.string(),
+      img: v.string(),
+    })),
+    fendtPromo: v.object({
+      title: v.string(),
+      subtitle: v.string(),
+      img: v.string(),
+    }),
+    aboutPage: v.object({
+      sec1Title: v.string(),
+      sec1Desc: v.string(),
+      sec1Img: v.string(),
+      sec2Title: v.string(),
+      sec2Desc: v.string(),
+      sec2Img: v.string(),
+      sec3Title: v.string(),
+      sec3Desc: v.string(),
+      sec3Img: v.string(),
+    }),
+    contactsPage: v.object({
+      officeTitle: v.string(),
+      officeAddress: v.string(),
+      workingHoursTitle: v.string(),
+      workingHoursDesc: v.string(),
+      phoneTitle: v.string(),
+      phoneNum: v.string(),
+      phoneDesc: v.string(),
+      networksTitle: v.string(),
+      networksDesc: v.string(),
+      cities: v.array(v.string()),
+    })
+  }),
 });

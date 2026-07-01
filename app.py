@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, timezone
 from flask import Flask, request, render_template, redirect, url_for, make_response, session, flash, send_from_directory, jsonify
 from convex import ConvexClient
 import urllib.request
-from build_site import load_machines_from_db, page, get_index_body, get_catalog_body, product_page
+from build_site import load_machines_from_db, load_settings_from_db, page, get_index_body, get_catalog_body, product_page, get_about_body, get_contacts_body
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, template_folder=os.path.join(base_dir, 'templates'))
@@ -445,12 +445,116 @@ def upload_image_ajax():
         return jsonify({"url": url})
     return jsonify({"error": "Failed to upload image"}), 500
 
+@app.route('/admin/settings', methods=['GET', 'POST'])
+def admin_settings():
+    if not check_auth():
+        return redirect(url_for('admin_login'))
+        
+    client = get_convex_client()
+    
+    if request.method == 'POST':
+        import json
+        
+        try:
+            hero_slides = json.loads(request.form.get('hero_slides_json', '[]'))
+        except Exception:
+            hero_slides = []
+            
+        try:
+            categories = json.loads(request.form.get('categories_json', '[]'))
+        except Exception:
+            categories = []
+            
+        fendt_title = request.form.get('fendt_title', '').strip()
+        fendt_subtitle = request.form.get('fendt_subtitle', '').strip()
+        fendt_img = request.form.get('fendt_img', '').strip()
+        
+        about_sec1Title = request.form.get('about_sec1Title', '').strip()
+        about_sec1Desc = request.form.get('about_sec1Desc', '').strip()
+        about_sec1Img = request.form.get('about_sec1Img', '').strip()
+        about_sec2Title = request.form.get('about_sec2Title', '').strip()
+        about_sec2Desc = request.form.get('about_sec2Desc', '').strip()
+        about_sec2Img = request.form.get('about_sec2Img', '').strip()
+        about_sec3Title = request.form.get('about_sec3Title', '').strip()
+        about_sec3Desc = request.form.get('about_sec3Desc', '').strip()
+        about_sec3Img = request.form.get('about_sec3Img', '').strip()
+        
+        contacts_officeTitle = request.form.get('contacts_officeTitle', '').strip()
+        contacts_officeAddress = request.form.get('contacts_officeAddress', '').strip()
+        contacts_workingHoursTitle = request.form.get('contacts_workingHoursTitle', '').strip()
+        contacts_workingHoursDesc = request.form.get('contacts_workingHoursDesc', '').strip()
+        contacts_phoneTitle = request.form.get('contacts_phoneTitle', '').strip()
+        contacts_phoneNum = request.form.get('contacts_phoneNum', '').strip()
+        contacts_phoneDesc = request.form.get('contacts_phoneDesc', '').strip()
+        contacts_networksTitle = request.form.get('contacts_networksTitle', '').strip()
+        contacts_networksDesc = request.form.get('contacts_networksDesc', '').strip()
+        
+        cities_str = request.form.get('contacts_cities_str', '').strip()
+        cities = [c.strip() for c in cities_str.split(',') if c.strip()]
+        
+        payload = {
+            "heroSlides": hero_slides,
+            "categories": categories,
+            "fendtPromo": {
+                "title": fendt_title,
+                "subtitle": fendt_subtitle,
+                "img": fendt_img
+            },
+            "aboutPage": {
+                "sec1Title": about_sec1Title,
+                "sec1Desc": about_sec1Desc,
+                "sec1Img": about_sec1Img,
+                "sec2Title": about_sec2Title,
+                "sec2Desc": about_sec2Desc,
+                "sec2Img": about_sec2Img,
+                "sec3Title": about_sec3Title,
+                "sec3Desc": about_sec3Desc,
+                "sec3Img": about_sec3Img
+            },
+            "contactsPage": {
+                "officeTitle": contacts_officeTitle,
+                "officeAddress": contacts_officeAddress,
+                "workingHoursTitle": contacts_workingHoursTitle,
+                "workingHoursDesc": contacts_workingHoursDesc,
+                "phoneTitle": contacts_phoneTitle,
+                "phoneNum": contacts_phoneNum,
+                "phoneDesc": contacts_phoneDesc,
+                "networksTitle": contacts_networksTitle,
+                "networksDesc": contacts_networksDesc,
+                "cities": cities
+            }
+        }
+        
+        client.mutation("settings:update", payload)
+        flash("Настройките на сайта бяха запазени успешно!", "success")
+        return redirect(url_for('admin_settings'))
+        
+    settings = client.query("settings:get")
+    return render_template('settings_form.html', settings=settings)
+
 @app.route('/')
 @app.route('/index.html')
 def ssr_home():
     machines = load_machines_from_db()
-    body = get_index_body(machines)
+    settings = load_settings_from_db()
+    body = get_index_body(machines, settings)
     html_content = page('Нова Машина – Сайт No.1 за лизинг на селскостопанска техника', body, 'home')
+    return html_content
+
+@app.route('/about')
+@app.route('/about.html')
+def ssr_about():
+    settings = load_settings_from_db()
+    body = get_about_body(settings)
+    html_content = page('За Нова Машина', body, 'about')
+    return html_content
+
+@app.route('/contacts')
+@app.route('/contacts.html')
+def ssr_contacts():
+    settings = load_settings_from_db()
+    body = get_contacts_body(settings)
+    html_content = page('Контакти – Нова Машина', body, 'contacts')
     return html_content
 
 @app.route('/catalog')

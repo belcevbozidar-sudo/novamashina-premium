@@ -7,6 +7,10 @@
     { "source": "/index.html", "destination": "/api/index" },
     { "source": "/catalog", "destination": "/api/index" },
     { "source": "/catalog.html", "destination": "/api/index" },
+    { "source": "/about", "destination": "/api/index" },
+    { "source": "/about.html", "destination": "/api/index" },
+    { "source": "/contacts", "destination": "/api/index" },
+    { "source": "/contacts.html", "destination": "/api/index" },
     { "source": "/product/(.*)", "destination": "/api/index" },
     { "source": "/product-(.*).html", "destination": "/api/index" }
   ]
